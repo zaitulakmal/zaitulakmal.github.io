@@ -1,0 +1,1759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nur Zaitul Akmal — Full Stack Developer · Mobile · Web · Games</title>
+<meta name="description" content="Nur Zaitul Akmal binti Romli — Full Stack Developer from Sungai Buloh, Selangor. Unity serious games, Flutter & React Native apps, Laravel/Node web systems.">
+<meta name="author" content="Nur Zaitul Akmal binti Romli">
+<meta name="theme-color" content="#05060A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2305060A'/%3E%3Ctext x='50' y='72' font-size='62' font-family='monospace' font-weight='700' fill='%23FF7A18' text-anchor='middle'%3EZ%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nur Zaitul Akmal — Full Stack Developer">
+<meta property="og:description" content="Unity serious games, Flutter & React Native apps, Laravel/Node web systems. Based in Selangor, Malaysia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root{
+  --bg:#05060A; --bg-2:#0A0C13; --panel:#0E1119; --panel-2:#12161F;
+  --ink:#EDEFF5; --ink-2:#9AA3B4; --ink-3:#5C6577;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+  --hot:#FF7A18; --hot-rgb:255,122,24; --cyan:#00E5FF; --mag:#FF2E9A; --lime:#B6FF3C; --gold:#FFC64B;
+  --accent:var(--hot);
+  --display:"Space Grotesk",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --max:1200px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .6s var(--ease);
+}
+/* arcade mode re-tints via tokens — never via filter (see note above) */
+body.arcade{--hot:#00E5FF;--hot-rgb:0,229,255;--mag:#B6FF3C;--gold:#FF2E9A}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{max-width:100%;display:block}
+::selection{background:var(--hot);color:#05060A}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+
+/* ============================================================
+   BACKDROP LAYERS
+   ============================================================ */
+#field{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.9}
+.grid-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background:
+    linear-gradient(to right,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/64px 64px,
+    linear-gradient(to bottom,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/64px 64px;
+  mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 10%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 10%,transparent 75%);
+}
+.glowtop{
+  position:fixed;top:0;left:0;right:0;height:78vh;z-index:0;pointer-events:none;
+  background:radial-gradient(62% 100% at 50% -12%,rgba(var(--hot-rgb),.18),transparent 72%);
+}
+.scan{
+  position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(to bottom,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);
+  mix-blend-mode:overlay;
+}
+main,header,footer{position:relative;z-index:2}
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+.cur,.cur-r{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;will-change:transform}
+.cur{width:6px;height:6px;background:var(--hot);margin:-3px 0 0 -3px;box-shadow:0 0 12px var(--hot)}
+.cur-r{width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid var(--line-2);transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),border-color .25s,background .25s}
+.cur-r.hot{width:56px;height:56px;margin:-28px 0 0 -28px;border-color:var(--hot);background:rgba(var(--hot-rgb),.08)}
+@media (hover:none),(pointer:coarse){.cur,.cur-r{display:none}}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{position:sticky;top:0;z-index:120;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,6,10,.72);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:.9rem;letter-spacing:.02em}
+.brand .sq{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--hot),var(--mag));display:grid;place-items:center;color:#05060A;font-weight:700;font-size:.85rem;box-shadow:0 0 18px rgba(var(--hot-rgb),.5)}
+.brand span{color:var(--ink-2);font-weight:400}
+.nav-links{display:flex;gap:6px;margin-left:auto}
+.nav-links a{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:8px 12px;border-radius:8px;transition:.2s}
+.nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.nav-links a.on{color:var(--hot)}
+.nav-tools{display:flex;align-items:center;gap:8px}
+.pill{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line-2);border-radius:999px;padding:7px 12px;color:var(--ink-2);transition:.2s;white-space:nowrap}
+.pill:hover{border-color:var(--hot);color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line-2);border-radius:999px;overflow:hidden}
+.lang button{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;padding:7px 11px;color:var(--ink-3);transition:.2s}
+.lang button.on{background:var(--hot);color:#05060A;font-weight:700}
+.burger{display:none;width:38px;height:38px;border:1px solid var(--line-2);border-radius:10px;place-items:center}
+.burger i{display:block;width:16px;height:1.5px;background:var(--ink);position:relative;transition:.25s}
+.burger i::before,.burger i::after{content:"";position:absolute;left:0;width:16px;height:1.5px;background:var(--ink);transition:.25s}
+.burger i::before{top:-5px}.burger i::after{top:5px}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--hot),var(--mag),var(--cyan));box-shadow:0 0 12px rgba(var(--hot-rgb),.7)}
+@media(max-width:900px){.nav-links{display:none}.burger{display:grid}}
+@media(max-width:640px){
+  .nav-in{padding:12px 16px;gap:10px}
+  #openCmd .kbd,#openCmd span[data-i18n]{display:none}
+  #openCmd{padding:8px 11px}
+  #openCmd::before{content:"⌕";font-size:1.05rem;line-height:1}
+  .brand{font-size:.82rem}.brand .sq{width:23px;height:23px}
+  .lang button{padding:7px 9px;font-size:.64rem}
+}
+@media(max-width:360px){.brand span{display:none}}
+
+.sheet{position:fixed;inset:0;z-index:200;background:rgba(5,6,10,.97);backdrop-filter:blur(16px);display:none;flex-direction:column;justify-content:center;padding:32px;gap:6px}
+.sheet.open{display:flex}
+.sheet a{font-family:var(--display);font-size:2rem;font-weight:600;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.sheet a:active{color:var(--hot)}
+.sheet .x{position:absolute;top:22px;right:24px;font-family:var(--mono);font-size:.8rem;color:var(--ink-2)}
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+section{padding:110px 0;position:relative}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--hot);display:flex;align-items:center;gap:10px;margin:0 0 14px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--hot)}
+h2.sec{font-family:var(--display);font-size:clamp(1.9rem,5vw,3.1rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin:0 0 14px}
+.sec-note{color:var(--ink-2);max-width:56ch;margin:0 0 40px;font-size:1rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding:clamp(60px,11vh,120px) 0 80px;min-height:88vh;display:flex;align-items:center}
+.status{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;margin-bottom:30px;background:rgba(255,255,255,.02)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(182,255,60,.14);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{font-family:var(--display);font-weight:700;letter-spacing:-.045em;line-height:.94;margin:0 0 8px;font-size:clamp(2.6rem,9.5vw,6.4rem)}
+.hero h1 .l2{display:block;color:transparent;-webkit-text-stroke:1.5px var(--ink-2)}
+.hero h1 .l2 b{-webkit-text-stroke:0;color:var(--hot);font-weight:700;text-shadow:0 0 40px rgba(var(--hot-rgb),.55)}
+.ch{display:inline-block;white-space:pre}
+.roles{font-family:var(--mono);font-size:clamp(.78rem,2.2vw,.95rem);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:20px 0 0;min-height:1.6em}
+.roles b{color:var(--cyan);font-weight:500}
+.caret{display:inline-block;width:9px;background:var(--cyan);margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.lede{max-width:60ch;color:var(--ink-2);font-size:1.06rem;margin:26px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;padding:14px 22px;border-radius:12px;border:1px solid var(--line-2);transition:.25s var(--ease);will-change:transform}
+.btn.solid{background:var(--hot);color:#05060A;border-color:var(--hot);font-weight:700;box-shadow:0 8px 34px rgba(var(--hot-rgb),.34)}
+.btn.solid:hover{box-shadow:0 12px 46px rgba(var(--hot-rgb),.5)}
+.btn:hover{border-color:var(--hot);background:rgba(var(--hot-rgb),.07)}
+.btn.solid:hover{background:color-mix(in srgb,var(--hot) 86%,#fff)}
+.kbd{font-family:var(--mono);font-size:.64rem;border:1px solid var(--line-2);border-radius:5px;padding:2px 6px;color:var(--ink-3)}
+
+/* marquee */
+.mq{border-block:1px solid var(--line);overflow:hidden;padding:16px 0;background:rgba(255,255,255,.015)}
+.mq-in{display:flex;gap:44px;width:max-content;animation:slide 42s linear infinite}
+.mq:hover .mq-in{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.mq span{font-family:var(--mono);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;display:flex;align-items:center;gap:44px}
+.mq span::after{content:"◆";color:var(--hot);font-size:.5rem}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stat{background:var(--bg);padding:26px 20px;text-align:center}
+.stat b{display:block;font-family:var(--display);font-size:clamp(1.9rem,5vw,2.9rem);font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.stat i{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-style:normal;margin-top:8px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ============================================================
+   FILTERS + PROJECT GRID
+   ============================================================ */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:34px;align-items:center}
+.chip{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line-2);border-radius:999px;padding:9px 16px;color:var(--ink-2);transition:.22s var(--ease);position:relative}
+.chip:hover{color:var(--ink);border-color:var(--ink-3)}
+.chip.on{background:var(--ink);color:#05060A;border-color:var(--ink);font-weight:700}
+.chip em{font-style:normal;opacity:.5;margin-left:6px;font-size:.66rem}
+.count{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ink-3);letter-spacing:.06em}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.card{
+  position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;
+  padding:24px;overflow:hidden;text-align:left;width:100%;
+  transform-style:preserve-3d;transition:border-color .3s,box-shadow .3s,opacity .35s var(--ease),transform .12s linear;
+  will-change:transform;display:flex;flex-direction:column;min-height:280px;
+}
+.card::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+  background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--ac) 18%,transparent),transparent 65%);
+}
+.card::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;border:1px solid transparent;transition:border-color .3s}
+.card:hover{border-color:color-mix(in srgb,var(--ac) 50%,transparent);box-shadow:0 24px 60px -24px color-mix(in srgb,var(--ac) 45%,transparent)}
+.card:hover::before{opacity:1}
+.card.hide{display:none}
+.card.pop{animation:pop .55s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+.c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.c-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:1.35rem;background:color-mix(in srgb,var(--ac) 14%,transparent);border:1px solid color-mix(in srgb,var(--ac) 34%,transparent)}
+.c-yr{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ink-3);white-space:nowrap;padding-top:6px}
+.c-name{font-family:var(--display);font-size:1.32rem;font-weight:700;letter-spacing:-.02em;margin:0 0 4px;line-height:1.15}
+.c-sub{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--ac);margin:0 0 12px;text-transform:uppercase}
+.c-blurb{color:var(--ink-2);font-size:.9rem;margin:0 0 18px;line-height:1.6}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.tag{font-family:var(--mono);font-size:.63rem;letter-spacing:.06em;padding:4px 9px;border-radius:6px;background:rgba(255,255,255,.05);color:var(--ink-2);border:1px solid var(--line)}
+.c-go{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:18px;padding-top:16px;border-top:1px solid var(--line);transition:color .3s}
+.card:hover .c-go{color:var(--ac)}
+.c-go .arw{transition:transform .3s var(--ease)}
+.card:hover .c-go .arw{transform:translateX(6px)}
+.empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--ink-3);font-family:var(--mono);font-size:.85rem}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.ov{position:fixed;inset:0;z-index:300;background:rgba(3,4,7,.86);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.open{opacity:1;pointer-events:auto}
+.modal{position:fixed;inset:0;z-index:301;display:grid;place-items:center;padding:20px;pointer-events:none}
+.modal-in{
+  width:min(860px,100%);max-height:88vh;overflow:auto;background:var(--panel);
+  border:1px solid var(--line-2);border-radius:22px;pointer-events:auto;
+  transform:translateY(26px) scale(.97);opacity:0;transition:.42s var(--ease);
+  box-shadow:0 40px 120px -30px rgba(0,0,0,.9);
+}
+.ov.open ~ .modal .modal-in{transform:none;opacity:1}
+.m-hd{padding:32px 32px 26px;border-bottom:1px solid var(--line);position:sticky;top:0;background:linear-gradient(var(--panel) 82%,transparent);backdrop-filter:blur(8px);z-index:2}
+.m-close{position:absolute;top:22px;right:24px;width:34px;height:34px;border:1px solid var(--line-2);border-radius:10px;display:grid;place-items:center;font-family:var(--mono);font-size:.9rem;color:var(--ink-2);transition:.2s}
+.m-close:hover{border-color:var(--hot);color:var(--hot)}
+.m-title{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.3rem);font-weight:700;letter-spacing:-.03em;margin:12px 0 6px;line-height:1.08;padding-right:44px}
+.m-sub{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ac);margin:0}
+.m-meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
+.m-bd{padding:28px 32px 34px}
+.m-bd h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;font-weight:500}
+.m-bd ul{list-style:none;padding:0;margin:0 0 30px;display:grid;gap:11px}
+.m-bd li{position:relative;padding-left:22px;color:var(--ink-2);font-size:.95rem;line-height:1.62}
+.m-bd li::before{content:"▸";position:absolute;left:0;color:var(--ac);font-size:.8rem;top:.15em}
+.m-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:30px}
+.m-stat{background:var(--panel-2);padding:16px 14px;text-align:center}
+.m-stat b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:700;color:var(--ac);line-height:1}
+.m-stat i{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-style:normal;margin-top:6px}
+.m-links{display:flex;flex-wrap:wrap;gap:10px}
+.m-nav{display:flex;justify-content:space-between;gap:10px;padding:18px 32px 26px;border-top:1px solid var(--line);margin-top:6px}
+.m-nav button{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:9px 14px;border:1px solid var(--line);border-radius:9px;transition:.2s}
+.m-nav button:hover{color:var(--ink);border-color:var(--ink-3)}
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+.tl{position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:var(--line-2)}
+.tl-fill{position:absolute;left:7px;top:6px;width:1px;background:linear-gradient(var(--hot),var(--mag));height:0;transition:height .3s linear;box-shadow:0 0 10px var(--hot)}
+.job{position:relative;padding-bottom:44px}
+.job::before{content:"";position:absolute;left:-34px;top:8px;width:15px;height:15px;border-radius:50%;background:var(--bg);border:2px solid var(--line-2);transition:.4s}
+.job.in::before{border-color:var(--hot);box-shadow:0 0 0 5px rgba(var(--hot-rgb),.13)}
+.job-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:4px}
+.job h3{font-family:var(--display);font-size:1.2rem;font-weight:700;margin:0;letter-spacing:-.015em}
+.job .when{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;color:var(--ink-3);margin-left:auto;text-transform:uppercase;white-space:nowrap}
+.job .who{font-family:var(--mono);font-size:.76rem;color:var(--hot);letter-spacing:.04em;margin:0 0 4px}
+.job .where{font-size:.82rem;color:var(--ink-3);margin:0 0 12px}
+.job ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.job li{position:relative;padding-left:18px;color:var(--ink-2);font-size:.92rem}
+.job li::before{content:"—";position:absolute;left:0;color:var(--ink-3)}
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.sk{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;transition:.3s}
+.sk:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.sk h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--hot);margin:0 0 14px;font-weight:500}
+.sk ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:7px}
+.sk li{font-family:var(--mono);font-size:.72rem;padding:6px 11px;border-radius:7px;background:rgba(255,255,255,.045);border:1px solid var(--line);color:var(--ink-2);transition:.2s;cursor:default}
+.sk li:hover{border-color:var(--hot);color:var(--ink);background:rgba(var(--hot-rgb),.09)}
+
+/* education / certs */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+@media(max-width:820px){.two{grid-template-columns:1fr;gap:52px}}
+.edu{border-left:1px solid var(--line);padding-left:22px;margin-bottom:26px}
+.edu b{display:block;font-family:var(--display);font-size:1.02rem;font-weight:600}
+.edu span{font-size:.88rem;color:var(--ink-2)}
+.edu i{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;color:var(--ink-3);font-style:normal;margin-top:5px}
+.certs{display:grid;gap:9px}
+.cert{display:flex;gap:11px;align-items:baseline;font-size:.9rem;color:var(--ink-2);padding-bottom:9px;border-bottom:1px solid var(--line)}
+.cert em{font-style:normal;color:var(--ink-3);font-family:var(--mono);font-size:.68rem;margin-left:auto;white-space:nowrap;letter-spacing:.05em}
+
+/* ============================================================
+   CONTACT / FOOTER
+   ============================================================ */
+.contact{text-align:center;padding:120px 0 100px}
+.contact h2{font-family:var(--display);font-size:clamp(2.1rem,7vw,4.4rem);font-weight:700;letter-spacing:-.04em;line-height:1;margin:0 0 18px}
+.mailto{display:inline-block;font-family:var(--mono);font-size:clamp(.85rem,3vw,1.3rem);color:var(--hot);border-bottom:1px solid rgba(var(--hot-rgb),.35);padding-bottom:4px;transition:.25s;word-break:break-all}
+.mailto:hover{border-color:var(--hot);text-shadow:0 0 24px rgba(var(--hot-rgb),.6)}
+.socials{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:38px}
+footer{border-top:1px solid var(--line);padding:26px 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.06em}
+.foot-in{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+
+/* ============================================================
+   COMMAND PALETTE
+   ============================================================ */
+.cmd{position:fixed;inset:0;z-index:400;display:none;padding:12vh 20px 20px;justify-content:center;background:rgba(3,4,7,.8);backdrop-filter:blur(8px)}
+.cmd.open{display:flex}
+.cmd-box{width:min(560px,100%);height:fit-content;background:var(--panel);border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:0 40px 100px -20px rgba(0,0,0,.9)}
+.cmd-box input{width:100%;padding:18px 20px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:.95rem;outline:none}
+.cmd-box input::placeholder{color:var(--ink-3)}
+.cmd-list{max-height:46vh;overflow:auto;padding:8px}
+.cmd-item{display:flex;align-items:center;gap:12px;width:100%;padding:11px 13px;border-radius:10px;text-align:left;transition:.15s}
+.cmd-item .ci{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:.85rem;background:rgba(255,255,255,.06);flex:none}
+.cmd-item b{font-size:.9rem;font-weight:500}
+.cmd-item span{font-family:var(--mono);font-size:.66rem;color:var(--ink-3);margin-left:auto;letter-spacing:.06em;text-transform:uppercase}
+.cmd-item.sel,.cmd-item:hover{background:rgba(var(--hot-rgb),.13)}
+.cmd-foot{padding:10px 16px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.64rem;color:var(--ink-3);display:flex;gap:16px;letter-spacing:.06em}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,90px);z-index:500;background:var(--hot);color:#05060A;font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 22px;border-radius:11px;transition:transform .5s var(--ease);box-shadow:0 16px 44px rgba(var(--hot-rgb),.4)}
+.toast.on{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="glowtop" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"></div>
+<div class="cur-r" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="sq">Z</span>zaitul<span>.dev</span></a>
+    <nav class="nav-links">
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#exp" data-i18n="nav.exp">Experience</a>
+      <a href="#stack" data-i18n="nav.stack">Stack</a>
+      <a href="#edu" data-i18n="nav.edu">Education</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="pill" id="openCmd" title="Search"><span data-i18n="nav.search">Search</span> <span class="kbd">⌘K</span></button>
+      <div class="lang">
+        <button data-lang="en" class="on">EN</button>
+        <button data-lang="ms">MY</button>
+      </div>
+      <button class="burger" id="burger" aria-label="Menu"><i></i></button>
+    </div>
+    <div class="progress" id="prog"></div>
+  </div>
+</header>
+
+<div class="sheet" id="sheet">
+  <button class="x" id="sheetX">CLOSE ✕</button>
+  <a href="#work" data-i18n="nav.work">Work</a>
+  <a href="#exp" data-i18n="nav.exp">Experience</a>
+  <a href="#stack" data-i18n="nav.stack">Stack</a>
+  <a href="#edu" data-i18n="nav.edu">Education</a>
+  <a href="#contact" data-i18n="nav.contact">Contact</a>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="status"><span class="dot"></span><span data-i18n="hero.status">Open to full stack / mobile roles</span></div>
+      <h1>
+        <span id="n1">NUR ZAITUL</span>
+        <span class="l2" id="n2">AKMAL <b>ROMLI</b></span>
+      </h1>
+      <p class="roles"><span id="typed"></span><span class="caret">&nbsp;</span></p>
+      <p class="lede" data-i18n="hero.lede">Computer Science graduate building across the whole stack — Unity serious games for medical education, Flutter and React Native apps shipped to production, and Laravel/Node systems behind them. Currently Research Assistant at Universiti Malaya on a KPT-funded research grant.</p>
+      <div class="cta">
+        <a class="btn solid mag" href="#work"><span data-i18n="hero.cta1">View the work</span> <span>↓</span></a>
+        <a class="btn mag" href="resume.pdf" target="_blank" rel="noopener"><span data-i18n="hero.cta2">Download résumé</span></a>
+        <a class="btn mag" href="mailto:zaitulakmal02@gmail.com"><span data-i18n="hero.cta3">Get in touch</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="mq" aria-hidden="true"><div class="mq-in" id="mq"></div></div>
+
+  <!-- STATS -->
+  <section style="padding:70px 0 0">
+    <div class="wrap">
+      <div class="stats rv" id="stats"></div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <p class="eyebrow rv" data-i18n="work.eyebrow">Selected work</p>
+      <h2 class="sec rv" data-i18n="work.title">Everything I've built.</h2>
+      <p class="sec-note rv" data-i18n="work.note">Serious games, production mobile apps, competition platforms, hardware integrations and side-project games. Click any card for the full case study.</p>
+      <div class="filters rv" id="filters"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="exp">
+    <div class="wrap">
+      <p class="eyebrow rv" data-i18n="exp.eyebrow">Where I've worked</p>
+      <h2 class="sec rv" data-i18n="exp.title">Experience</h2>
+      <div class="tl" id="tl"><div class="tl-fill" id="tlfill"></div></div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="wrap">
+      <p class="eyebrow rv" data-i18n="stack.eyebrow">Toolbox</p>
+      <h2 class="sec rv" data-i18n="stack.title">Stack &amp; tooling</h2>
+      <p class="sec-note rv" data-i18n="stack.note">What I actually reach for. Everything listed here appears in shipped work above.</p>
+      <div class="skills" id="skills"></div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="edu">
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow rv" data-i18n="edu.eyebrow">Education</p>
+        <h2 class="sec rv" data-i18n="edu.title">Studied</h2>
+        <div class="rv">
+          <div class="edu"><b>Bachelor of Computer Science (Hons)</b><span>Universiti Teknologi MARA (UiTM)</span><i>2023 – 2025 · CGPA 3.14</i></div>
+          <div class="edu"><b>Diploma in Computer Science</b><span>Universiti Teknologi MARA (UiTM)</span><i>2020 – 2023 · CGPA 3.73</i></div>
+          <div class="edu"><b>Sijil Pelajaran Malaysia (SPM)</b><span>SMK Tunku Temenggung</span><i>2019 · 7A 1B 1C</i></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow rv" data-i18n="cert.eyebrow">Certifications</p>
+        <h2 class="sec rv" data-i18n="cert.title">Certified</h2>
+        <div class="certs rv" id="certs"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow rv" style="justify-content:center" data-i18n="contact.eyebrow">Contact</p>
+      <h2 class="rv" data-i18n="contact.title">Let's build something.</h2>
+      <p class="sec-note rv" style="margin:0 auto 30px;text-align:center" data-i18n="contact.note">Open to full stack and mobile developer roles, freelance builds, and research collaborations. Based in Sungai Buloh, Selangor — happy to work remote.</p>
+      <a class="mailto rv" href="mailto:zaitulakmal02@gmail.com">zaitulakmal02@gmail.com</a>
+      <div class="socials rv">
+        <a class="btn mag" href="https://www.linkedin.com/in/zaitulakmal/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn mag" href="https://github.com/zaitulakmal" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn mag" href="tel:+60116071 0353">011-6071 0353</a>
+        <a class="btn mag" href="resume.pdf" target="_blank" rel="noopener">Résumé PDF ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <span>© <span id="yr"></span> NUR ZAITUL AKMAL BINTI ROMLI</span>
+    <span data-i18n="foot.built">HAND-CODED · NO FRAMEWORK · ONE FILE</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="ov" id="ov"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-in" id="modalIn"></div>
+</div>
+
+<!-- COMMAND PALETTE -->
+<div class="cmd" id="cmd">
+  <div class="cmd-box">
+    <input id="cmdInput" type="text" placeholder="Search projects, tech, companies…" autocomplete="off" spellcheck="false">
+    <div class="cmd-list" id="cmdList"></div>
+    <div class="cmd-foot"><span>↑↓ navigate</span><span>↵ open</span><span>esc close</span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================================
+   DATA — every entry below was pulled from the actual repos on disk / résumé.
+   ============================================================================ */
+const AC = { unity:'#FF7A18', flutter:'#54C5F8', rn:'#61DAFB', web:'#A78BFA', games:'#FF2E9A', research:'#FFC64B', hw:'#B6FF3C' };
+
+const PROJECTS = [
+{
+  id:'bioware', name:'BioWare', icon:'🩸', ac:AC.unity, year:'2025 — now', cats:['unity','games','research','featured'],
+  sub:{en:'Hematology Serious Game (RPG)',ms:'Serious Game Hematologi (RPG)'},
+  role:{en:'Research Assistant · Lead Developer',ms:'Pembantu Penyelidik · Pembangun Utama'},
+  org:{en:'Universiti Malaya · Fakulti Perubatan',ms:'Universiti Malaya · Fakulti Perubatan'},
+  stack:['Unity 6','C#','URP','WebGL','TextMesh Pro','Video Player'],
+  blurb:{en:'A case-based role-playing game that teaches hematology. 26 Unity scenes, 6 clinical cases, character-driven cutscenes and a scored quiz system.',
+         ms:'Permainan RPG berasaskan kes untuk mengajar hematologi. 26 scene Unity, 6 kes klinikal, cutscene berteraskan watak dan sistem kuiz berskor.'},
+  detail:{en:[
+    'Built for the KPT Prototype Research Grant Scheme (PRGS PR005-2025), a 24-month government-funded study supervised by Dr. Maziah Binti Mat Rosly at Jabatan Fisiologi, Fakulti Perubatan.',
+    'Case-based structure: players pick a character (Lena, Rhea, Marcus, Eli), watch story cutscenes, then work through six clinical cases with quiz and item-ordering mechanics.',
+    'Wrote a reusable scoring layer — QuizScoreManager, CharacterScoreData, ScorePopupAnimator, FinalScoreDisplay — shared across every case so new cases plug in without rework.',
+    'Shipped to WebGL: diagnosed a URP video-playback failure and applied a RenderTexture workaround across all platforms so cutscenes play in-browser.',
+    'Full menu/settings/pause/game-over UI system with fades, hover tooltips, animated score panels and audio settings.',
+    'Owning UI/UX design, frontend development and pilot user-testing coordination across the research timeline.'
+  ],ms:[
+    'Dibina untuk Skim Geran Penyelidikan Prototaip KPT (PRGS PR005-2025), kajian 24 bulan tajaan kerajaan di bawah seliaan Dr. Maziah Binti Mat Rosly, Jabatan Fisiologi, Fakulti Perubatan.',
+    'Struktur berasaskan kes: pemain pilih watak (Lena, Rhea, Marcus, Eli), tonton cutscene cerita, kemudian selesaikan enam kes klinikal dengan mekanik kuiz dan susunan item.',
+    'Bina lapisan pemarkahan boleh guna semula — QuizScoreManager, CharacterScoreData, ScorePopupAnimator, FinalScoreDisplay — dikongsi semua kes supaya kes baru boleh ditambah tanpa ubah semula.',
+    'Dihantar ke WebGL: kesan masalah main balik video URP dan guna penyelesaian RenderTexture merentas semua platform supaya cutscene berjalan dalam pelayar.',
+    'Sistem UI menu/tetapan/jeda/game-over lengkap dengan fade, tooltip hover, panel skor beranimasi dan tetapan audio.',
+    'Bertanggungjawab ke atas reka bentuk UI/UX, pembangunan frontend dan penyelarasan ujian pengguna rintis sepanjang tempoh penyelidikan.'
+  ]},
+  stats:[{k:'26',v:{en:'Unity scenes',ms:'Scene Unity'}},{k:'77',v:{en:'C# scripts',ms:'Skrip C#'}},{k:'6',v:{en:'Clinical cases',ms:'Kes klinikal'}},{k:'87',v:{en:'Commits',ms:'Commit'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/Atul-BioWare'}]
+},
+{
+  id:'bioware-um', name:'BIOWARE — UM Build', icon:'🧬', ac:AC.unity, year:'2025 — now', cats:['unity','games','research'],
+  sub:{en:'Production Team Repository',ms:'Repositori Pasukan Produksi'},
+  role:{en:'Developer · Wariscan × Universiti Malaya',ms:'Pembangun · Wariscan × Universiti Malaya'},
+  org:{en:'Wariscan Sdn Bhd',ms:'Wariscan Sdn Bhd'},
+  stack:['Unity 6','C#','URP','Prefabs','StreamingAssets'],
+  blurb:{en:'The shared production build of BioWare — prefab-driven case system, streamed video cutscenes and a recovery pipeline for a multi-person team.',
+         ms:'Binaan produksi BioWare yang dikongsi — sistem kes berasaskan prefab, cutscene video strim dan saluran pemulihan untuk pasukan berbilang orang.'},
+  detail:{en:[
+    'Team-facing counterpart to the solo BioWare repo, hosted under the Wariscan organisation.',
+    'Case content moved into prefabs (Case 4, Case 5, Case 6, ItemPick, Tutorial) so writers and designers can extend cases without touching scene files.',
+    'Video cutscenes served from StreamingAssets with a dedicated build processor, keeping the WebGL bundle size workable.',
+    'Editor tooling: custom BuildScript and VideoBuildProcessor to make builds reproducible across machines.'
+  ],ms:[
+    'Versi pasukan kepada repo BioWare solo, dihoskan di bawah organisasi Wariscan.',
+    'Kandungan kes dipindah ke prefab (Case 4, Case 5, Case 6, ItemPick, Tutorial) supaya penulis dan pereka boleh tambah kes tanpa sentuh fail scene.',
+    'Cutscene video dihidangkan dari StreamingAssets dengan pemproses binaan khusus, mengekalkan saiz bundle WebGL yang munasabah.',
+    'Perkakas editor: BuildScript dan VideoBuildProcessor tersuai supaya binaan boleh dihasilkan semula merentas mesin.'
+  ]},
+  stats:[{k:'Unity 6',v:{en:'6000.2.6f2',ms:'6000.2.6f2'}},{k:'URP',v:{en:'Render pipeline',ms:'Saluran render'}},{k:'WebGL',v:{en:'Target',ms:'Sasaran'}}],
+  links:[]
+},
+{
+  id:'um-3d', name:'UM Hospital & Lab', icon:'🏥', ac:AC.unity, year:'2025', cats:['unity','research','games'],
+  sub:{en:'3D Environment Prototype',ms:'Prototaip Persekitaran 3D'},
+  role:{en:'Developer',ms:'Pembangun'},
+  org:{en:'Universiti Malaya',ms:'Universiti Malaya'},
+  stack:['Unity 6','URP','C#','Input System','FBX'],
+  blurb:{en:'Explorable 3D hospital corridor and laboratory environment built in URP, with a first-person controller on Unity’s new Input System.',
+         ms:'Persekitaran koridor hospital dan makmal 3D yang boleh dijelajah, dibina dalam URP dengan pengawal orang-pertama pada Input System baharu Unity.'},
+  detail:{en:[
+    'Environment prototype for the serious-game research: a hospital corridor and a laboratory scene assembled from FBX models with custom materials and lightmapping.',
+    'Player_Controller built on Unity’s new Input System action maps rather than the legacy input manager.',
+    'URP configured with a shader-variant collection to keep first-load compile stalls down.'
+  ],ms:[
+    'Prototaip persekitaran untuk penyelidikan serious game: koridor hospital dan scene makmal disusun daripada model FBX dengan bahan tersuai dan lightmapping.',
+    'Player_Controller dibina atas action map Input System baharu Unity, bukan input manager lama.',
+    'URP dikonfigur dengan koleksi varian shader untuk kurangkan tersekat semasa muat pertama.'
+  ]},
+  stats:[{k:'2',v:{en:'Scenes',ms:'Scene'}},{k:'URP',v:{en:'Pipeline',ms:'Pipeline'}}],
+  links:[]
+},
+{
+  id:'slimtrack', name:'SlimTrack', icon:'🥗', ac:AC.rn, year:'2026 — now', cats:['rn','featured'],
+  sub:{en:'Health & Fitness Tracker',ms:'Penjejak Kesihatan & Kecergasan'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Personal product',ms:'Produk peribadi'},
+  stack:['React Native','Expo Router','TypeScript','SQLite','Drizzle ORM','Zustand','Skia','i18next'],
+  blurb:{en:'Offline-first health app: barcode food logging, water, weight, workouts, recipes and a nearby grocery locator — fully bilingual.',
+         ms:'Aplikasi kesihatan offline-first: log makanan imbas barcode, air, berat, senaman, resipi dan pencari kedai runcit berdekatan — dwibahasa penuh.'},
+  detail:{en:[
+    'Eight feature areas behind Expo Router tabs: food log (search / barcode scan / recipes), water, weight, activity, grocery map, profile and onboarding.',
+    'Barcode scanning with expo-camera resolves products against the Open Food Facts and Nutritionix APIs, then writes the entry locally.',
+    'Offline-first persistence with expo-sqlite + Drizzle ORM including schema migrations — the app works with no network at all.',
+    'Charts drawn with Victory Native and React Native Skia; state in Zustand; native maps via react-native-maps for the grocery locator.',
+    'Bilingual English / Bahasa Malaysia through react-i18next with expo-localization picking up the device language.'
+  ],ms:[
+    'Lapan kawasan ciri di bawah tab Expo Router: log makanan (carian / imbas barcode / resipi), air, berat, aktiviti, peta runcit, profil dan onboarding.',
+    'Imbasan barcode dengan expo-camera memadankan produk dengan API Open Food Facts dan Nutritionix, kemudian tulis entri secara tempatan.',
+    'Kegigihan offline-first dengan expo-sqlite + Drizzle ORM termasuk migrasi skema — aplikasi berfungsi tanpa rangkaian langsung.',
+    'Carta dilukis dengan Victory Native dan React Native Skia; state dalam Zustand; peta natif melalui react-native-maps untuk pencari runcit.',
+    'Dwibahasa Inggeris / Bahasa Malaysia melalui react-i18next dengan expo-localization mengesan bahasa peranti.'
+  ]},
+  stats:[{k:'18',v:{en:'Screens',ms:'Skrin'}},{k:'8',v:{en:'Feature areas',ms:'Kawasan ciri'}},{k:'2',v:{en:'Languages',ms:'Bahasa'}}],
+  links:[]
+},
+{
+  id:'tm-morse', name:'TM Morse Code Challenge', icon:'📡', ac:AC.flutter, year:'2026', cats:['flutter','featured','games'],
+  sub:{en:'National STEM Competition Platform',ms:'Platform Pertandingan STEM Kebangsaan'},
+  role:{en:'Developer · Wariscan Sdn Bhd',ms:'Pembangun · Wariscan Sdn Bhd'},
+  org:{en:'TM Muzium Telegraf Taiping',ms:'TM Muzium Telegraf Taiping'},
+  stack:['Flutter','Firebase','flutter_blue_plus','Audio synthesis','Bilingual'],
+  blurb:{en:'One Flutter app serving four audiences — students, practice mode, admin operators and a live hall big-screen — for a 30-team national Morse competition.',
+         ms:'Satu aplikasi Flutter untuk empat khalayak — pelajar, mod latihan, operator admin dan skrin besar dewan — bagi pertandingan Morse kebangsaan 30 pasukan.'},
+  detail:{en:[
+    'Four distinct interfaces in one codebase: Student (30 school teams), Practice, Admin (rounds, scoring, pairings, question bank) and Big Screen (live leaderboard for the hall audience).',
+    'Morse audio is synthesised in-app at 650 Hz with standard dot/dash timing — no audio assets shipped, any phrase can be generated on demand.',
+    'A working Morse key: on-screen tap/hold, or a real Bluetooth EchoDot hardware key over flutter_blue_plus — both feed the same decode path.',
+    'Koch-method practice with 35 levels and unlimited randomly generated drills, matching the difficulty curve used in the live rounds.',
+    'Full competition flow: Round 1 audio decryption (40%) → Round 2 Morse sending (60%) → Top 10 qualification → 4-round Swiss semi-final → Top 5 grand final.',
+    'Fully bilingual Bahasa Malaysia / English, switchable on every screen.'
+  ],ms:[
+    'Empat antara muka berbeza dalam satu codebase: Pelajar (30 pasukan sekolah), Latihan, Admin (pusingan, pemarkahan, pemadanan, bank soalan) dan Skrin Besar (papan pendahulu langsung untuk penonton dewan).',
+    'Audio Morse disintesis dalam aplikasi pada 650 Hz dengan pemasaan titik/sengkang piawai — tiada aset audio dihantar, sebarang frasa boleh dijana atas permintaan.',
+    'Kunci Morse berfungsi: ketuk/tahan pada skrin, atau kunci perkakasan Bluetooth EchoDot melalui flutter_blue_plus — kedua-duanya melalui laluan penyahkod yang sama.',
+    'Latihan kaedah Koch dengan 35 tahap dan latih tubi jana rawak tanpa had, sepadan dengan lengkung kesukaran pusingan sebenar.',
+    'Aliran pertandingan penuh: Pusingan 1 penyahsulitan audio (40%) → Pusingan 2 penghantaran Morse (60%) → Kelayakan 10 teratas → Separuh akhir liga Swiss 4 pusingan → Akhir besar 5 teratas.',
+    'Dwibahasa penuh Bahasa Malaysia / Inggeris, boleh tukar pada setiap skrin.'
+  ]},
+  stats:[{k:'4',v:{en:'Interfaces',ms:'Antara muka'}},{k:'30',v:{en:'School teams',ms:'Pasukan sekolah'}},{k:'35',v:{en:'Koch levels',ms:'Tahap Koch'}},{k:'650Hz',v:{en:'Synth tone',ms:'Nada sintesis'}}],
+  links:[{l:'Live demo',u:'https://tm-morse-challenge.web.app'}]
+},
+{
+  id:'slimora', name:'Slimora', icon:'⚖️', ac:AC.flutter, year:'2026', cats:['flutter'],
+  sub:{en:'Weight Loss Tracker',ms:'Penjejak Penurunan Berat'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Personal product · shipped to Play Store',ms:'Produk peribadi · dihantar ke Play Store'},
+  stack:['Flutter','Provider','fl_chart','shared_preferences','Google Fonts'],
+  blurb:{en:'A focused weight-loss companion — daily logging, progress charts and streaks — packaged and released as signed Android bundles.',
+         ms:'Rakan penurunan berat yang fokus — log harian, carta kemajuan dan streak — dibungkus dan dikeluarkan sebagai bundle Android bertandatangan.'},
+  detail:{en:[
+    'Clean Provider architecture across models, providers, screens, theme and widgets — 15 Dart modules, no dead weight.',
+    'Progress visualisation with fl_chart and percent_indicator; onboarding carousel with smooth_page_indicator.',
+    'Local persistence with shared_preferences so the app opens instantly and works offline.',
+    'Shipped repeatedly: v9, v10 and a v31 hotfix built as release .aab bundles.'
+  ],ms:[
+    'Seni bina Provider yang kemas merentas model, provider, skrin, tema dan widget — 15 modul Dart, tiada lebihan.',
+    'Visualisasi kemajuan dengan fl_chart dan percent_indicator; karusel onboarding dengan smooth_page_indicator.',
+    'Kegigihan tempatan dengan shared_preferences supaya aplikasi buka serta-merta dan berfungsi luar talian.',
+    'Dihantar berulang kali: v9, v10 dan hotfix v31 dibina sebagai bundle .aab keluaran.'
+  ]},
+  stats:[{k:'15',v:{en:'Dart modules',ms:'Modul Dart'}},{k:'3+',v:{en:'Releases',ms:'Keluaran'}}],
+  links:[]
+},
+{
+  id:'edubuddy', name:'EduBuddy', icon:'🎒', ac:AC.flutter, year:'2026', cats:['flutter'],
+  sub:{en:'Interactive Learning App for Kids',ms:'Aplikasi Pembelajaran Interaktif Kanak-kanak'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Personal product · shipped to Play Store',ms:'Produk peribadi · dihantar ke Play Store'},
+  stack:['Flutter','sqflite','Provider','Lottie','video_player','Confetti'],
+  blurb:{en:'Storybooks, worksheets, videos and quizzes for young learners, wrapped in Lottie animations and confetti rewards.',
+         ms:'Buku cerita, lembaran kerja, video dan kuiz untuk pelajar muda, dibalut animasi Lottie dan ganjaran confetti.'},
+  detail:{en:[
+    'Five content pillars, each its own screen module: storybooks, worksheets, videos, quizzes and a child profile.',
+    'Offline content library backed by sqflite, so lessons keep working without a connection.',
+    'Motion designed for children: Lottie animations, staggered list entrances, shimmer loading states, animated text and confetti on quiz completion.',
+    'Released as edubuddy-v3 (1.0.2) Android app bundle.'
+  ],ms:[
+    'Lima tunjang kandungan, setiap satu modul skrin sendiri: buku cerita, lembaran kerja, video, kuiz dan profil kanak-kanak.',
+    'Pustaka kandungan luar talian disokong sqflite, jadi pelajaran terus berfungsi tanpa sambungan.',
+    'Gerakan direka untuk kanak-kanak: animasi Lottie, kemasukan senarai berperingkat, keadaan muat shimmer, teks beranimasi dan confetti bila kuiz selesai.',
+    'Dikeluarkan sebagai bundle aplikasi Android edubuddy-v3 (1.0.2).'
+  ]},
+  stats:[{k:'5',v:{en:'Content modules',ms:'Modul kandungan'}},{k:'v3',v:{en:'Shipped',ms:'Dihantar'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/EduBuddy'}]
+},
+{
+  id:'ir-academy', name:'IR Academy', icon:'🎓', ac:AC.flutter, year:'2026', cats:['flutter','featured'],
+  sub:{en:'Academic Progress Portal',ms:'Portal Kemajuan Akademik'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'IR Academy Homeschool',ms:'IR Academy Homeschool'},
+  stack:['Flutter','Firebase Auth','Cloud Firestore','fl_chart','Python'],
+  blurb:{en:'Role-based portal for teachers, students and parents — live lesson logs, term exam results and auto-generated progress alerts.',
+         ms:'Portal berasaskan peranan untuk guru, pelajar dan ibu bapa — log pelajaran langsung, keputusan peperiksaan penggal dan amaran kemajuan automatik.'},
+  detail:{en:[
+    'Three user roles with distinct permissions and dashboards: Teacher, Student and Parent.',
+    'Firebase Auth for sign-in and Cloud Firestore streams for real-time lesson-log tracking and per-term exam results.',
+    'Admin dashboard visualising subject progress with fl_chart driven by live Firestore data — no manual refresh.',
+    'Auto-generated progress alerts flag students falling behind before the term ends.',
+    'Wrote a Python migration script to bulk-import existing student academic records from Excel into Firestore.'
+  ],ms:[
+    'Tiga peranan pengguna dengan kebenaran dan papan pemuka berbeza: Guru, Pelajar dan Ibu Bapa.',
+    'Firebase Auth untuk log masuk dan strim Cloud Firestore untuk penjejakan log pelajaran masa nyata dan keputusan peperiksaan setiap penggal.',
+    'Papan pemuka admin memvisualkan kemajuan subjek dengan fl_chart dipacu data Firestore langsung — tanpa muat semula manual.',
+    'Amaran kemajuan automatik menandakan pelajar yang ketinggalan sebelum penggal tamat.',
+    'Menulis skrip migrasi Python untuk import pukal rekod akademik pelajar sedia ada dari Excel ke Firestore.'
+  ]},
+  stats:[{k:'3',v:{en:'User roles',ms:'Peranan pengguna'}},{k:'Live',v:{en:'Firestore streams',ms:'Strim Firestore'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/ir_academy_app'}]
+},
+{
+  id:'dgas', name:'DGAS', icon:'🪙', ac:AC.hw, year:'2026', cats:['flutter','hw'],
+  sub:{en:'Digital Gold Authentication System',ms:'Sistem Pengesahan Emas Digital'},
+  role:{en:'Developer',ms:'Pembangun'},
+  org:{en:'RAKYAT Management',ms:'RAKYAT Management'},
+  stack:['Flutter Desktop','Serial Port','UVC Camera','fl_chart','PDF printing'],
+  blurb:{en:'Desktop app that talks to gold-testing hardware over a serial port, captures the sample on a UVC camera and prints a signed purity report.',
+         ms:'Aplikasi desktop yang berhubung dengan perkakasan ujian emas melalui port bersiri, tangkap sampel pada kamera UVC dan cetak laporan ketulenan.'},
+  detail:{en:[
+    'Windows/macOS Flutter desktop build — not a phone app — because the analyser hardware sits on a bench.',
+    'Live serial communication with the analyser through flutter_libserialport, streaming readings into the UI as they arrive.',
+    'Integrated EMEET UVC webcam capture (camera_windows / camera_macos) so each test is photographed alongside its measurement.',
+    'Results charted with fl_chart, then exported as a printable PDF certificate via the pdf + printing packages.'
+  ],ms:[
+    'Binaan desktop Flutter Windows/macOS — bukan aplikasi telefon — kerana perkakasan penganalisis berada di atas meja kerja.',
+    'Komunikasi bersiri langsung dengan penganalisis melalui flutter_libserialport, menstrim bacaan ke UI sebaik ia tiba.',
+    'Integrasi tangkapan webcam UVC EMEET (camera_windows / camera_macos) supaya setiap ujian dirakam gambar bersama ukurannya.',
+    'Keputusan dicarta dengan fl_chart, kemudian dieksport sebagai sijil PDF boleh cetak melalui pakej pdf + printing.'
+  ]},
+  stats:[{k:'Serial',v:{en:'Hardware link',ms:'Pautan perkakasan'}},{k:'PDF',v:{en:'Report output',ms:'Output laporan'}},{k:'2',v:{en:'Desktop OS',ms:'OS desktop'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/dgas-flutter'}]
+},
+{
+  id:'ignite', name:'iGnite', icon:'🔥', ac:AC.hw, year:'2026', cats:['flutter','hw'],
+  sub:{en:'MeDREV Smart Recovery Platform',ms:'Platform Pemulihan Pintar MeDREV'},
+  role:{en:'UI/UX & Frontend',ms:'UI/UX & Frontend'},
+  org:{en:'MeDREV',ms:'MeDREV'},
+  stack:['Flutter','Material 3','BLE flow','Custom design system'],
+  blurb:{en:'High-fidelity interactive mockup for a heat + vibration therapy system driving up to four body wraps in one session.',
+         ms:'Mockup interaktif kesetiaan tinggi untuk sistem terapi haba + getaran yang memacu sehingga empat balutan badan dalam satu sesi.'},
+  detail:{en:[
+    'Ten screens following the real user journey: welcome, auth, dashboard, device pairing, treatment choice, session setup, live session, completion, history and profile.',
+    'BLE pairing flow rendered end to end — scan → found → connect — with pulse animation and a connected view showing battery, signal, safety state and four wrap ports.',
+    'Session setup configures each wrap independently: body area, 35–45 °C heat slider and vibration level, with a live battery estimate.',
+    'Live session runs a dark focus mode with an animated circular countdown and per-wrap temperature tiles simulating ramp-up and sensor jitter.',
+    'Designed the "Ember" system: ember orange-red #F04E23 for heat, medical teal #0E9DA4, clinical neutrals, 20px radii and a heat-ramp colour scale tied to temperature.'
+  ],ms:[
+    'Sepuluh skrin mengikut perjalanan pengguna sebenar: aluan, pengesahan, papan pemuka, pemasangan peranti, pilihan rawatan, persediaan sesi, sesi langsung, tamat, sejarah dan profil.',
+    'Aliran pemasangan BLE dirender hujung ke hujung — imbas → jumpa → sambung — dengan animasi denyut dan paparan tersambung menunjukkan bateri, isyarat, keadaan keselamatan dan empat port balutan.',
+    'Persediaan sesi mengkonfigur setiap balutan secara berasingan: kawasan badan, slider haba 35–45 °C dan tahap getaran, dengan anggaran bateri langsung.',
+    'Sesi langsung berjalan dalam mod fokus gelap dengan kira detik bulat beranimasi dan jubin suhu setiap balutan mensimulasi peningkatan dan gegaran sensor.',
+    'Mereka sistem "Ember": ember oren-merah #F04E23 untuk haba, teal perubatan #0E9DA4, neutral klinikal, jejari 20px dan skala warna haba terikat pada nilai suhu.'
+  ]},
+  stats:[{k:'10',v:{en:'Screens',ms:'Skrin'}},{k:'4',v:{en:'Wrap ports',ms:'Port balutan'}},{k:'35-45°',v:{en:'Heat range',ms:'Julat haba'}}],
+  links:[]
+},
+{
+  id:'echolens', name:'EchoLens', icon:'👁️', ac:AC.flutter, year:'2025', cats:['flutter','hw'],
+  sub:{en:'Real-Time Face Detection Exhibit',ms:'Pameran Pengesanan Wajah Masa Nyata'},
+  role:{en:'Frontend Developer · Wariscan Sdn Bhd',ms:'Pembangun Frontend · Wariscan Sdn Bhd'},
+  org:{en:'Muzium Telegraf Taiping',ms:'Muzium Telegraf Taiping'},
+  stack:['Flutter','TensorFlow Lite','Camera'],
+  blurb:{en:'Museum installation that detects a visitor’s face and automatically starts the exhibit video, falling back to a cover page when nobody is there.',
+         ms:'Pemasangan muzium yang mengesan wajah pengunjung dan memulakan video pameran secara automatik, kembali ke halaman muka bila tiada sesiapa.'},
+  detail:{en:[
+    'Real-time face detection running on-device with TensorFlow Lite inference wired to the live camera feed.',
+    'Video playback triggers automatically on face presence and stops when the visitor walks away.',
+    'Cover-page fallback for idle states so the exhibit never sits on a blank screen.'
+  ],ms:[
+    'Pengesanan wajah masa nyata berjalan atas peranti dengan inferens TensorFlow Lite disambung ke suapan kamera langsung.',
+    'Main balik video dicetuskan automatik apabila wajah dikesan dan berhenti bila pengunjung beredar.',
+    'Halaman muka sebagai sandaran ketika melahu supaya pameran tidak pernah menunjukkan skrin kosong.'
+  ]},
+  stats:[{k:'TFLite',v:{en:'On-device ML',ms:'ML atas peranti'}},{k:'Live',v:{en:'Camera feed',ms:'Suapan kamera'}}],
+  links:[]
+},
+{
+  id:'echodots', name:'EchoDots', icon:'🔵', ac:AC.flutter, year:'2025', cats:['flutter','hw'],
+  sub:{en:'Interactive IoT Museum Interface',ms:'Antara Muka Muzium IoT Interaktif'},
+  role:{en:'Frontend Developer · Wariscan Sdn Bhd',ms:'Pembangun Frontend · Wariscan Sdn Bhd'},
+  org:{en:'Muzium Telegraf Taiping',ms:'Muzium Telegraf Taiping'},
+  stack:['Flutter','REST APIs','IoT'],
+  blurb:{en:'Responsive touch interface for an IoT museum exhibit, wired to the backend team’s APIs for live data on screen.',
+         ms:'Antara muka sentuh responsif untuk pameran muzium IoT, disambung ke API pasukan backend untuk data langsung di skrin.'},
+  detail:{en:[
+    'Built the interactive frontend for an IoT-based exhibit at Muzium Telegraf Taiping.',
+    'Responsive UI/UX designed for public touchscreen use — large targets, clear states, accessible contrast.',
+    'Collaborated with the backend team on API integration for seamless real-time data display.',
+    'The EchoDot hardware later doubled as the Bluetooth Morse key in the TM Morse Code Challenge platform.'
+  ],ms:[
+    'Membina frontend interaktif untuk pameran berasaskan IoT di Muzium Telegraf Taiping.',
+    'UI/UX responsif direka untuk kegunaan skrin sentuh awam — sasaran besar, keadaan jelas, kontras mudah akses.',
+    'Bekerjasama dengan pasukan backend dalam integrasi API untuk paparan data masa nyata yang lancar.',
+    'Perkakasan EchoDot kemudiannya turut menjadi kunci Morse Bluetooth dalam platform TM Morse Code Challenge.'
+  ]},
+  stats:[{k:'IoT',v:{en:'Exhibit',ms:'Pameran'}},{k:'REST',v:{en:'Integration',ms:'Integrasi'}}],
+  links:[]
+},
+{
+  id:'cutepet', name:'CutePet', icon:'🐱', ac:AC.games, year:'2026', cats:['flutter','games'],
+  sub:{en:'Pastel Virtual-Pet Companion',ms:'Rakan Haiwan Maya Pastel'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Side project',ms:'Projek sampingan'},
+  stack:['Flutter','Custom painting','Local persistence'],
+  blurb:{en:'A blob-cat you feed, play with and put to sleep. Every pixel is drawn procedurally — zero image assets, runs on iOS, Android, macOS and web.',
+         ms:'Kucing blob yang anda beri makan, main dan tidurkan. Setiap piksel dilukis secara prosedural — sifar aset imej, berjalan di iOS, Android, macOS dan web.'},
+  detail:{en:[
+    'The pet is entirely custom-painted: it bobs, blinks, and changes colour and expression with its mood — no sprite sheets anywhere.',
+    'Three live needs (Fullness, Happiness, Energy) decay honestly while you are away, capped so a few days off does not ruin the pet.',
+    'Six-state mood system — Happy, Content, Hungry, Sleepy, Sad, Needs care — tinting the whole background.',
+    'XP and levels: every interaction earns XP, levelling up at 100. Sleep mode recovers energy and shifts the screen dreamy-purple.',
+    'Local persistence, renameable pet, and a mood-reactive pastel theme.'
+  ],ms:[
+    'Haiwan itu dilukis sepenuhnya secara tersuai: ia terangguk, berkelip, dan bertukar warna serta ekspresi ikut mood — tiada sprite sheet langsung.',
+    'Tiga keperluan langsung (Kenyang, Gembira, Tenaga) susut secara jujur semasa anda tiada, dihadkan supaya beberapa hari tidak main tak merosakkan haiwan itu.',
+    'Sistem mood enam keadaan — Gembira, Puas, Lapar, Mengantuk, Sedih, Perlu jagaan — mewarnakan keseluruhan latar.',
+    'XP dan tahap: setiap interaksi dapat XP, naik tahap pada 100. Mod tidur pulihkan tenaga dan tukar skrin jadi ungu lembut.',
+    'Kegigihan tempatan, haiwan boleh dinamakan semula, dan tema pastel yang bertindak balas dengan mood.'
+  ]},
+  stats:[{k:'0',v:{en:'Image assets',ms:'Aset imej'}},{k:'6',v:{en:'Moods',ms:'Mood'}},{k:'4',v:{en:'Platforms',ms:'Platform'}}],
+  links:[]
+},
+{
+  id:'hotwheel', name:'Hot Wheels Racer', icon:'🏎️', ac:AC.games, year:'2026', cats:['games','web','featured'],
+  sub:{en:'3D Arcade Track Racer',ms:'Perlumbaan Trek Arked 3D'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Side project',ms:'Projek sampingan'},
+  stack:['Three.js','WebGL','JavaScript','Custom physics'],
+  blurb:{en:'A closed-loop neon track with real 3D elevation, arcade car physics, boost and lap timing — in the browser, no engine.',
+         ms:'Trek neon gelung tertutup dengan ketinggian 3D sebenar, fizik kereta arked, boost dan pemasaan pusingan — dalam pelayar, tanpa enjin.'},
+  detail:{en:[
+    'Track generated from a spline with real geometric thickness, so hills and dips render without z-fighting where the road overlaps itself.',
+    'Elevation is genuine 3D: the car follows terrain height, and drives off the edge if you take a corner too fast.',
+    'Narrow, twisty layout with a chicane — tuned to be genuinely hard rather than a demo loop.',
+    'Arcade handling model with boost, plus lap timing and the orange/black Hot Wheels HUD.'
+  ],ms:[
+    'Trek dijana daripada spline dengan ketebalan geometri sebenar, jadi bukit dan lurah dirender tanpa z-fighting di tempat jalan bertindih.',
+    'Ketinggian ialah 3D sebenar: kereta ikut ketinggian rupa bumi, dan terkeluar tepi kalau ambil selekoh terlalu laju.',
+    'Susun atur sempit dan berliku dengan chicane — ditala supaya betul-betul mencabar, bukan sekadar gelung demo.',
+    'Model pengendalian arked dengan boost, serta pemasaan pusingan dan HUD Hot Wheels oren/hitam.'
+  ]},
+  stats:[{k:'3D',v:{en:'Elevation',ms:'Ketinggian'}},{k:'WebGL',v:{en:'Renderer',ms:'Perender'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/hotwheel-racer'}]
+},
+{
+  id:'obby-web', name:'Cute Obby (Web)', icon:'🍓', ac:AC.games, year:'2026', cats:['games','web'],
+  sub:{en:'Standalone Three.js Platformer',ms:'Platformer Three.js Berdiri Sendiri'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Side project',ms:'Projek sampingan'},
+  stack:['Three.js','WebGL','Unit tests','Headless Chromium'],
+  blurb:{en:'A Roblox-style obby rebuilt from scratch for the browser — candy platforms, checkpoints and a golden victory pad, zero Roblox dependency.',
+         ms:'Obby gaya Roblox dibina semula dari kosong untuk pelayar — platform gula-gula, checkpoint dan pad kemenangan emas, tanpa kebergantungan Roblox.'},
+  detail:{en:[
+    'Same spirit as a Roblox obby but written entirely in Three.js, so it runs in any browser with no platform account required.',
+    'Blocky character with eyes and blush, jumping across floating pastel platforms, saving progress at glowing checkpoints.',
+    'Verified twice over: unit tests on the physics and checkpoint logic, plus a headless-Chromium load confirming the 3D scene actually renders.'
+  ],ms:[
+    'Semangat sama seperti obby Roblox tetapi ditulis sepenuhnya dalam Three.js, jadi ia berjalan dalam mana-mana pelayar tanpa perlu akaun platform.',
+    'Watak blok dengan mata dan pipi merah, melompat merentas platform pastel terapung, menyimpan kemajuan di checkpoint bercahaya.',
+    'Disahkan dua kali: ujian unit pada logik fizik dan checkpoint, serta muatan Chromium tanpa kepala mengesahkan scene 3D benar-benar dirender.'
+  ]},
+  stats:[{k:'Tests',v:{en:'Physics verified',ms:'Fizik disahkan'}},{k:'0',v:{en:'Roblox deps',ms:'Kebergantungan Roblox'}}],
+  links:[]
+},
+{
+  id:'obby-rblx', name:'Cute Obby (Roblox)', icon:'🎮', ac:AC.games, year:'2026', cats:['games'],
+  sub:{en:'Luau · Rojo Obstacle Course',ms:'Kursus Halangan Luau · Rojo'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Side project',ms:'Projek sampingan'},
+  stack:['Luau','Rojo','Roblox Studio'],
+  blurb:{en:'Eight procedurally-built pastel stages with checkpoints, fall recovery, leaderstats and a win toast — a full Roblox game, not a template.',
+         ms:'Lapan peringkat pastel dijana prosedural dengan checkpoint, pemulihan jatuh, leaderstats dan toast kemenangan — permainan Roblox penuh, bukan templat.'},
+  detail:{en:[
+    'Eight stages built procedurally in Luau in a pastel candy palette — pink, peach, baby blue, mint, lavender, butter — each climbing higher than the last.',
+    'Checkpoint pads save progress; falling below the world respawns you at your last checkpoint instead of the start.',
+    'leaderstats folder exposing Stage and Wins to the native Roblox leaderboard, mirrored in a custom pastel HUD with a win toast.',
+    'Structured as a Rojo project so the whole game lives in version-controlled source files rather than inside Studio.'
+  ],ms:[
+    'Lapan peringkat dibina secara prosedural dalam Luau dengan palet gula-gula pastel — merah jambu, pic, biru muda, mint, lavender, mentega — setiap satu lebih tinggi daripada sebelumnya.',
+    'Pad checkpoint simpan kemajuan; jatuh ke bawah dunia akan respawn di checkpoint terakhir, bukan di permulaan.',
+    'Folder leaderstats memaparkan Stage dan Wins pada papan pendahulu Roblox natif, dicerminkan dalam HUD pastel tersuai dengan toast kemenangan.',
+    'Distrukturkan sebagai projek Rojo supaya keseluruhan permainan berada dalam fail sumber terkawal versi, bukan dalam Studio.'
+  ]},
+  stats:[{k:'8',v:{en:'Stages',ms:'Peringkat'}},{k:'Rojo',v:{en:'Source-controlled',ms:'Kawalan sumber'}}],
+  links:[]
+},
+{
+  id:'catcafe', name:'Cat Cafe', icon:'☕', ac:AC.games, year:'2026', cats:['games','web'],
+  sub:{en:'Canvas Management Game',ms:'Permainan Pengurusan Canvas'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Side project',ms:'Projek sampingan'},
+  stack:['JavaScript','HTML5 Canvas','Python (asset slicing)'],
+  blurb:{en:'A browser cat-cafe game drawn on raw canvas, with a Python script that slices the furniture spritesheet into usable assets.',
+         ms:'Permainan kafe kucing dalam pelayar dilukis atas canvas mentah, dengan skrip Python yang memotong spritesheet perabot kepada aset boleh guna.'},
+  detail:{en:[
+    'Written directly against the HTML5 Canvas 2D API — no game framework, no build step.',
+    'Wrote a Python asset pipeline (slice_furniture.py) to cut the CatPackFree spritesheet into individual furniture sprites.',
+    'Self-contained: open index.html and it runs.'
+  ],ms:[
+    'Ditulis terus terhadap API Canvas 2D HTML5 — tiada rangka kerja permainan, tiada langkah binaan.',
+    'Menulis saluran aset Python (slice_furniture.py) untuk memotong spritesheet CatPackFree kepada sprite perabot individu.',
+    'Berdiri sendiri: buka index.html dan ia berjalan.'
+  ]},
+  stats:[{k:'2D',v:{en:'Canvas API',ms:'API Canvas'}},{k:'0',v:{en:'Frameworks',ms:'Rangka kerja'}}],
+  links:[]
+},
+{
+  id:'bgcheck', name:'Background Check System', icon:'🛡️', ac:AC.web, year:'2026', cats:['web','featured'],
+  sub:{en:'Case Management Platform',ms:'Platform Pengurusan Kes'},
+  role:{en:'Backend Developer',ms:'Pembangun Backend'},
+  org:{en:'Product build',ms:'Binaan produk'},
+  stack:['Node.js','Express','Prisma','JWT','Zod','Helmet'],
+  blurb:{en:'Employment background-check platform with PDPA-aligned consent capture and a pluggable verification-provider adapter.',
+         ms:'Platform semakan latar belakang pekerjaan dengan tangkapan keizinan selaras PDPA dan penyesuai pembekal pengesahan boleh pasang.'},
+  detail:{en:[
+    'Eight backend modules: auth, candidates, cases, checks, consent, providers, reports and audit.',
+    'PDPA-aligned consent capture is a first-class module — a case cannot progress without a recorded, timestamped consent record.',
+    'Real identity, criminal, education and employment verification is delegated to a pluggable VerificationProvider adapter rather than faked in-house; a mock adapter ships by default so the full workflow runs end to end before a real provider contract exists.',
+    'Hardened by default: JWT auth, bcrypt hashing, Zod request validation, Helmet headers, CORS and rate limiting.',
+    'Prisma schema drives the case/check/report data model with a dedicated audit trail.'
+  ],ms:[
+    'Lapan modul backend: auth, calon, kes, semakan, keizinan, pembekal, laporan dan audit.',
+    'Tangkapan keizinan selaras PDPA ialah modul utama — sesuatu kes tidak boleh diteruskan tanpa rekod keizinan bercap masa.',
+    'Pengesahan identiti, jenayah, pendidikan dan pekerjaan sebenar diserahkan kepada penyesuai VerificationProvider boleh pasang, bukan dipalsukan sendiri; penyesuai mock disertakan secara lalai supaya aliran kerja penuh boleh berjalan sebelum kontrak pembekal sebenar wujud.',
+    'Diperkukuh secara lalai: auth JWT, hashing bcrypt, pengesahan permintaan Zod, pengepala Helmet, CORS dan had kadar.',
+    'Skema Prisma memacu model data kes/semakan/laporan dengan jejak audit khusus.'
+  ]},
+  stats:[{k:'8',v:{en:'Modules',ms:'Modul'}},{k:'PDPA',v:{en:'Consent flow',ms:'Aliran keizinan'}},{k:'Pluggable',v:{en:'Providers',ms:'Pembekal'}}],
+  links:[]
+},
+{
+  id:'lensa', name:'Lensa Kenduri', icon:'📸', ac:AC.web, year:'2026', cats:['web','featured'],
+  sub:{en:'Disposable Camera for Weddings',ms:'Kamera Pakai Buang untuk Kenduri'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Shipped · live product',ms:'Dihantar · produk langsung'},
+  stack:['Node.js','Express','SQLite','QR codes','Print CSS'],
+  blurb:{en:'Guests scan a QR, get a 35mm viewfinder on their phone, shoot a 27-exposure roll — and every photo lands in one shared album.',
+         ms:'Tetamu imbas QR, dapat viewfinder 35mm pada telefon, tembak satu rol 27 dedahan — dan setiap gambar masuk ke satu album kongsi.'},
+  detail:{en:[
+    'Three surfaces: guest camera + welcome flow, a shared album with a "gambar saya" filter, and a host console with live count, contact sheet, settings and export.',
+    'Guests type their name once; every photo that night is signed with it, and returning guests skip straight back to the camera.',
+    'Printable table cards in three sizes (5×7, A5, A4 poster), each laid out one-per-A4 with a dashed trim line — QR printed pure black at high error correction so it still scans off a home printer.',
+    'Names, date and hashtag are driven from a single kenduri.json, which both the welcome screen and the printed card read.',
+    'Deployed live at lensa-kenduri.web.app with a stable QR target that never changes between events.'
+  ],ms:[
+    'Tiga permukaan: kamera tetamu + aliran aluan, album kongsi dengan penapis "gambar saya", dan konsol hos dengan kiraan langsung, contact sheet, tetapan dan eksport.',
+    'Tetamu taip nama sekali sahaja; setiap gambar malam itu ditandatangani dengannya, dan tetamu yang kembali terus ke kamera.',
+    'Kad meja boleh cetak dalam tiga saiz (5×7, A5, poster A4), setiap satu satu-per-A4 dengan garis potong berbintik — QR dicetak hitam pekat pada pembetulan ralat tinggi supaya masih boleh diimbas dari pencetak rumah.',
+    'Nama, tarikh dan hashtag dipacu daripada satu kenduri.json, dibaca oleh skrin aluan dan kad bercetak.',
+    'Dilancarkan di lensa-kenduri.web.app dengan sasaran QR stabil yang tidak berubah antara majlis.'
+  ]},
+  stats:[{k:'27',v:{en:'Exposures',ms:'Dedahan'}},{k:'3',v:{en:'Card sizes',ms:'Saiz kad'}},{k:'Live',v:{en:'Deployed',ms:'Dilancarkan'}}],
+  links:[{l:'Live site',u:'https://lensa-kenduri.web.app'},{l:'GitHub',u:'https://github.com/zaitulakmal/lensa-kenduri'}]
+},
+{
+  id:'gold', name:'Gold Purity Analyzer', icon:'📊', ac:AC.web, year:'2026', cats:['web'],
+  sub:{en:'Analysis Dashboard',ms:'Papan Pemuka Analisis'},
+  role:{en:'Frontend Developer',ms:'Pembangun Frontend'},
+  org:{en:'Companion to DGAS',ms:'Pelengkap kepada DGAS'},
+  stack:['React','Recharts','Tailwind CSS','Vite'],
+  blurb:{en:'React dashboard for reading gold purity measurements — screen-based flow with Recharts visualisation on a Tailwind design system.',
+         ms:'Papan pemuka React untuk membaca ukuran ketulenan emas — aliran berasaskan skrin dengan visualisasi Recharts atas sistem reka bentuk Tailwind.'},
+  detail:{en:[
+    'Screen-driven React app structured into components, screens and a data layer.',
+    'Measurement visualisation with Recharts; iconography with Lucide.',
+    'Tailwind CSS design system with a PostCSS build.'
+  ],ms:[
+    'Aplikasi React dipacu skrin, distrukturkan kepada komponen, skrin dan lapisan data.',
+    'Visualisasi ukuran dengan Recharts; ikonografi dengan Lucide.',
+    'Sistem reka bentuk Tailwind CSS dengan binaan PostCSS.'
+  ]},
+  stats:[{k:'React',v:{en:'Frontend',ms:'Frontend'}},{k:'Recharts',v:{en:'Charts',ms:'Carta'}}],
+  links:[]
+},
+{
+  id:'oralvis', name:'ORALVIS', icon:'🦷', ac:AC.web, year:'2026', cats:['web'],
+  sub:{en:'Oral Health App — UI Mockups v3',ms:'Aplikasi Kesihatan Mulut — Mockup UI v3'},
+  role:{en:'UI/UX Designer',ms:'Pereka UI/UX'},
+  org:{en:'Client project',ms:'Projek klien'},
+  stack:['HTML','CSS','Thunkable'],
+  blurb:{en:'Third-iteration interactive UI mockups plus a written Thunkable build guide, so a no-code team can implement the design exactly.',
+         ms:'Mockup UI interaktif iterasi ketiga serta panduan binaan Thunkable bertulis, supaya pasukan no-code boleh melaksanakan reka bentuk dengan tepat.'},
+  detail:{en:[
+    'Clickable HTML mockups covering the full app flow, iterated to a third version off client feedback.',
+    'Paired with a Thunkable build guide documenting how each screen maps to Thunkable components — a handoff artefact, not just a picture.'
+  ],ms:[
+    'Mockup HTML boleh klik meliputi aliran aplikasi penuh, diiterasi hingga versi ketiga berdasarkan maklum balas klien.',
+    'Digandingkan dengan panduan binaan Thunkable yang mendokumen bagaimana setiap skrin dipetakan ke komponen Thunkable — artifak serahan, bukan sekadar gambar.'
+  ]},
+  stats:[{k:'v3',v:{en:'Iteration',ms:'Iterasi'}},{k:'Guide',v:{en:'Handoff doc',ms:'Dokumen serahan'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/oralvis-app'}]
+},
+{
+  id:'ilham', name:'Ilham Integrasi', icon:'🏭', ac:AC.web, year:'2026', cats:['web'],
+  sub:{en:'Corporate Website',ms:'Laman Web Korporat'},
+  role:{en:'Developer & Designer',ms:'Pembangun & Pereka'},
+  org:{en:'Ilham Integrasi Sdn Bhd',ms:'Ilham Integrasi Sdn Bhd'},
+  stack:['Vite','JavaScript','Puppeteer'],
+  blurb:{en:'Marketing site for an OEM food manufacturer and central kitchen, built on Vite with an inlining step for single-file delivery.',
+         ms:'Laman pemasaran untuk pengeluar makanan OEM dan dapur pusat, dibina atas Vite dengan langkah inline untuk penghantaran fail tunggal.'},
+  detail:{en:[
+    'Company site for Ilham Integrasi Sdn Bhd — OEM food manufacturer and central kitchen.',
+    'Vite build with a custom inline step that flattens the output for simple hosting.',
+    'Puppeteer used in the toolchain for automated page capture.'
+  ],ms:[
+    'Laman syarikat untuk Ilham Integrasi Sdn Bhd — pengeluar makanan OEM dan dapur pusat.',
+    'Binaan Vite dengan langkah inline tersuai yang meratakan output untuk pengehosan mudah.',
+    'Puppeteer digunakan dalam rantaian alat untuk tangkapan halaman automatik.'
+  ]},
+  stats:[{k:'Vite',v:{en:'Build',ms:'Binaan'}}],
+  links:[]
+},
+{
+  id:'umbook', name:'UM Bookstore Catalogue', icon:'📚', ac:AC.web, year:'2026', cats:['web'],
+  sub:{en:'Kedai Buku UM — Katalog 2026/2027',ms:'Kedai Buku UM — Katalog 2026/2027'},
+  role:{en:'Developer & Designer',ms:'Pembangun & Pereka'},
+  org:{en:'Universiti Malaya',ms:'Universiti Malaya'},
+  stack:['HTML','CSS','JavaScript'],
+  blurb:{en:'General catalogue mockup for the Universiti Malaya bookstore, covering the 2026/2027 academic session.',
+         ms:'Mockup katalog am untuk kedai buku Universiti Malaya, meliputi sesi akademik 2026/2027.'},
+  detail:{en:[
+    'Single-page catalogue built in plain HTML/CSS/JS for the Universiti Malaya bookstore.',
+    'Covers the 2026/2027 academic session listing.'
+  ],ms:[
+    'Katalog satu halaman dibina dengan HTML/CSS/JS biasa untuk kedai buku Universiti Malaya.',
+    'Meliputi senarai sesi akademik 2026/2027.'
+  ]},
+  stats:[{k:'2026/27',v:{en:'Session',ms:'Sesi'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/um-bookstore-mockup'}]
+},
+{
+  id:'invite', name:'Eusoff ♥ Zaitul', icon:'💌', ac:AC.web, year:'2026', cats:['web'],
+  sub:{en:'Digital Wedding Invitation',ms:'Kad Jemputan Kahwin Digital'},
+  role:{en:'Designer & Developer',ms:'Pereka & Pembangun'},
+  org:{en:'Personal',ms:'Peribadi'},
+  stack:['HTML','CSS','Custom fonts','Animation'],
+  blurb:{en:'A hand-built digital invitation with custom typography and scroll animation — designed and coded rather than bought from a template shop.',
+         ms:'Kad jemputan digital dibina sendiri dengan tipografi tersuai dan animasi tatal — direka dan dikod, bukan dibeli dari kedai templat.'},
+  detail:{en:[
+    'Custom-designed invitation page with self-hosted display fonts.',
+    'Built by hand rather than assembled from a template, with its own layout and motion.'
+  ],ms:[
+    'Halaman jemputan direka khas dengan fon paparan dihoskan sendiri.',
+    'Dibina dengan tangan, bukan disusun daripada templat, dengan susun atur dan gerakan tersendiri.'
+  ]},
+  stats:[{k:'Custom',v:{en:'Typography',ms:'Tipografi'}}],
+  links:[]
+},
+{
+  id:'dawar', name:'DAWar System', icon:'🗂️', ac:AC.web, year:'2024', cats:['web'],
+  sub:{en:'Web & Database Integration',ms:'Integrasi Web & Pangkalan Data'},
+  role:{en:'Developer & Designer',ms:'Pembangun & Pereka'},
+  org:{en:'University project',ms:'Projek universiti'},
+  stack:['Flutter Web','Figma','Google Sheets API'],
+  blurb:{en:'End-to-end build: UI/UX designed in Figma, frontend in Flutter Web, with Google Sheets wired up as a live backend database.',
+         ms:'Binaan hujung ke hujung: UI/UX direka dalam Figma, frontend dalam Flutter Web, dengan Google Sheets sebagai pangkalan data backend langsung.'},
+  detail:{en:[
+    'Designed the complete UI/UX in Figma before writing any code.',
+    'Built the frontend in Flutter Web and integrated Google Sheets as a live backend for real-time data management.',
+    'Owned the whole pipeline — design, functionality and database integration.'
+  ],ms:[
+    'Mereka UI/UX lengkap dalam Figma sebelum menulis sebarang kod.',
+    'Membina frontend dalam Flutter Web dan mengintegrasi Google Sheets sebagai backend langsung untuk pengurusan data masa nyata.',
+    'Memiliki keseluruhan saluran — reka bentuk, fungsi dan integrasi pangkalan data.'
+  ]},
+  stats:[{k:'Figma',v:{en:'Design',ms:'Reka bentuk'}},{k:'Sheets',v:{en:'Backend',ms:'Backend'}}],
+  links:[]
+},
+{
+  id:'zakat', name:'Zakat Distribution App', icon:'🕌', ac:AC.web, year:'2023', cats:['web'],
+  sub:{en:'Android App — UiTM Perak',ms:'Aplikasi Android — UiTM Perak'},
+  role:{en:'Android Developer',ms:'Pembangun Android'},
+  org:{en:'UiTM Perak',ms:'UiTM Perak'},
+  stack:['Java','Android','Firebase','MPAndroidChart','SAS'],
+  blurb:{en:'Native Android app for zakat distribution with QR scanning, real-time tracking, role-based access and charted analytics.',
+         ms:'Aplikasi Android natif untuk agihan zakat dengan imbasan QR, penjejakan masa nyata, akses berasaskan peranan dan analitik bercarta.'},
+  detail:{en:[
+    'Native Java Android app backed by Firebase.',
+    'QR code scanning for distribution checkpoints with real-time status tracking.',
+    'Role-based access control separating administrators from field staff.',
+    'Data visualisation through MPAndroidChart with SAS analytics behind the reporting.'
+  ],ms:[
+    'Aplikasi Android Java natif disokong Firebase.',
+    'Imbasan kod QR untuk pusat pemeriksaan agihan dengan penjejakan status masa nyata.',
+    'Kawalan akses berasaskan peranan memisahkan pentadbir daripada kakitangan lapangan.',
+    'Visualisasi data melalui MPAndroidChart dengan analitik SAS di sebalik pelaporan.'
+  ]},
+  stats:[{k:'QR',v:{en:'Scanning',ms:'Imbasan'}},{k:'Firebase',v:{en:'Realtime',ms:'Masa nyata'}}],
+  links:[]
+}
+];
+
+const JOBS = [
+{
+  co:'Universiti Malaya', when:'Dec 2025 — Present',
+  role:{en:'Research Assistant (RA)',ms:'Pembantu Penyelidik (RA)'},
+  where:{en:'Jabatan Fisiologi, Fakulti Perubatan · KPT PRGS Grant PR005-2025',ms:'Jabatan Fisiologi, Fakulti Perubatan · Geran KPT PRGS PR005-2025'},
+  pts:{en:[
+    'Designing and developing a Role-Playing Serious Game prototype for Health Science (Hematology), supervised by Dr. Maziah Binti Mat Rosly.',
+    'Owning UI/UX design, frontend development and user-testing coordination across a 24-month government-funded research timeline.',
+    'Running pilot testing sessions and iterating gameplay mechanics on user feedback and learning-outcome data.',
+    'Working in Agile sprints with source control on GitHub.'
+  ],ms:[
+    'Mereka dan membangunkan prototaip Serious Game Main Peranan untuk Sains Kesihatan (Hematologi), diselia Dr. Maziah Binti Mat Rosly.',
+    'Bertanggungjawab ke atas reka bentuk UI/UX, pembangunan frontend dan penyelarasan ujian pengguna sepanjang garis masa penyelidikan 24 bulan tajaan kerajaan.',
+    'Menjalankan sesi ujian rintis dan menambah baik mekanik permainan berdasarkan maklum balas pengguna dan data hasil pembelajaran.',
+    'Bekerja dalam sprint Agile dengan kawalan sumber di GitHub.'
+  ]}
+},
+{
+  co:'Wariscan Sdn Bhd', when:'Jun 2025 — Present',
+  role:{en:'Junior Developer (Part-Time)',ms:'Pembangun Junior (Sambilan)'},
+  where:{en:'Mobile, IoT and museum installations',ms:'Mudah alih, IoT dan pemasangan muzium'},
+  pts:{en:[
+    'Developed a real-time face detection system in Flutter with TensorFlow Lite and automated video playback workflows.',
+    'Built the EchoDots interactive UI for Muzium Telegraf Taiping, improving visitor engagement.',
+    'Delivered the TM Morse Code Challenge 2026 competition platform — four interfaces, Bluetooth Morse key, bilingual.',
+    'Assisted in backend optimisation to improve overall system stability.'
+  ],ms:[
+    'Membangunkan sistem pengesanan wajah masa nyata dalam Flutter dengan TensorFlow Lite dan aliran kerja main balik video automatik.',
+    'Membina UI interaktif EchoDots untuk Muzium Telegraf Taiping, meningkatkan penglibatan pengunjung.',
+    'Menyampaikan platform pertandingan TM Morse Code Challenge 2026 — empat antara muka, kunci Morse Bluetooth, dwibahasa.',
+    'Membantu pengoptimuman backend untuk meningkatkan kestabilan sistem keseluruhan.'
+  ]}
+},
+{
+  co:'K Digital Technology', when:'Jul 2025 — Dec 2025',
+  role:{en:'Junior Full Stack Developer (Contract)',ms:'Pembangun Full Stack Junior (Kontrak)'},
+  where:{en:'Client-facing web products',ms:'Produk web hadapan pelanggan'},
+  pts:{en:[
+    'Developed responsive front-end interfaces and integrated backend APIs for client-facing products.',
+    'Improved API performance through optimised database queries and restructured query logic.',
+    'Delivered product features through cross-functional team collaboration.'
+  ],ms:[
+    'Membangunkan antara muka hadapan responsif dan mengintegrasi API backend untuk produk hadapan pelanggan.',
+    'Meningkatkan prestasi API melalui pertanyaan pangkalan data yang dioptimumkan dan logik pertanyaan yang distruktur semula.',
+    'Menyampaikan ciri produk melalui kerjasama pasukan merentas fungsi.'
+  ]}
+},
+{
+  co:'Wariscan Sdn Bhd', when:'Mar 2025 — Jun 2025',
+  role:{en:'Programmer (Trainee)',ms:'Pengaturcara (Pelatih)'},
+  where:{en:'Flutter application development',ms:'Pembangunan aplikasi Flutter'},
+  pts:{en:[
+    'Built Flutter UI components integrated with REST APIs for production applications.',
+    'Improved reporting efficiency by leveraging the Google Workspace API for automated data workflows.',
+    'Participated in Agile development cycles using GitHub for version control.'
+  ],ms:[
+    'Membina komponen UI Flutter yang diintegrasi dengan REST API untuk aplikasi produksi.',
+    'Meningkatkan kecekapan pelaporan dengan memanfaatkan Google Workspace API untuk aliran kerja data automatik.',
+    'Menyertai kitaran pembangunan Agile menggunakan GitHub untuk kawalan versi.'
+  ]}
+},
+{
+  co:'Operion Ecommerce & Software', when:'Sept 2022 — Feb 2023',
+  role:{en:'Programmer (Trainee)',ms:'Pengaturcara (Pelatih)'},
+  where:{en:'React.js front-end and API integration',ms:'Frontend React.js dan integrasi API'},
+  pts:{en:[
+    'Designed and implemented user interfaces with React.js, enhancing user flow efficiency by 40%.',
+    'Collaborated with the backend team to integrate RESTful APIs for seamless full-stack functionality.',
+    'Participated in the deployment process, resolving 90% of client-reported bugs.'
+  ],ms:[
+    'Mereka dan melaksanakan antara muka pengguna dengan React.js, meningkatkan kecekapan aliran pengguna sebanyak 40%.',
+    'Bekerjasama dengan pasukan backend untuk mengintegrasi RESTful API bagi fungsi full-stack yang lancar.',
+    'Menyertai proses pelaksanaan, menyelesaikan 90% pepijat yang dilaporkan pelanggan.'
+  ]}
+}
+];
+
+const SKILLS = [
+ {t:{en:'Languages',ms:'Bahasa'}, i:['TypeScript','JavaScript','Dart','C#','PHP','Java','Python','Luau','C++','SQL','HTML','CSS']},
+ {t:{en:'Mobile',ms:'Mudah Alih'}, i:['Flutter','React Native','Expo','Android (Java)','Provider','Riverpod-style state','Zustand']},
+ {t:{en:'Game & 3D',ms:'Permainan & 3D'}, i:['Unity 6','URP','C# gameplay','Three.js','WebGL','Roblox / Rojo','HTML5 Canvas']},
+ {t:{en:'Web & Backend',ms:'Web & Backend'}, i:['Laravel','Node.js','Express','Prisma','REST APIs','JWT','Zod','Vite','React','Tailwind']},
+ {t:{en:'Data',ms:'Data'}, i:['MySQL','SQLite','Drizzle ORM','sqflite','Cloud Firestore','Google Sheets API','Schema design']},
+ {t:{en:'Hardware & ML',ms:'Perkakasan & ML'}, i:['TensorFlow Lite','Bluetooth LE','Serial port','UVC camera','Barcode scanning','IoT integration']},
+ {t:{en:'Charts & Visuals',ms:'Carta & Visual'}, i:['Victory Native','fl_chart','Recharts','MPAndroidChart','Skia','Tableau','Power BI','SAS']},
+ {t:{en:'Tooling',ms:'Perkakasan'}, i:['Git & GitHub','Figma','Agile / Scrum','Firebase Hosting','Cloudways','FileZilla','Android Studio']}
+];
+
+const CERTS = [
+ ['MySQL for Data Analysis','LinkedIn Learning'],
+ ['CSS Layouts (Flexbox & Grid)','LinkedIn Learning'],
+ ['WordPress SEO','LinkedIn Learning'],
+ ['Building a Website with HTML & CSS','HRD Corp e-LATiH'],
+ ['Google Analytics Individual Qualification','Google'],
+ ['Fundamentals of Digital Marketing','Google'],
+ ['Lean Six Sigma White Belt','MSI'],
+ ['Jr Penetration Tester','TryHackMe']
+];
+
+const FILTERS = [
+ {k:'all',      l:{en:'All',ms:'Semua'}},
+ {k:'featured', l:{en:'Featured',ms:'Pilihan'}},
+ {k:'unity',    l:{en:'Unity / 3D',ms:'Unity / 3D'}},
+ {k:'flutter',  l:{en:'Flutter',ms:'Flutter'}},
+ {k:'rn',       l:{en:'React Native',ms:'React Native'}},
+ {k:'web',      l:{en:'Web & Backend',ms:'Web & Backend'}},
+ {k:'games',    l:{en:'Games',ms:'Permainan'}},
+ {k:'hw',       l:{en:'Hardware / IoT',ms:'Perkakasan / IoT'}},
+ {k:'research', l:{en:'Research',ms:'Penyelidikan'}}
+];
+
+/* ---------------------------------------------------------------------------
+   i18n
+   --------------------------------------------------------------------------- */
+const T = {
+ en:{
+  'nav.work':'Work','nav.exp':'Experience','nav.stack':'Stack','nav.edu':'Education','nav.contact':'Contact','nav.search':'Search',
+  'hero.status':'Open to full stack / mobile roles',
+  'hero.lede':'Computer Science graduate building across the whole stack — Unity serious games for medical education, Flutter and React Native apps shipped to production, and Node/Laravel systems behind them. Currently Research Assistant at Universiti Malaya on a KPT-funded research grant.',
+  'hero.cta1':'View the work','hero.cta2':'Download résumé','hero.cta3':'Get in touch',
+  'work.eyebrow':'Selected work','work.title':"Everything I've built.",
+  'work.note':'Serious games, production mobile apps, competition platforms, hardware integrations and side-project games. Click any card for the full case study.',
+  'exp.eyebrow':"Where I've worked",'exp.title':'Experience',
+  'stack.eyebrow':'Toolbox','stack.title':'Stack & tooling','stack.note':'What I actually reach for. Everything listed here appears in shipped work above.',
+  'edu.eyebrow':'Education','edu.title':'Studied','cert.eyebrow':'Certifications','cert.title':'Certified',
+  'contact.eyebrow':'Contact','contact.title':"Let's build something.",
+  'contact.note':'Open to full stack and mobile developer roles, freelance builds, and research collaborations. Based in Sungai Buloh, Selangor — happy to work remote.',
+  'foot.built':'HAND-CODED · NO FRAMEWORK · ONE FILE',
+  'm.role':'Role','m.org':'Context','m.year':'Timeline','m.about':'What it is','m.stack':'Built with','m.prev':'← Previous','m.next':'Next →',
+  'ui.showing':'showing','ui.of':'of','ui.projects':'projects','ui.empty':'No projects in this category.',
+  'ui.search':'Search projects, tech, companies…',
+  'stat.projects':'Projects shipped','stat.years':'Years building','stat.orgs':'Orgs worked with','stat.platforms':'Platforms targeted',
+  'toast.arcade':'⚡ ARCADE MODE UNLOCKED','toast.normal':'Normal mode restored'
+ },
+ ms:{
+  'nav.work':'Kerja','nav.exp':'Pengalaman','nav.stack':'Teknologi','nav.edu':'Pendidikan','nav.contact':'Hubungi','nav.search':'Cari',
+  'hero.status':'Terbuka untuk peranan full stack / mudah alih',
+  'hero.lede':'Graduan Sains Komputer yang membina merentas keseluruhan stack — serious game Unity untuk pendidikan perubatan, aplikasi Flutter dan React Native yang dihantar ke produksi, serta sistem Node/Laravel di belakangnya. Kini Pembantu Penyelidik di Universiti Malaya di bawah geran penyelidikan KPT.',
+  'hero.cta1':'Lihat kerja','hero.cta2':'Muat turun resume','hero.cta3':'Hubungi saya',
+  'work.eyebrow':'Kerja terpilih','work.title':'Semua yang saya bina.',
+  'work.note':'Serious game, aplikasi mudah alih produksi, platform pertandingan, integrasi perkakasan dan permainan sampingan. Klik mana-mana kad untuk kajian kes penuh.',
+  'exp.eyebrow':'Tempat saya bekerja','exp.title':'Pengalaman',
+  'stack.eyebrow':'Kotak alat','stack.title':'Teknologi & alatan','stack.note':'Apa yang saya benar-benar guna. Semua yang disenaraikan di sini muncul dalam kerja yang dihantar di atas.',
+  'edu.eyebrow':'Pendidikan','edu.title':'Pengajian','cert.eyebrow':'Pensijilan','cert.title':'Sijil',
+  'contact.eyebrow':'Hubungi','contact.title':'Jom bina sesuatu.',
+  'contact.note':'Terbuka untuk peranan pembangun full stack dan mudah alih, kerja bebas, dan kolaborasi penyelidikan. Berpangkalan di Sungai Buloh, Selangor — boleh bekerja jarak jauh.',
+  'foot.built':'DIKOD SENDIRI · TANPA RANGKA KERJA · SATU FAIL',
+  'm.role':'Peranan','m.org':'Konteks','m.year':'Garis masa','m.about':'Apa itu','m.stack':'Dibina dengan','m.prev':'← Sebelum','m.next':'Seterusnya →',
+  'ui.showing':'papar','ui.of':'daripada','ui.projects':'projek','ui.empty':'Tiada projek dalam kategori ini.',
+  'ui.search':'Cari projek, teknologi, syarikat…',
+  'stat.projects':'Projek dihantar','stat.years':'Tahun membina','stat.orgs':'Organisasi','stat.platforms':'Platform disasar',
+  'toast.arcade':'⚡ MOD ARKED DIBUKA','toast.normal':'Mod biasa dipulihkan'
+ }
+};
+
+let LANG = (localStorage.getItem('zt-lang') === 'ms') ? 'ms' : 'en';
+const t = k => (T[LANG] && T[LANG][k]) || T.en[k] || k;
+const L = o => (o && (o[LANG] ?? o.en)) ?? o;
+
+/* ---------------------------------------------------------------------------
+   HELPERS
+   --------------------------------------------------------------------------- */
+const $  = (s,r=document) => r.querySelector(s);
+const $$ = (s,r=document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------------------------------------------------------------------
+   PARTICLE FIELD
+   --------------------------------------------------------------------------- */
+(function field(){
+  const c = $('#field'), x = c.getContext('2d');
+  let w, h, dots = [], mouse = {x:-9e9, y:-9e9}, raf = null;
+
+  function size(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    w = c.width  = innerWidth  * dpr;
+    h = c.height = innerHeight * dpr;
+    c.style.width = innerWidth + 'px';
+    c.style.height = innerHeight + 'px';
+    x.setTransform(dpr,0,0,dpr,0,0);
+    const n = Math.min(110, Math.round(innerWidth * innerHeight / 15000));
+    dots = Array.from({length:n}, () => ({
+      x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+      vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22,
+      r: Math.random()*1.5 + .5
+    }));
+  }
+
+  const HOT = () => window.__HOT || '255,122,24';
+
+  function draw(){
+    x.clearRect(0,0,innerWidth,innerHeight);
+    const arcade = document.body.classList.contains('arcade');
+    for (const d of dots){
+      d.x += d.vx; d.y += d.vy;
+      if (d.x < 0 || d.x > innerWidth)  d.vx *= -1;
+      if (d.y < 0 || d.y > innerHeight) d.vy *= -1;
+
+      const dx = d.x - mouse.x, dy = d.y - mouse.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 130){
+        const f = (130 - dist) / 130 * 1.6;
+        d.x += dx / dist * f; d.y += dy / dist * f;
+      }
+      const near = dist < 160;
+      x.beginPath();
+      x.arc(d.x, d.y, d.r * (near ? 1.9 : 1), 0, 6.2832);
+      x.fillStyle = near
+        ? 'rgba(var(--hot-rgb),' + (0.75 - dist/260) + ')'
+        : 'rgba(255,255,255,.20)';
+      x.fill();
+    }
+    // link nearby dots
+    for (let i=0;i<dots.length;i++){
+      for (let j=i+1;j<dots.length;j++){
+        const a = dots[i], b = dots[j];
+        const dd = Math.hypot(a.x-b.x, a.y-b.y);
+        if (dd < 108){
+          x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y);
+          x.strokeStyle = (arcade ? 'rgba(' + HOT() + ',' : 'rgba(255,255,255,') + (0.10 - dd/1100) + ')';
+          x.lineWidth = .6; x.stroke();
+        }
+      }
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  addEventListener('resize', size, {passive:true});
+  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; }, {passive:true});
+  addEventListener('mouseout', () => { mouse.x = mouse.y = -9e9; }, {passive:true});
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){ cancelAnimationFrame(raf); raf = null; }
+    else if (!raf && !REDUCED) draw();
+  });
+
+  size();
+  if (REDUCED){ x.clearRect(0,0,innerWidth,innerHeight); } else draw();
+})();
+
+/* ---------------------------------------------------------------------------
+   CURSOR
+   --------------------------------------------------------------------------- */
+(function cursor(){
+  if (matchMedia('(pointer:coarse)').matches) return;
+  const d = $('.cur'), r = $('.cur-r');
+  let mx=0,my=0,rx=0,ry=0;
+  addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    d.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+    const el = e.target.closest('a,button,.card,.chip,input');
+    r.classList.toggle('hot', !!el);
+  }, {passive:true});
+  (function loop(){
+    rx += (mx-rx)*.16; ry += (my-ry)*.16;
+    r.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ---------------------------------------------------------------------------
+   HERO — character scramble
+   --------------------------------------------------------------------------- */
+(function scramble(){
+  const CHARS = '▚▞█▓▒░ABCDEFGHIJKLMNOPQRSTUVWXYZ01#@$%&';
+  function wire(el){
+    const raw = el.textContent;
+    el.innerHTML = '';
+    const spans = [...raw].map(ch => {
+      const s = document.createElement('span');
+      s.className = 'ch'; s.textContent = ch; s.dataset.f = ch;
+      el.appendChild(s); return s;
+    });
+    function run(delayStep){
+      spans.forEach((s,i) => {
+        const final = s.dataset.f;
+        if (final === ' ') return;
+        let n = 0;
+        const id = setInterval(() => {
+          s.textContent = CHARS[Math.floor(Math.random()*CHARS.length)];
+          if (++n > 6 + i*0.4){ clearInterval(id); s.textContent = final; }
+        }, 34 + i * (delayStep||0));
+      });
+    }
+    return run;
+  }
+  const runners = ['#n1','#n2'].map(sel => {
+    const el = $(sel);
+    if (sel === '#n2'){
+      // keep the <b> highlight: wire only the plain part
+      const b = el.querySelector('b');
+      const bHTML = b.outerHTML;
+      const plain = el.textContent.replace(b.textContent,'').trim();
+      el.innerHTML = '';
+      const holder = document.createElement('span');
+      holder.textContent = plain + ' ';
+      el.appendChild(holder);
+      el.insertAdjacentHTML('beforeend', bHTML);
+      return wire(holder);
+    }
+    return wire(el);
+  });
+  if (!REDUCED){
+    runners.forEach((r,i) => setTimeout(() => r(1), 150 + i*260));
+    $('#n1').closest('h1').addEventListener('mouseenter', () => runners.forEach(r => r(0.6)));
+  }
+})();
+
+/* ---------------------------------------------------------------------------
+   HERO — typed roles
+   --------------------------------------------------------------------------- */
+(function typed(){
+  const el = $('#typed');
+  const words = {
+    en:['Full Stack Developer','Unity Serious Games','Flutter · React Native','Node · Laravel · Prisma','Three.js & WebGL','IoT & Hardware Integration'],
+    ms:['Pembangun Full Stack','Serious Game Unity','Flutter · React Native','Node · Laravel · Prisma','Three.js & WebGL','Integrasi IoT & Perkakasan']
+  };
+  let w = 0, i = 0, del = false;
+  if (REDUCED){ el.textContent = words[LANG][0]; return; }
+  (function tick(){
+    const list = words[LANG];
+    const word = list[w % list.length];
+    i += del ? -1 : 1;
+    el.textContent = word.slice(0, i);
+    let d = del ? 34 : 62;
+    if (!del && i === word.length){ d = 1500; del = true; }
+    else if (del && i === 0){ del = false; w++; d = 260; }
+    setTimeout(tick, d);
+  })();
+})();
+
+/* ---------------------------------------------------------------------------
+   MARQUEE
+   --------------------------------------------------------------------------- */
+(function marquee(){
+  const items = ['Unity 6','C#','Flutter','Dart','React Native','TypeScript','Three.js','Laravel','PHP','Node.js','Prisma','Firebase','SQLite','Drizzle ORM','MySQL','TensorFlow Lite','Bluetooth LE','Luau','Figma','Git'];
+  const html = items.map(s => '<span>' + esc(s) + '</span>').join('');
+  $('#mq').innerHTML = html + html;
+})();
+
+/* ---------------------------------------------------------------------------
+   STATS
+   --------------------------------------------------------------------------- */
+function renderStats(){
+  const orgs = new Set(['Universiti Malaya','Wariscan Sdn Bhd','K Digital Technology','Operion Ecommerce & Software','RAKYAT Management','MeDREV','IR Academy','Ilham Integrasi']);
+  const data = [
+    {n: PROJECTS.length,      k:'stat.projects'},
+    {n: 2026 - 2020,          k:'stat.years'},
+    {n: orgs.size,            k:'stat.orgs'},
+    {n: 6,                    k:'stat.platforms'}
+  ];
+  $('#stats').innerHTML = data.map(d =>
+    '<div class="stat"><b data-to="' + d.n + '">0</b><i data-i18n="' + d.k + '">' + esc(t(d.k)) + '</i></div>'
+  ).join('');
+}
+
+function countUp(el){
+  const to = +el.dataset.to;
+  if (REDUCED){ el.textContent = to; return; }
+  let n = 0;
+  const step = Math.max(1, Math.round(to / 34));
+  const id = setInterval(() => {
+    n += step;
+    if (n >= to){ n = to; clearInterval(id); }
+    el.textContent = n;
+  }, 26);
+}
+
+/* ---------------------------------------------------------------------------
+   PROJECT GRID
+   --------------------------------------------------------------------------- */
+let activeFilter = 'all';
+
+function renderFilters(){
+  $('#filters').innerHTML =
+    FILTERS.map(f => {
+      const n = f.k === 'all' ? PROJECTS.length : PROJECTS.filter(p => p.cats.includes(f.k)).length;
+      if (!n) return '';
+      return '<button class="chip' + (f.k===activeFilter?' on':'') + '" data-f="' + f.k + '">' +
+             esc(L(f.l)) + '<em>' + n + '</em></button>';
+    }).join('') +
+    '<span class="count" id="count"></span>';
+
+  $$('#filters .chip').forEach(b => b.addEventListener('click', () => {
+    activeFilter = b.dataset.f;
+    $$('#filters .chip').forEach(x => x.classList.toggle('on', x === b));
+    applyFilter();
+  }));
+}
+
+function renderGrid(){
+  $('#grid').innerHTML = PROJECTS.map((p, idx) =>
+    '<button class="card" data-i="' + idx + '" data-cats="' + p.cats.join(' ') + '" style="--ac:' + p.ac + '">' +
+      '<span class="c-top">' +
+        '<span class="c-ico">' + p.icon + '</span>' +
+        '<span class="c-yr">' + esc(p.year) + '</span>' +
+      '</span>' +
+      '<span class="c-name">' + esc(p.name) + '</span>' +
+      '<span class="c-sub">' + esc(L(p.sub)) + '</span>' +
+      '<span class="c-blurb">' + esc(L(p.blurb)) + '</span>' +
+      '<span class="tags">' + p.stack.slice(0,4).map(s => '<span class="tag">' + esc(s) + '</span>').join('') +
+        (p.stack.length > 4 ? '<span class="tag">+' + (p.stack.length-4) + '</span>' : '') +
+      '</span>' +
+      '<span class="c-go">' + (LANG==='ms'?'Kajian kes':'Case study') + ' <span class="arw">→</span></span>' +
+    '</button>'
+  ).join('');
+
+  $$('#grid .card').forEach(card => {
+    card.addEventListener('click', () => openModal(+card.dataset.i));
+    if (!REDUCED) tilt(card);
+  });
+  applyFilter(true);
+}
+
+function applyFilter(first){
+  const cards = $$('#grid .card');
+  let shown = 0;
+  cards.forEach(c => {
+    const ok = activeFilter === 'all' || c.dataset.cats.split(' ').includes(activeFilter);
+    c.classList.toggle('hide', !ok);
+    if (ok){
+      shown++;
+      c.classList.remove('pop');
+      if (!REDUCED){ void c.offsetWidth; c.style.animationDelay = (shown*38) + 'ms'; c.classList.add('pop'); }
+    }
+  });
+  const cnt = $('#count');
+  if (cnt) cnt.textContent = t('ui.showing') + ' ' + shown + ' ' + t('ui.of') + ' ' + PROJECTS.length + ' ' + t('ui.projects');
+  let empty = $('#grid .empty');
+  if (!shown){
+    if (!empty){ empty = document.createElement('p'); empty.className = 'empty'; $('#grid').appendChild(empty); }
+    empty.textContent = t('ui.empty');
+  } else if (empty) empty.remove();
+}
+
+/* 3D tilt + spotlight */
+function tilt(el){
+  let rect = null;
+  el.addEventListener('mouseenter', () => { rect = el.getBoundingClientRect(); });
+  el.addEventListener('mousemove', e => {
+    if (!rect) rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top)  / rect.height;
+    el.style.setProperty('--mx', (px*100) + '%');
+    el.style.setProperty('--my', (py*100) + '%');
+    el.style.transform =
+      'perspective(900px) rotateX(' + ((0.5-py)*7).toFixed(2) + 'deg) rotateY(' + ((px-0.5)*9).toFixed(2) + 'deg) translateY(-5px)';
+  });
+  el.addEventListener('mouseleave', () => { rect = null; el.style.transform = ''; });
+}
+
+/* ---------------------------------------------------------------------------
+   MODAL
+   --------------------------------------------------------------------------- */
+let modalIdx = -1;
+function openModal(i){
+  modalIdx = i;
+  const p = PROJECTS[i];
+  const links = p.links.map(l =>
+    '<a class="btn" href="' + esc(l.u) + '" target="_blank" rel="noopener">' + esc(l.l) + ' ↗</a>').join('');
+
+  $('#modalIn').innerHTML =
+    '<div class="m-hd" style="--ac:' + p.ac + '">' +
+      '<button class="m-close" id="mClose" aria-label="Close">✕</button>' +
+      '<span class="c-ico" style="--ac:' + p.ac + ';background:color-mix(in srgb,' + p.ac + ' 14%,transparent);border-color:color-mix(in srgb,' + p.ac + ' 34%,transparent)">' + p.icon + '</span>' +
+      '<h3 class="m-title">' + esc(p.name) + '</h3>' +
+      '<p class="m-sub" style="color:' + p.ac + '">' + esc(L(p.sub)) + '</p>' +
+      '<div class="m-meta">' +
+        '<span>' + esc(t('m.role')) + ': ' + esc(L(p.role)) + '</span>' +
+        '<span>' + esc(t('m.org')) + ': ' + esc(L(p.org)) + '</span>' +
+        '<span>' + esc(t('m.year')) + ': ' + esc(p.year) + '</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="m-bd" style="--ac:' + p.ac + '">' +
+      (p.stats && p.stats.length ? '<div class="m-stats">' + p.stats.map(s =>
+        '<div class="m-stat"><b style="color:' + p.ac + '">' + esc(s.k) + '</b><i>' + esc(L(s.v)) + '</i></div>').join('') + '</div>' : '') +
+      '<h4>' + esc(t('m.about')) + '</h4>' +
+      '<ul>' + L(p.detail).map(d => '<li>' + esc(d) + '</li>').join('') + '</ul>' +
+      '<h4>' + esc(t('m.stack')) + '</h4>' +
+      '<div class="tags" style="margin-bottom:26px">' + p.stack.map(s => '<span class="tag">' + esc(s) + '</span>').join('') + '</div>' +
+      (links ? '<div class="m-links">' + links + '</div>' : '') +
+    '</div>' +
+    '<div class="m-nav">' +
+      '<button id="mPrev">' + esc(t('m.prev')) + '</button>' +
+      '<button id="mNext">' + esc(t('m.next')) + '</button>' +
+    '</div>';
+
+  $('#ov').classList.add('open');
+  $('#modal').setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  $('#modalIn').scrollTop = 0;
+  $('#mClose').addEventListener('click', closeModal);
+  $('#mPrev').addEventListener('click', () => openModal((i - 1 + PROJECTS.length) % PROJECTS.length));
+  $('#mNext').addEventListener('click', () => openModal((i + 1) % PROJECTS.length));
+  $('#mClose').focus();
+}
+function closeModal(){
+  modalIdx = -1;
+  $('#ov').classList.remove('open');
+  $('#modal').setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  setTimeout(() => { if (modalIdx === -1) $('#modalIn').innerHTML = ''; }, 420);
+}
+$('#ov').addEventListener('click', closeModal);
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+
+/* ---------------------------------------------------------------------------
+   TIMELINE / SKILLS / CERTS
+   --------------------------------------------------------------------------- */
+function renderJobs(){
+  const fill = '<div class="tl-fill" id="tlfill"></div>';
+  $('#tl').innerHTML = fill + JOBS.map(j =>
+    '<article class="job rv">' +
+      '<div class="job-top"><h3>' + esc(j.co) + '</h3><span class="when">' + esc(j.when) + '</span></div>' +
+      '<p class="who">' + esc(L(j.role)) + '</p>' +
+      '<p class="where">' + esc(L(j.where)) + '</p>' +
+      '<ul>' + L(j.pts).map(p => '<li>' + esc(p) + '</li>').join('') + '</ul>' +
+    '</article>'
+  ).join('');
+}
+function renderSkills(){
+  $('#skills').innerHTML = SKILLS.map(s =>
+    '<div class="sk rv"><h4>' + esc(L(s.t)) + '</h4><ul>' +
+    s.i.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul></div>'
+  ).join('');
+}
+function renderCerts(){
+  $('#certs').innerHTML = CERTS.map(c =>
+    '<div class="cert"><span>' + esc(c[0]) + '</span><em>' + esc(c[1]) + '</em></div>').join('');
+}
+
+/* ---------------------------------------------------------------------------
+   SCROLL: reveal, progress, active nav, timeline fill
+   --------------------------------------------------------------------------- */
+function observe(){
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      $$('[data-to]', e.target).forEach(countUp);
+      io.unobserve(e.target);
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  $$('.rv, .job').forEach(el => io.observe(el));
+}
+
+addEventListener('scroll', () => {
+  const st = scrollY;
+  const max = document.documentElement.scrollHeight - innerHeight;
+  $('#prog').style.width = (max > 0 ? (st/max)*100 : 0) + '%';
+
+  const tl = $('#tl'), fill = $('#tlfill');
+  if (tl && fill){
+    const r = tl.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (innerHeight*0.65 - r.top) / r.height));
+    fill.style.height = (p * r.height) + 'px';
+  }
+
+  let cur = '';
+  $$('main section[id]').forEach(s => { if (s.getBoundingClientRect().top <= 120) cur = s.id; });
+  $$('.nav-links a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+}, {passive:true});
+
+/* ---------------------------------------------------------------------------
+   MAGNETIC BUTTONS
+   --------------------------------------------------------------------------- */
+function magnetic(){
+  if (REDUCED || matchMedia('(pointer:coarse)').matches) return;
+  $$('.mag').forEach(b => {
+    b.addEventListener('mousemove', e => {
+      const r = b.getBoundingClientRect();
+      b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*.18) + 'px,' + ((e.clientY-r.top-r.height/2)*.3) + 'px)';
+    });
+    b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+  });
+}
+
+/* ---------------------------------------------------------------------------
+   COMMAND PALETTE
+   --------------------------------------------------------------------------- */
+(function palette(){
+  const box = $('#cmd'), input = $('#cmdInput'), list = $('#cmdList');
+  let sel = 0, results = [];
+
+  function build(q){
+    const s = q.trim().toLowerCase();
+    results = PROJECTS.map((p,i) => ({p,i})).filter(({p}) =>
+      !s ||
+      p.name.toLowerCase().includes(s) ||
+      L(p.sub).toLowerCase().includes(s) ||
+      L(p.org).toLowerCase().includes(s) ||
+      p.stack.join(' ').toLowerCase().includes(s) ||
+      p.cats.join(' ').toLowerCase().includes(s)
+    );
+    sel = 0;
+    list.innerHTML = results.length
+      ? results.map(({p,i}, n) =>
+          '<button class="cmd-item' + (n===0?' sel':'') + '" data-i="' + i + '">' +
+          '<span class="ci">' + p.icon + '</span><b>' + esc(p.name) + '</b>' +
+          '<span>' + esc(p.cats.filter(c=>c!=='featured')[0] || '') + '</span></button>').join('')
+      : '<div style="padding:26px;text-align:center;color:var(--ink-3);font-family:var(--mono);font-size:.8rem">no match</div>';
+    $$('.cmd-item', list).forEach(b => b.addEventListener('click', () => { close(); openModal(+b.dataset.i); }));
+  }
+  function move(d){
+    const items = $$('.cmd-item', list);
+    if (!items.length) return;
+    sel = (sel + d + items.length) % items.length;
+    items.forEach((it,n) => it.classList.toggle('sel', n === sel));
+    items[sel].scrollIntoView({block:'nearest'});
+  }
+  function open(){ box.classList.add('open'); input.value=''; input.placeholder = t('ui.search'); build(''); input.focus(); }
+  function close(){ box.classList.remove('open'); }
+
+  $('#openCmd').addEventListener('click', open);
+  input.addEventListener('input', e => build(e.target.value));
+  box.addEventListener('click', e => { if (e.target === box) close(); });
+  addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); box.classList.contains('open') ? close() : open(); return; }
+    if (box.classList.contains('open')){
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowDown'){ e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowUp'){ e.preventDefault(); move(-1); }
+      else if (e.key === 'Enter'){
+        const it = $$('.cmd-item', list)[sel];
+        if (it){ close(); openModal(+it.dataset.i); }
+      }
+      return;
+    }
+    if ($('#ov').classList.contains('open')){
+      if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowRight') openModal((modalIdx + 1) % PROJECTS.length);
+      else if (e.key === 'ArrowLeft')  openModal((modalIdx - 1 + PROJECTS.length) % PROJECTS.length);
+    }
+  });
+})();
+
+/* ---------------------------------------------------------------------------
+   MOBILE SHEET
+   --------------------------------------------------------------------------- */
+$('#burger').addEventListener('click', () => $('#sheet').classList.add('open'));
+$('#sheetX').addEventListener('click', () => $('#sheet').classList.remove('open'));
+$$('#sheet a').forEach(a => a.addEventListener('click', () => $('#sheet').classList.remove('open')));
+
+/* ---------------------------------------------------------------------------
+   TOAST + KONAMI
+   --------------------------------------------------------------------------- */
+function refreshHot(){
+  window.__HOT = getComputedStyle(document.body).getPropertyValue('--hot-rgb').trim() || '255,122,24';
+}
+function toast(msg){
+  const el = $('#toast');
+  el.textContent = msg; el.classList.add('on');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('on'), 2600);
+}
+(function konami(){
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let n = 0;
+  addEventListener('keydown', e => {
+    n = (e.key.toLowerCase() === seq[n].toLowerCase()) ? n+1 : 0;
+    if (n === seq.length){
+      n = 0;
+      document.body.classList.toggle('arcade');
+      refreshHot();
+      toast(t(document.body.classList.contains('arcade') ? 'toast.arcade' : 'toast.normal'));
+    }
+  });
+})();
+
+/* ---------------------------------------------------------------------------
+   LANGUAGE
+   --------------------------------------------------------------------------- */
+function applyLang(){
+  document.documentElement.lang = LANG === 'ms' ? 'ms' : 'en';
+  $$('[data-i18n]').forEach(el => { const v = t(el.dataset.i18n); if (v) el.textContent = v; });
+  $('#cmdInput').placeholder = t('ui.search');
+  $$('.lang button').forEach(b => b.classList.toggle('on', b.dataset.lang === LANG));
+  renderFilters(); renderGrid(); renderJobs(); renderSkills();
+  observe(); magnetic();
+  $$('#stats [data-to]').forEach(el => { el.textContent = el.dataset.to; });
+  if (modalIdx > -1) openModal(modalIdx);
+}
+$$('.lang button').forEach(b => b.addEventListener('click', () => {
+  LANG = b.dataset.lang;
+  localStorage.setItem('zt-lang', LANG);
+  applyLang();
+}));
+
+/* ---------------------------------------------------------------------------
+   BOOT
+   --------------------------------------------------------------------------- */
+refreshHot();
+$('#yr').textContent = new Date().getFullYear();
+renderStats(); renderCerts();
+applyLang();
+observe(); magnetic();
+</script>
+</body>
+</html>
