@@ -8,6 +8,7 @@ portfolio-v2/
 ├── favicon.ico  ← ikon 64px (browser minta /favicon.ico untuk resume.pdf)
 ├── app-ads.txt  ← verifikasi AdMob — JANGAN buang
 ├── resume.pdf   ← disalin dari NurZaitulAkmal_Resume.pdf
+├── shots/       ← 14 screenshot app sebenar (WebP, 184 KB semua)
 └── README.md
 ```
 
@@ -96,6 +97,23 @@ Projek lain yang ada dalam mesin tetapi tidak dipaparkan (Slimora, TM Morse
 Challenge, IR Academy, DGAS, CutePet, Hot Wheels Racer, Cute Obby, Cat Cafe,
 Background Check System, Ilham Integrasi, UM Bookstore, kad jemputan) masih
 boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
+
+## Screenshot app
+
+`shots/` ada 14 screenshot sebenar, bukan mockup:
+
+| App | Sumber | Bilangan |
+|---|---|---|
+| Slimora | Simulator iPhone 17 Pro (`~/Desktop/slimora`) | 6 |
+| EduBuddy | Simulator iPhone 17 Pro (`~/Desktop/edubddy`) | 6 |
+| iGnite | Tangkapan dari binaan Flutter web (`ignite_mockup/docs`) | 2 |
+
+Diubah saiz kepada 860px tinggi dan ditukar ke WebP q76 — 184 KB untuk semua 14.
+Banner iklan "Test mode" AdMob dipotong dari screenshot fasting Slimora.
+
+Nak tambah screenshot: letak fail dalam `shots/`, kemudian tambah ke array
+`shots:[...]` projek berkenaan. Kad ambil 3 yang pertama untuk bingkai telefon;
+modal papar semua dalam galeri.
 
 ## Pautan luar
 

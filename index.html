@@ -197,6 +197,39 @@ h2.sec{font-family:var(--display);font-size:clamp(1.9rem,5vw,3.1rem);font-weight
 .card.hide{display:none}
 .card.pop{animation:pop .55s var(--ease) both}
 @keyframes pop{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+.c-shots{position:relative;height:172px;margin:-24px -24px 20px;border-radius:17px 17px 0 0;overflow:hidden;
+  background:radial-gradient(120% 110% at 50% 0%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 68%),var(--panel-2);
+  border-bottom:1px solid var(--line)}
+.ph{position:absolute;left:50%;bottom:-46%;width:104px;margin-left:-52px;transition:transform .55s var(--ease),opacity .55s var(--ease)}
+.ph img{width:100%;display:block;border-radius:11px;border:2px solid #090b11;box-shadow:0 12px 34px rgba(0,0,0,.62);background:#fff}
+.ph.l{transform:translateX(-84px) rotate(-12deg) scale(.9);opacity:.55}
+.ph.r{transform:translateX(84px) rotate(12deg) scale(.9);opacity:.55}
+.ph.c{transform:rotate(-3deg);z-index:2}
+.card:hover .ph.l{transform:translateX(-102px) rotate(-16deg) scale(.94);opacity:.85}
+.card:hover .ph.r{transform:translateX(102px) rotate(16deg) scale(.94);opacity:.85}
+.card:hover .ph.c{transform:rotate(0deg) translateY(-12px)}
+.shot-badge{position:absolute;top:12px;right:12px;z-index:3;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-2);background:rgba(5,6,10,.66);border:1px solid var(--line-2);
+  border-radius:999px;padding:4px 9px;backdrop-filter:blur(6px)}
+
+.m-gal{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 14px;margin-bottom:26px;scroll-snap-type:x mandatory}
+.m-gal button{flex:none;width:132px;scroll-snap-align:start;border-radius:12px;overflow:hidden;
+  border:1px solid var(--line);background:var(--panel-2);transition:.25s var(--ease);padding:0;line-height:0}
+.m-gal button:hover{border-color:var(--ac);transform:translateY(-4px)}
+.m-gal img{width:100%;display:block;background:#fff}
+
+.lb{position:fixed;inset:0;z-index:420;background:rgba(3,4,7,.94);backdrop-filter:blur(12px);
+  display:none;align-items:center;justify-content:center;gap:26px;padding:24px}
+.lb.open{display:flex}
+.lb img{max-height:88vh;max-width:min(420px,86vw);border-radius:18px;border:2px solid #090b11;box-shadow:0 30px 90px rgba(0,0,0,.8)}
+.lb button{width:46px;height:46px;border:1px solid var(--line-2);border-radius:50%;color:var(--ink);
+  font-size:1.1rem;flex:none;transition:.2s;background:rgba(255,255,255,.04)}
+.lb button:hover{border-color:var(--hot);color:var(--hot)}
+.lb .x{position:absolute;top:22px;right:24px;width:40px;height:40px;border-radius:12px;font-size:.95rem}
+.lb .cnt{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.14em;color:var(--ink-3)}
+@media(max-width:620px){.lb{gap:10px;padding:12px}.lb button{width:38px;height:38px}}
+
 .c-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
 .c-ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:1.35rem;background:color-mix(in srgb,var(--ac) 14%,transparent);border:1px solid color-mix(in srgb,var(--ac) 34%,transparent)}
 .c-yr{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ink-3);white-space:nowrap;padding-top:6px}
@@ -481,6 +514,14 @@ footer{border-top:1px solid var(--line);padding:26px 0;font-family:var(--mono);f
   </div>
 </div>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="x" id="lbX" aria-label="Close">✕</button>
+  <button id="lbPrev" aria-label="Previous">‹</button>
+  <img id="lbImg" src="" alt="App screenshot">
+  <button id="lbNext" aria-label="Next">›</button>
+  <span class="cnt" id="lbCnt"></span>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -517,7 +558,7 @@ const PROJECTS = [
   links:[]
 },
 {
-  id:'slimfit', name:'SlimFit', icon:'🥗', ac:AC.rn, year:'2026 — now', cats:['rn','featured'],
+  id:'slimora', name:'Slimora', icon:'🥗', ac:AC.rn, year:'2026 — now', cats:['rn','featured'],
   sub:{en:'Health & Fitness Tracker',ms:'Penjejak Kesihatan & Kecergasan'},
   role:{en:'Solo Developer',ms:'Pembangun Solo'},
   org:{en:'Personal product · shipped to Play Store',ms:'Produk peribadi · dihantar ke Play Store'},
@@ -530,16 +571,19 @@ const PROJECTS = [
     'Offline-first persistence on expo-sqlite with Drizzle ORM across thirteen tables — profile, logs, meal presets, streaks, badges, measurements and a Nutritionix response cache.',
     'Eleven Zustand stores including gamification (streaks and badges), a fasting tracker, and a notification engine that schedules reminders on device.',
     'Derived insight layer: health score, goal projection and an automated weekly report built from the logged data.',
-    'Bilingual English / Bahasa Malaysia throughout, with charts drawn in Victory Native and React Native Skia.'
+    'Bilingual English / Bahasa Malaysia throughout, with charts drawn in Victory Native and React Native Skia.',
+    'Source lives in the SlimFit repository; the shipped Play Store product is branded Slimora.'
   ],ms:[
     'Tiga puluh tiga skrin Expo Router meliputi log makanan, air, berat, senaman, puasa, ukuran badan, kebun sayur, laporan mingguan, profil dan pengesahan.',
     'Kemasukan makanan tiga cara: imbasan barcode dengan expo-camera terhadap API Open Food Facts dan Nutritionix, servis AI vision yang membaca gambar hidangan, dan pangkalan data makanan tempatan Malaysia.',
     'Kegigihan offline-first atas expo-sqlite dengan Drizzle ORM merentas tiga belas jadual — profil, log, pratetap hidangan, streak, lencana, ukuran dan cache respons Nutritionix.',
     'Sebelas store Zustand termasuk gamifikasi (streak dan lencana), penjejak puasa, dan enjin notifikasi yang menjadualkan peringatan atas peranti.',
     'Lapisan cerapan terbitan: skor kesihatan, unjuran matlamat dan laporan mingguan automatik dibina daripada data yang dilog.',
-    'Dwibahasa Inggeris / Bahasa Malaysia sepenuhnya, dengan carta dilukis dalam Victory Native dan React Native Skia.'
+    'Dwibahasa Inggeris / Bahasa Malaysia sepenuhnya, dengan carta dilukis dalam Victory Native dan React Native Skia.',
+    'Kod sumber berada dalam repositori SlimFit; produk Play Store yang dihantar berjenama Slimora.'
   ]},
   stats:[{k:'33',v:{en:'Screens',ms:'Skrin'}},{k:'13',v:{en:'SQLite tables',ms:'Jadual SQLite'}},{k:'11',v:{en:'State stores',ms:'Store state'}},{k:'v35',v:{en:'Shipped build',ms:'Binaan dihantar'}}],
+  shots:['shots/slimora-1.webp','shots/slimora-2.webp','shots/slimora-3.webp','shots/slimora-4.webp','shots/slimora-5.webp','shots/slimora-6.webp'],
   links:[{l:'GitHub',u:'https://github.com/zaitulakmal/SlimFit'}]
 },
 {
@@ -562,6 +606,7 @@ const PROJECTS = [
     'Dikeluarkan sebagai bundle aplikasi Android edubuddy-v3 (1.0.2).'
   ]},
   stats:[{k:'5',v:{en:'Content modules',ms:'Modul kandungan'}},{k:'v3',v:{en:'Shipped',ms:'Dihantar'}}],
+  shots:['shots/edubuddy-1.webp','shots/edubuddy-2.webp','shots/edubuddy-3.webp','shots/edubuddy-4.webp','shots/edubuddy-5.webp','shots/edubuddy-6.webp'],
   links:[{l:'GitHub',u:'https://github.com/zaitulakmal/EduBuddy'}]
 },
 {
@@ -586,6 +631,7 @@ const PROJECTS = [
     'Mereka sistem "Ember": ember oren-merah #F04E23 untuk haba, teal perubatan #0E9DA4, neutral klinikal, jejari 20px dan skala warna haba terikat pada nilai suhu.'
   ]},
   stats:[{k:'10',v:{en:'Screens',ms:'Skrin'}},{k:'4',v:{en:'Wrap ports',ms:'Port balutan'}},{k:'35-45°',v:{en:'Heat range',ms:'Julat haba'}}],
+  shots:['shots/ignite-1.webp','shots/ignite-2.webp'],
   links:[]
 },
 {
@@ -865,7 +911,7 @@ const T = {
   'contact.eyebrow':'Contact','contact.title':"Let's build something.",
   'contact.note':'Open to full stack and mobile developer roles, freelance builds, and research collaborations. Based in Sungai Buloh, Selangor — happy to work remote.',
   'foot.built':'HAND-CODED · NO FRAMEWORK · ONE FILE',
-  'm.role':'Role','m.org':'Context','m.year':'Timeline','m.about':'What it is','m.stack':'Built with','m.prev':'← Previous','m.next':'Next →',
+  'm.role':'Role','m.org':'Context','m.year':'Timeline','m.about':'What it is','m.screens':'Screens','m.stack':'Built with','m.prev':'← Previous','m.next':'Next →',
   'ui.showing':'showing','ui.of':'of','ui.projects':'projects','ui.empty':'No projects in this category.',
   'ui.search':'Search projects, tech, companies…',
   'stat.projects':'Projects shipped','stat.years':'Years building','stat.orgs':'Employers','stat.tech':'Technologies used',
@@ -884,7 +930,7 @@ const T = {
   'contact.eyebrow':'Hubungi','contact.title':'Jom bina sesuatu.',
   'contact.note':'Terbuka untuk peranan pembangun full stack dan mudah alih, kerja bebas, dan kolaborasi penyelidikan. Berpangkalan di Sungai Buloh, Selangor — boleh bekerja jarak jauh.',
   'foot.built':'DIKOD SENDIRI · TANPA RANGKA KERJA · SATU FAIL',
-  'm.role':'Peranan','m.org':'Konteks','m.year':'Garis masa','m.about':'Apa itu','m.stack':'Dibina dengan','m.prev':'← Sebelum','m.next':'Seterusnya →',
+  'm.role':'Peranan','m.org':'Konteks','m.year':'Garis masa','m.about':'Apa itu','m.screens':'Skrin','m.stack':'Dibina dengan','m.prev':'← Sebelum','m.next':'Seterusnya →',
   'ui.showing':'papar','ui.of':'daripada','ui.projects':'projek','ui.empty':'Tiada projek dalam kategori ini.',
   'ui.search':'Cari projek, teknologi, syarikat…',
   'stat.projects':'Projek dihantar','stat.years':'Tahun membina','stat.orgs':'Majikan','stat.tech':'Teknologi digunakan',
@@ -1129,7 +1175,13 @@ function renderFilters(){
 function renderGrid(){
   $('#grid').innerHTML = PROJECTS.map((p, idx) =>
     '<button class="card" data-i="' + idx + '" data-cats="' + p.cats.join(' ') + '" style="--ac:' + p.ac + '">' +
-      '<span class="c-top">' +
+      (p.shots ? '<span class="c-shots">' +
+        '<span class="shot-badge">' + p.shots.length + ' ' + (LANG==='ms'?'skrin':'screens') + '</span>' +
+        '<span class="ph l"><img src="' + p.shots[1 % p.shots.length] + '" alt="" loading="lazy"></span>' +
+        '<span class="ph r"><img src="' + p.shots[2 % p.shots.length] + '" alt="" loading="lazy"></span>' +
+        '<span class="ph c"><img src="' + p.shots[0] + '" alt="" loading="lazy"></span>' +
+      '</span>' : '') +
+    '<span class="c-top">' +
         '<span class="c-ico">' + p.icon + '</span>' +
         '<span class="c-yr">' + esc(p.year) + '</span>' +
       '</span>' +
@@ -1212,6 +1264,9 @@ function openModal(i){
     '<div class="m-bd" style="--ac:' + p.ac + '">' +
       (p.stats && p.stats.length ? '<div class="m-stats">' + p.stats.map(s =>
         '<div class="m-stat"><b style="color:' + p.ac + '">' + esc(s.k) + '</b><i>' + esc(L(s.v)) + '</i></div>').join('') + '</div>' : '') +
+      (p.shots ? '<h4>' + esc(t('m.screens')) + '</h4><div class="m-gal">' +
+        p.shots.map((sh,n) => '<button data-sh="' + n + '"><img src="' + sh + '" alt="" loading="lazy"></button>').join('') +
+      '</div>' : '') +
       '<h4>' + esc(t('m.about')) + '</h4>' +
       '<ul>' + L(p.detail).map(d => '<li>' + esc(d) + '</li>').join('') + '</ul>' +
       '<h4>' + esc(t('m.stack')) + '</h4>' +
@@ -1227,12 +1282,15 @@ function openModal(i){
   $('#modal').setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
   $('#modalIn').scrollTop = 0;
+  $$('.m-gal button', $('#modalIn')).forEach(btn =>
+    btn.addEventListener('click', () => openLightbox(p.shots, +btn.dataset.sh)));
   $('#mClose').addEventListener('click', closeModal);
   $('#mPrev').addEventListener('click', () => openModal((i - 1 + PROJECTS.length) % PROJECTS.length));
   $('#mNext').addEventListener('click', () => openModal((i + 1) % PROJECTS.length));
   $('#mClose').focus();
 }
 function closeModal(){
+  closeLightbox();
   modalIdx = -1;
   $('#ov').classList.remove('open');
   $('#modal').setAttribute('aria-hidden','true');
@@ -1241,6 +1299,30 @@ function closeModal(){
 }
 $('#ov').addEventListener('click', closeModal);
 $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+
+/* ---------------------------------------------------------------------------
+   LIGHTBOX
+   --------------------------------------------------------------------------- */
+let lbShots = [], lbIdx = 0;
+function openLightbox(shots, i){
+  lbShots = shots || []; lbIdx = i || 0;
+  if (!lbShots.length) return;
+  paintLightbox();
+  $('#lb').classList.add('open');
+  $('#lbX').focus();
+}
+function paintLightbox(){
+  $('#lbImg').src = lbShots[lbIdx];
+  $('#lbCnt').textContent = (lbIdx + 1) + ' / ' + lbShots.length;
+  const many = lbShots.length > 1;
+  $('#lbPrev').hidden = !many; $('#lbNext').hidden = !many;
+}
+function lbStep(d){ lbIdx = (lbIdx + d + lbShots.length) % lbShots.length; paintLightbox(); }
+function closeLightbox(){ $('#lb').classList.remove('open'); }
+$('#lbX').addEventListener('click', closeLightbox);
+$('#lbPrev').addEventListener('click', e => { e.stopPropagation(); lbStep(-1); });
+$('#lbNext').addEventListener('click', e => { e.stopPropagation(); lbStep(1); });
+$('#lb').addEventListener('click', e => { if (e.target.id === 'lb') closeLightbox(); });
 
 /* ---------------------------------------------------------------------------
    TIMELINE / SKILLS / CERTS
@@ -1362,6 +1444,12 @@ function magnetic(){
         const it = $$('.cmd-item', list)[sel];
         if (it){ close(); openModal(+it.dataset.i); }
       }
+      return;
+    }
+    if ($('#lb').classList.contains('open')){
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') lbStep(1);
+      else if (e.key === 'ArrowLeft')  lbStep(-1);
       return;
     }
     if ($('#ov').classList.contains('open')){
