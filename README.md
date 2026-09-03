@@ -85,9 +85,25 @@ command palette semuanya terbit sendiri daripada data itu.
 - Foto profil belum dimasukkan. Kalau nak, letak fail dalam folder ini dan rujuk
   dari seksyen hero.
 
-## Belum dimasukkan
+## Skop projek
 
-- `isnetportal` — repo di bawah akaun orang lain (`hazree82`), peranan tidak dapat
-  disahkan dari kod.
-- `telegram_ucapan` — repo Wariscan, README masih templat Flutter kosong.
-- Repo EZCare — dikecualikan atas permintaan.
+Laman ini memaparkan **11 projek** pilihan:
+
+BioWare · SlimFit · EduBuddy · iGnite · EchoLens · EchoDots · Lensa Kenduri ·
+Gold Purity Analyzer · ORALVIS · DAWar System · Zakat Distribution App
+
+Projek lain yang ada dalam mesin tetapi tidak dipaparkan (Slimora, TM Morse
+Challenge, IR Academy, DGAS, CutePet, Hot Wheels Racer, Cute Obby, Cat Cafe,
+Background Check System, Ilham Integrasi, UM Bookstore, kad jemputan) masih
+boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
+
+## Pautan luar
+
+Hanya destinasi **public** dipautkan. Repo ini private, jadi pautannya dibuang
+supaya pelawat tidak dapat 404:
+
+- `zaitulakmal/Atul-BioWare` (BioWare)
+- `zaitulakmal/lensa-kenduri` (Lensa Kenduri — pautan laman langsung dikekalkan)
+
+Kalau repo itu ditukar public, pautan boleh dipasang semula dalam `links:[]`
+projek berkenaan.

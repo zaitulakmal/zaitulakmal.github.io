@@ -417,7 +417,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;font-family:var(--mono);f
     <div class="wrap">
       <p class="eyebrow rv" data-i18n="stack.eyebrow">Toolbox</p>
       <h2 class="sec rv" data-i18n="stack.title">Stack &amp; tooling</h2>
-      <p class="sec-note rv" data-i18n="stack.note">What I actually reach for. Everything listed here appears in shipped work above.</p>
+      <p class="sec-note rv" data-i18n="stack.note">What I actually reach for across shipped products, client work and research.</p>
       <div class="skills" id="skills"></div>
     </div>
   </section>
@@ -514,121 +514,33 @@ const PROJECTS = [
     'Bertanggungjawab ke atas reka bentuk UI/UX, pembangunan frontend dan penyelarasan ujian pengguna rintis sepanjang tempoh penyelidikan.'
   ]},
   stats:[{k:'26',v:{en:'Unity scenes',ms:'Scene Unity'}},{k:'77',v:{en:'C# scripts',ms:'Skrip C#'}},{k:'6',v:{en:'Clinical cases',ms:'Kes klinikal'}},{k:'87',v:{en:'Commits',ms:'Commit'}}],
-  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/Atul-BioWare'}]
-},
-{
-  id:'bioware-um', name:'BIOWARE — UM Build', icon:'🧬', ac:AC.unity, year:'2025 — now', cats:['unity','games','research'],
-  sub:{en:'Production Team Repository',ms:'Repositori Pasukan Produksi'},
-  role:{en:'Developer · Wariscan × Universiti Malaya',ms:'Pembangun · Wariscan × Universiti Malaya'},
-  org:{en:'Wariscan Sdn Bhd',ms:'Wariscan Sdn Bhd'},
-  stack:['Unity 6','C#','URP','Prefabs','StreamingAssets'],
-  blurb:{en:'The shared production build of BioWare — prefab-driven case system, streamed video cutscenes and a recovery pipeline for a multi-person team.',
-         ms:'Binaan produksi BioWare yang dikongsi — sistem kes berasaskan prefab, cutscene video strim dan saluran pemulihan untuk pasukan berbilang orang.'},
-  detail:{en:[
-    'Team-facing counterpart to the solo BioWare repo, hosted under the Wariscan organisation.',
-    'Case content moved into prefabs (Case 4, Case 5, Case 6, ItemPick, Tutorial) so writers and designers can extend cases without touching scene files.',
-    'Video cutscenes served from StreamingAssets with a dedicated build processor, keeping the WebGL bundle size workable.',
-    'Editor tooling: custom BuildScript and VideoBuildProcessor to make builds reproducible across machines.'
-  ],ms:[
-    'Versi pasukan kepada repo BioWare solo, dihoskan di bawah organisasi Wariscan.',
-    'Kandungan kes dipindah ke prefab (Case 4, Case 5, Case 6, ItemPick, Tutorial) supaya penulis dan pereka boleh tambah kes tanpa sentuh fail scene.',
-    'Cutscene video dihidangkan dari StreamingAssets dengan pemproses binaan khusus, mengekalkan saiz bundle WebGL yang munasabah.',
-    'Perkakas editor: BuildScript dan VideoBuildProcessor tersuai supaya binaan boleh dihasilkan semula merentas mesin.'
-  ]},
-  stats:[{k:'Unity 6',v:{en:'6000.2.6f2',ms:'6000.2.6f2'}},{k:'URP',v:{en:'Render pipeline',ms:'Saluran render'}},{k:'WebGL',v:{en:'Target',ms:'Sasaran'}}],
   links:[]
 },
 {
-  id:'um-3d', name:'UM Hospital & Lab', icon:'🏥', ac:AC.unity, year:'2025', cats:['unity','research','games'],
-  sub:{en:'3D Environment Prototype',ms:'Prototaip Persekitaran 3D'},
-  role:{en:'Developer',ms:'Pembangun'},
-  org:{en:'Universiti Malaya',ms:'Universiti Malaya'},
-  stack:['Unity 6','URP','C#','Input System','FBX'],
-  blurb:{en:'Explorable 3D hospital corridor and laboratory environment built in URP, with a first-person controller on Unity’s new Input System.',
-         ms:'Persekitaran koridor hospital dan makmal 3D yang boleh dijelajah, dibina dalam URP dengan pengawal orang-pertama pada Input System baharu Unity.'},
-  detail:{en:[
-    'Environment prototype for the serious-game research: a hospital corridor and a laboratory scene assembled from FBX models with custom materials and lightmapping.',
-    'Player_Controller built on Unity’s new Input System action maps rather than the legacy input manager.',
-    'URP configured with a shader-variant collection to keep first-load compile stalls down.'
-  ],ms:[
-    'Prototaip persekitaran untuk penyelidikan serious game: koridor hospital dan scene makmal disusun daripada model FBX dengan bahan tersuai dan lightmapping.',
-    'Player_Controller dibina atas action map Input System baharu Unity, bukan input manager lama.',
-    'URP dikonfigur dengan koleksi varian shader untuk kurangkan tersekat semasa muat pertama.'
-  ]},
-  stats:[{k:'2',v:{en:'Scenes',ms:'Scene'}},{k:'URP',v:{en:'Pipeline',ms:'Pipeline'}}],
-  links:[]
-},
-{
-  id:'slimtrack', name:'SlimTrack', icon:'🥗', ac:AC.rn, year:'2026 — now', cats:['rn','featured'],
+  id:'slimfit', name:'SlimFit', icon:'🥗', ac:AC.rn, year:'2026 — now', cats:['rn','featured'],
   sub:{en:'Health & Fitness Tracker',ms:'Penjejak Kesihatan & Kecergasan'},
   role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'Personal product',ms:'Produk peribadi'},
-  stack:['React Native','Expo Router','TypeScript','SQLite','Drizzle ORM','Zustand','Skia','i18next'],
-  blurb:{en:'Offline-first health app: barcode food logging, water, weight, workouts, recipes and a nearby grocery locator — fully bilingual.',
-         ms:'Aplikasi kesihatan offline-first: log makanan imbas barcode, air, berat, senaman, resipi dan pencari kedai runcit berdekatan — dwibahasa penuh.'},
-  detail:{en:[
-    'Eight feature areas behind Expo Router tabs: food log (search / barcode scan / recipes), water, weight, activity, grocery map, profile and onboarding.',
-    'Barcode scanning with expo-camera resolves products against the Open Food Facts and Nutritionix APIs, then writes the entry locally.',
-    'Offline-first persistence with expo-sqlite + Drizzle ORM including schema migrations — the app works with no network at all.',
-    'Charts drawn with Victory Native and React Native Skia; state in Zustand; native maps via react-native-maps for the grocery locator.',
-    'Bilingual English / Bahasa Malaysia through react-i18next with expo-localization picking up the device language.'
-  ],ms:[
-    'Lapan kawasan ciri di bawah tab Expo Router: log makanan (carian / imbas barcode / resipi), air, berat, aktiviti, peta runcit, profil dan onboarding.',
-    'Imbasan barcode dengan expo-camera memadankan produk dengan API Open Food Facts dan Nutritionix, kemudian tulis entri secara tempatan.',
-    'Kegigihan offline-first dengan expo-sqlite + Drizzle ORM termasuk migrasi skema — aplikasi berfungsi tanpa rangkaian langsung.',
-    'Carta dilukis dengan Victory Native dan React Native Skia; state dalam Zustand; peta natif melalui react-native-maps untuk pencari runcit.',
-    'Dwibahasa Inggeris / Bahasa Malaysia melalui react-i18next dengan expo-localization mengesan bahasa peranti.'
-  ]},
-  stats:[{k:'18',v:{en:'Screens',ms:'Skrin'}},{k:'8',v:{en:'Feature areas',ms:'Kawasan ciri'}},{k:'2',v:{en:'Languages',ms:'Bahasa'}}],
-  links:[]
-},
-{
-  id:'tm-morse', name:'TM Morse Code Challenge', icon:'📡', ac:AC.flutter, year:'2026', cats:['flutter','featured','games'],
-  sub:{en:'National STEM Competition Platform',ms:'Platform Pertandingan STEM Kebangsaan'},
-  role:{en:'Developer · Wariscan Sdn Bhd',ms:'Pembangun · Wariscan Sdn Bhd'},
-  org:{en:'TM Muzium Telegraf Taiping',ms:'TM Muzium Telegraf Taiping'},
-  stack:['Flutter','Firebase','flutter_blue_plus','Audio synthesis','Bilingual'],
-  blurb:{en:'One Flutter app serving four audiences — students, practice mode, admin operators and a live hall big-screen — for a 30-team national Morse competition.',
-         ms:'Satu aplikasi Flutter untuk empat khalayak — pelajar, mod latihan, operator admin dan skrin besar dewan — bagi pertandingan Morse kebangsaan 30 pasukan.'},
-  detail:{en:[
-    'Four distinct interfaces in one codebase: Student (30 school teams), Practice, Admin (rounds, scoring, pairings, question bank) and Big Screen (live leaderboard for the hall audience).',
-    'Morse audio is synthesised in-app at 650 Hz with standard dot/dash timing — no audio assets shipped, any phrase can be generated on demand.',
-    'A working Morse key: on-screen tap/hold, or a real Bluetooth EchoDot hardware key over flutter_blue_plus — both feed the same decode path.',
-    'Koch-method practice with 35 levels and unlimited randomly generated drills, matching the difficulty curve used in the live rounds.',
-    'Full competition flow: Round 1 audio decryption (40%) → Round 2 Morse sending (60%) → Top 10 qualification → 4-round Swiss semi-final → Top 5 grand final.',
-    'Fully bilingual Bahasa Malaysia / English, switchable on every screen.'
-  ],ms:[
-    'Empat antara muka berbeza dalam satu codebase: Pelajar (30 pasukan sekolah), Latihan, Admin (pusingan, pemarkahan, pemadanan, bank soalan) dan Skrin Besar (papan pendahulu langsung untuk penonton dewan).',
-    'Audio Morse disintesis dalam aplikasi pada 650 Hz dengan pemasaan titik/sengkang piawai — tiada aset audio dihantar, sebarang frasa boleh dijana atas permintaan.',
-    'Kunci Morse berfungsi: ketuk/tahan pada skrin, atau kunci perkakasan Bluetooth EchoDot melalui flutter_blue_plus — kedua-duanya melalui laluan penyahkod yang sama.',
-    'Latihan kaedah Koch dengan 35 tahap dan latih tubi jana rawak tanpa had, sepadan dengan lengkung kesukaran pusingan sebenar.',
-    'Aliran pertandingan penuh: Pusingan 1 penyahsulitan audio (40%) → Pusingan 2 penghantaran Morse (60%) → Kelayakan 10 teratas → Separuh akhir liga Swiss 4 pusingan → Akhir besar 5 teratas.',
-    'Dwibahasa penuh Bahasa Malaysia / Inggeris, boleh tukar pada setiap skrin.'
-  ]},
-  stats:[{k:'4',v:{en:'Interfaces',ms:'Antara muka'}},{k:'30',v:{en:'School teams',ms:'Pasukan sekolah'}},{k:'35',v:{en:'Koch levels',ms:'Tahap Koch'}},{k:'650Hz',v:{en:'Synth tone',ms:'Nada sintesis'}}],
-  links:[{l:'Live demo',u:'https://tm-morse-challenge.web.app'}]
-},
-{
-  id:'slimora', name:'Slimora', icon:'⚖️', ac:AC.flutter, year:'2026', cats:['flutter'],
-  sub:{en:'Weight Loss Tracker',ms:'Penjejak Penurunan Berat'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
   org:{en:'Personal product · shipped to Play Store',ms:'Produk peribadi · dihantar ke Play Store'},
-  stack:['Flutter','Provider','fl_chart','shared_preferences','Google Fonts'],
-  blurb:{en:'A focused weight-loss companion — daily logging, progress charts and streaks — packaged and released as signed Android bundles.',
-         ms:'Rakan penurunan berat yang fokus — log harian, carta kemajuan dan streak — dibungkus dan dikeluarkan sebagai bundle Android bertandatangan.'},
+  stack:['React Native','Expo Router','TypeScript','SQLite','Drizzle ORM','Zustand','Skia','Victory Native','i18next'],
+  blurb:{en:'Offline-first health app: AI photo food capture, barcode scanning, fasting, body measurements, workouts and a nearby grocery locator — fully bilingual.',
+         ms:'Aplikasi kesihatan offline-first: tangkapan makanan AI, imbasan barcode, puasa, ukuran badan, senaman dan pencari kedai runcit — dwibahasa penuh.'},
   detail:{en:[
-    'Clean Provider architecture across models, providers, screens, theme and widgets — 15 Dart modules, no dead weight.',
-    'Progress visualisation with fl_chart and percent_indicator; onboarding carousel with smooth_page_indicator.',
-    'Local persistence with shared_preferences so the app opens instantly and works offline.',
-    'Shipped repeatedly: v9, v10 and a v31 hotfix built as release .aab bundles.'
+    'Thirty-three Expo Router screens covering food logging, water, weight, workouts, fasting, body measurements, a vegetable garden, weekly reports, profile and authentication.',
+    'Food entry three ways: barcode scanning with expo-camera against the Open Food Facts and Nutritionix APIs, an AI vision service that reads a photo of the meal, and a local Malaysian food database.',
+    'Offline-first persistence on expo-sqlite with Drizzle ORM across thirteen tables — profile, logs, meal presets, streaks, badges, measurements and a Nutritionix response cache.',
+    'Eleven Zustand stores including gamification (streaks and badges), a fasting tracker, and a notification engine that schedules reminders on device.',
+    'Derived insight layer: health score, goal projection and an automated weekly report built from the logged data.',
+    'Bilingual English / Bahasa Malaysia throughout, with charts drawn in Victory Native and React Native Skia.'
   ],ms:[
-    'Seni bina Provider yang kemas merentas model, provider, skrin, tema dan widget — 15 modul Dart, tiada lebihan.',
-    'Visualisasi kemajuan dengan fl_chart dan percent_indicator; karusel onboarding dengan smooth_page_indicator.',
-    'Kegigihan tempatan dengan shared_preferences supaya aplikasi buka serta-merta dan berfungsi luar talian.',
-    'Dihantar berulang kali: v9, v10 dan hotfix v31 dibina sebagai bundle .aab keluaran.'
+    'Tiga puluh tiga skrin Expo Router meliputi log makanan, air, berat, senaman, puasa, ukuran badan, kebun sayur, laporan mingguan, profil dan pengesahan.',
+    'Kemasukan makanan tiga cara: imbasan barcode dengan expo-camera terhadap API Open Food Facts dan Nutritionix, servis AI vision yang membaca gambar hidangan, dan pangkalan data makanan tempatan Malaysia.',
+    'Kegigihan offline-first atas expo-sqlite dengan Drizzle ORM merentas tiga belas jadual — profil, log, pratetap hidangan, streak, lencana, ukuran dan cache respons Nutritionix.',
+    'Sebelas store Zustand termasuk gamifikasi (streak dan lencana), penjejak puasa, dan enjin notifikasi yang menjadualkan peringatan atas peranti.',
+    'Lapisan cerapan terbitan: skor kesihatan, unjuran matlamat dan laporan mingguan automatik dibina daripada data yang dilog.',
+    'Dwibahasa Inggeris / Bahasa Malaysia sepenuhnya, dengan carta dilukis dalam Victory Native dan React Native Skia.'
   ]},
-  stats:[{k:'15',v:{en:'Dart modules',ms:'Modul Dart'}},{k:'3+',v:{en:'Releases',ms:'Keluaran'}}],
-  links:[]
+  stats:[{k:'33',v:{en:'Screens',ms:'Skrin'}},{k:'13',v:{en:'SQLite tables',ms:'Jadual SQLite'}},{k:'11',v:{en:'State stores',ms:'Store state'}},{k:'v35',v:{en:'Shipped build',ms:'Binaan dihantar'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/SlimFit'}]
 },
 {
   id:'edubuddy', name:'EduBuddy', icon:'🎒', ac:AC.flutter, year:'2026', cats:['flutter'],
@@ -651,52 +563,6 @@ const PROJECTS = [
   ]},
   stats:[{k:'5',v:{en:'Content modules',ms:'Modul kandungan'}},{k:'v3',v:{en:'Shipped',ms:'Dihantar'}}],
   links:[{l:'GitHub',u:'https://github.com/zaitulakmal/EduBuddy'}]
-},
-{
-  id:'ir-academy', name:'IR Academy', icon:'🎓', ac:AC.flutter, year:'2026', cats:['flutter','featured'],
-  sub:{en:'Academic Progress Portal',ms:'Portal Kemajuan Akademik'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'IR Academy Homeschool',ms:'IR Academy Homeschool'},
-  stack:['Flutter','Firebase Auth','Cloud Firestore','fl_chart','Python'],
-  blurb:{en:'Role-based portal for teachers, students and parents — live lesson logs, term exam results and auto-generated progress alerts.',
-         ms:'Portal berasaskan peranan untuk guru, pelajar dan ibu bapa — log pelajaran langsung, keputusan peperiksaan penggal dan amaran kemajuan automatik.'},
-  detail:{en:[
-    'Three user roles with distinct permissions and dashboards: Teacher, Student and Parent.',
-    'Firebase Auth for sign-in and Cloud Firestore streams for real-time lesson-log tracking and per-term exam results.',
-    'Admin dashboard visualising subject progress with fl_chart driven by live Firestore data — no manual refresh.',
-    'Auto-generated progress alerts flag students falling behind before the term ends.',
-    'Wrote a Python migration script to bulk-import existing student academic records from Excel into Firestore.'
-  ],ms:[
-    'Tiga peranan pengguna dengan kebenaran dan papan pemuka berbeza: Guru, Pelajar dan Ibu Bapa.',
-    'Firebase Auth untuk log masuk dan strim Cloud Firestore untuk penjejakan log pelajaran masa nyata dan keputusan peperiksaan setiap penggal.',
-    'Papan pemuka admin memvisualkan kemajuan subjek dengan fl_chart dipacu data Firestore langsung — tanpa muat semula manual.',
-    'Amaran kemajuan automatik menandakan pelajar yang ketinggalan sebelum penggal tamat.',
-    'Menulis skrip migrasi Python untuk import pukal rekod akademik pelajar sedia ada dari Excel ke Firestore.'
-  ]},
-  stats:[{k:'3',v:{en:'User roles',ms:'Peranan pengguna'}},{k:'Live',v:{en:'Firestore streams',ms:'Strim Firestore'}}],
-  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/ir_academy_app'}]
-},
-{
-  id:'dgas', name:'DGAS', icon:'🪙', ac:AC.hw, year:'2026', cats:['flutter','hw'],
-  sub:{en:'Digital Gold Authentication System',ms:'Sistem Pengesahan Emas Digital'},
-  role:{en:'Developer',ms:'Pembangun'},
-  org:{en:'RAKYAT Management',ms:'RAKYAT Management'},
-  stack:['Flutter Desktop','Serial Port','UVC Camera','fl_chart','PDF printing'],
-  blurb:{en:'Desktop app that talks to gold-testing hardware over a serial port, captures the sample on a UVC camera and prints a signed purity report.',
-         ms:'Aplikasi desktop yang berhubung dengan perkakasan ujian emas melalui port bersiri, tangkap sampel pada kamera UVC dan cetak laporan ketulenan.'},
-  detail:{en:[
-    'Windows/macOS Flutter desktop build — not a phone app — because the analyser hardware sits on a bench.',
-    'Live serial communication with the analyser through flutter_libserialport, streaming readings into the UI as they arrive.',
-    'Integrated EMEET UVC webcam capture (camera_windows / camera_macos) so each test is photographed alongside its measurement.',
-    'Results charted with fl_chart, then exported as a printable PDF certificate via the pdf + printing packages.'
-  ],ms:[
-    'Binaan desktop Flutter Windows/macOS — bukan aplikasi telefon — kerana perkakasan penganalisis berada di atas meja kerja.',
-    'Komunikasi bersiri langsung dengan penganalisis melalui flutter_libserialport, menstrim bacaan ke UI sebaik ia tiba.',
-    'Integrasi tangkapan webcam UVC EMEET (camera_windows / camera_macos) supaya setiap ujian dirakam gambar bersama ukurannya.',
-    'Keputusan dicarta dengan fl_chart, kemudian dieksport sebagai sijil PDF boleh cetak melalui pakej pdf + printing.'
-  ]},
-  stats:[{k:'Serial',v:{en:'Hardware link',ms:'Pautan perkakasan'}},{k:'PDF',v:{en:'Report output',ms:'Output laporan'}},{k:'2',v:{en:'Desktop OS',ms:'OS desktop'}}],
-  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/dgas-flutter'}]
 },
 {
   id:'ignite', name:'iGnite', icon:'🔥', ac:AC.hw, year:'2026', cats:['flutter','hw'],
@@ -765,138 +631,6 @@ const PROJECTS = [
   links:[]
 },
 {
-  id:'cutepet', name:'CutePet', icon:'🐱', ac:AC.games, year:'2026', cats:['flutter','games'],
-  sub:{en:'Pastel Virtual-Pet Companion',ms:'Rakan Haiwan Maya Pastel'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'Side project',ms:'Projek sampingan'},
-  stack:['Flutter','Custom painting','Local persistence'],
-  blurb:{en:'A blob-cat you feed, play with and put to sleep. Every pixel is drawn procedurally — zero image assets, runs on iOS, Android, macOS and web.',
-         ms:'Kucing blob yang anda beri makan, main dan tidurkan. Setiap piksel dilukis secara prosedural — sifar aset imej, berjalan di iOS, Android, macOS dan web.'},
-  detail:{en:[
-    'The pet is entirely custom-painted: it bobs, blinks, and changes colour and expression with its mood — no sprite sheets anywhere.',
-    'Three live needs (Fullness, Happiness, Energy) decay honestly while you are away, capped so a few days off does not ruin the pet.',
-    'Six-state mood system — Happy, Content, Hungry, Sleepy, Sad, Needs care — tinting the whole background.',
-    'XP and levels: every interaction earns XP, levelling up at 100. Sleep mode recovers energy and shifts the screen dreamy-purple.',
-    'Local persistence, renameable pet, and a mood-reactive pastel theme.'
-  ],ms:[
-    'Haiwan itu dilukis sepenuhnya secara tersuai: ia terangguk, berkelip, dan bertukar warna serta ekspresi ikut mood — tiada sprite sheet langsung.',
-    'Tiga keperluan langsung (Kenyang, Gembira, Tenaga) susut secara jujur semasa anda tiada, dihadkan supaya beberapa hari tidak main tak merosakkan haiwan itu.',
-    'Sistem mood enam keadaan — Gembira, Puas, Lapar, Mengantuk, Sedih, Perlu jagaan — mewarnakan keseluruhan latar.',
-    'XP dan tahap: setiap interaksi dapat XP, naik tahap pada 100. Mod tidur pulihkan tenaga dan tukar skrin jadi ungu lembut.',
-    'Kegigihan tempatan, haiwan boleh dinamakan semula, dan tema pastel yang bertindak balas dengan mood.'
-  ]},
-  stats:[{k:'0',v:{en:'Image assets',ms:'Aset imej'}},{k:'6',v:{en:'Moods',ms:'Mood'}},{k:'4',v:{en:'Platforms',ms:'Platform'}}],
-  links:[]
-},
-{
-  id:'hotwheel', name:'Hot Wheels Racer', icon:'🏎️', ac:AC.games, year:'2026', cats:['games','web','featured'],
-  sub:{en:'3D Arcade Track Racer',ms:'Perlumbaan Trek Arked 3D'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'Side project',ms:'Projek sampingan'},
-  stack:['Three.js','WebGL','JavaScript','Custom physics'],
-  blurb:{en:'A closed-loop neon track with real 3D elevation, arcade car physics, boost and lap timing — in the browser, no engine.',
-         ms:'Trek neon gelung tertutup dengan ketinggian 3D sebenar, fizik kereta arked, boost dan pemasaan pusingan — dalam pelayar, tanpa enjin.'},
-  detail:{en:[
-    'Track generated from a spline with real geometric thickness, so hills and dips render without z-fighting where the road overlaps itself.',
-    'Elevation is genuine 3D: the car follows terrain height, and drives off the edge if you take a corner too fast.',
-    'Narrow, twisty layout with a chicane — tuned to be genuinely hard rather than a demo loop.',
-    'Arcade handling model with boost, plus lap timing and the orange/black Hot Wheels HUD.'
-  ],ms:[
-    'Trek dijana daripada spline dengan ketebalan geometri sebenar, jadi bukit dan lurah dirender tanpa z-fighting di tempat jalan bertindih.',
-    'Ketinggian ialah 3D sebenar: kereta ikut ketinggian rupa bumi, dan terkeluar tepi kalau ambil selekoh terlalu laju.',
-    'Susun atur sempit dan berliku dengan chicane — ditala supaya betul-betul mencabar, bukan sekadar gelung demo.',
-    'Model pengendalian arked dengan boost, serta pemasaan pusingan dan HUD Hot Wheels oren/hitam.'
-  ]},
-  stats:[{k:'3D',v:{en:'Elevation',ms:'Ketinggian'}},{k:'WebGL',v:{en:'Renderer',ms:'Perender'}}],
-  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/hotwheel-racer'}]
-},
-{
-  id:'obby-web', name:'Cute Obby (Web)', icon:'🍓', ac:AC.games, year:'2026', cats:['games','web'],
-  sub:{en:'Standalone Three.js Platformer',ms:'Platformer Three.js Berdiri Sendiri'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'Side project',ms:'Projek sampingan'},
-  stack:['Three.js','WebGL','Unit tests','Headless Chromium'],
-  blurb:{en:'A Roblox-style obby rebuilt from scratch for the browser — candy platforms, checkpoints and a golden victory pad, zero Roblox dependency.',
-         ms:'Obby gaya Roblox dibina semula dari kosong untuk pelayar — platform gula-gula, checkpoint dan pad kemenangan emas, tanpa kebergantungan Roblox.'},
-  detail:{en:[
-    'Same spirit as a Roblox obby but written entirely in Three.js, so it runs in any browser with no platform account required.',
-    'Blocky character with eyes and blush, jumping across floating pastel platforms, saving progress at glowing checkpoints.',
-    'Verified twice over: unit tests on the physics and checkpoint logic, plus a headless-Chromium load confirming the 3D scene actually renders.'
-  ],ms:[
-    'Semangat sama seperti obby Roblox tetapi ditulis sepenuhnya dalam Three.js, jadi ia berjalan dalam mana-mana pelayar tanpa perlu akaun platform.',
-    'Watak blok dengan mata dan pipi merah, melompat merentas platform pastel terapung, menyimpan kemajuan di checkpoint bercahaya.',
-    'Disahkan dua kali: ujian unit pada logik fizik dan checkpoint, serta muatan Chromium tanpa kepala mengesahkan scene 3D benar-benar dirender.'
-  ]},
-  stats:[{k:'Tests',v:{en:'Physics verified',ms:'Fizik disahkan'}},{k:'0',v:{en:'Roblox deps',ms:'Kebergantungan Roblox'}}],
-  links:[]
-},
-{
-  id:'obby-rblx', name:'Cute Obby (Roblox)', icon:'🎮', ac:AC.games, year:'2026', cats:['games'],
-  sub:{en:'Luau · Rojo Obstacle Course',ms:'Kursus Halangan Luau · Rojo'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'Side project',ms:'Projek sampingan'},
-  stack:['Luau','Rojo','Roblox Studio'],
-  blurb:{en:'Eight procedurally-built pastel stages with checkpoints, fall recovery, leaderstats and a win toast — a full Roblox game, not a template.',
-         ms:'Lapan peringkat pastel dijana prosedural dengan checkpoint, pemulihan jatuh, leaderstats dan toast kemenangan — permainan Roblox penuh, bukan templat.'},
-  detail:{en:[
-    'Eight stages built procedurally in Luau in a pastel candy palette — pink, peach, baby blue, mint, lavender, butter — each climbing higher than the last.',
-    'Checkpoint pads save progress; falling below the world respawns you at your last checkpoint instead of the start.',
-    'leaderstats folder exposing Stage and Wins to the native Roblox leaderboard, mirrored in a custom pastel HUD with a win toast.',
-    'Structured as a Rojo project so the whole game lives in version-controlled source files rather than inside Studio.'
-  ],ms:[
-    'Lapan peringkat dibina secara prosedural dalam Luau dengan palet gula-gula pastel — merah jambu, pic, biru muda, mint, lavender, mentega — setiap satu lebih tinggi daripada sebelumnya.',
-    'Pad checkpoint simpan kemajuan; jatuh ke bawah dunia akan respawn di checkpoint terakhir, bukan di permulaan.',
-    'Folder leaderstats memaparkan Stage dan Wins pada papan pendahulu Roblox natif, dicerminkan dalam HUD pastel tersuai dengan toast kemenangan.',
-    'Distrukturkan sebagai projek Rojo supaya keseluruhan permainan berada dalam fail sumber terkawal versi, bukan dalam Studio.'
-  ]},
-  stats:[{k:'8',v:{en:'Stages',ms:'Peringkat'}},{k:'Rojo',v:{en:'Source-controlled',ms:'Kawalan sumber'}}],
-  links:[]
-},
-{
-  id:'catcafe', name:'Cat Cafe', icon:'☕', ac:AC.games, year:'2026', cats:['games','web'],
-  sub:{en:'Canvas Management Game',ms:'Permainan Pengurusan Canvas'},
-  role:{en:'Solo Developer',ms:'Pembangun Solo'},
-  org:{en:'Side project',ms:'Projek sampingan'},
-  stack:['JavaScript','HTML5 Canvas','Python (asset slicing)'],
-  blurb:{en:'A browser cat-cafe game drawn on raw canvas, with a Python script that slices the furniture spritesheet into usable assets.',
-         ms:'Permainan kafe kucing dalam pelayar dilukis atas canvas mentah, dengan skrip Python yang memotong spritesheet perabot kepada aset boleh guna.'},
-  detail:{en:[
-    'Written directly against the HTML5 Canvas 2D API — no game framework, no build step.',
-    'Wrote a Python asset pipeline (slice_furniture.py) to cut the CatPackFree spritesheet into individual furniture sprites.',
-    'Self-contained: open index.html and it runs.'
-  ],ms:[
-    'Ditulis terus terhadap API Canvas 2D HTML5 — tiada rangka kerja permainan, tiada langkah binaan.',
-    'Menulis saluran aset Python (slice_furniture.py) untuk memotong spritesheet CatPackFree kepada sprite perabot individu.',
-    'Berdiri sendiri: buka index.html dan ia berjalan.'
-  ]},
-  stats:[{k:'2D',v:{en:'Canvas API',ms:'API Canvas'}},{k:'0',v:{en:'Frameworks',ms:'Rangka kerja'}}],
-  links:[]
-},
-{
-  id:'bgcheck', name:'Background Check System', icon:'🛡️', ac:AC.web, year:'2026', cats:['web','featured'],
-  sub:{en:'Case Management Platform',ms:'Platform Pengurusan Kes'},
-  role:{en:'Backend Developer',ms:'Pembangun Backend'},
-  org:{en:'Product build',ms:'Binaan produk'},
-  stack:['Node.js','Express','Prisma','JWT','Zod','Helmet'],
-  blurb:{en:'Employment background-check platform with PDPA-aligned consent capture and a pluggable verification-provider adapter.',
-         ms:'Platform semakan latar belakang pekerjaan dengan tangkapan keizinan selaras PDPA dan penyesuai pembekal pengesahan boleh pasang.'},
-  detail:{en:[
-    'Eight backend modules: auth, candidates, cases, checks, consent, providers, reports and audit.',
-    'PDPA-aligned consent capture is a first-class module — a case cannot progress without a recorded, timestamped consent record.',
-    'Real identity, criminal, education and employment verification is delegated to a pluggable VerificationProvider adapter rather than faked in-house; a mock adapter ships by default so the full workflow runs end to end before a real provider contract exists.',
-    'Hardened by default: JWT auth, bcrypt hashing, Zod request validation, Helmet headers, CORS and rate limiting.',
-    'Prisma schema drives the case/check/report data model with a dedicated audit trail.'
-  ],ms:[
-    'Lapan modul backend: auth, calon, kes, semakan, keizinan, pembekal, laporan dan audit.',
-    'Tangkapan keizinan selaras PDPA ialah modul utama — sesuatu kes tidak boleh diteruskan tanpa rekod keizinan bercap masa.',
-    'Pengesahan identiti, jenayah, pendidikan dan pekerjaan sebenar diserahkan kepada penyesuai VerificationProvider boleh pasang, bukan dipalsukan sendiri; penyesuai mock disertakan secara lalai supaya aliran kerja penuh boleh berjalan sebelum kontrak pembekal sebenar wujud.',
-    'Diperkukuh secara lalai: auth JWT, hashing bcrypt, pengesahan permintaan Zod, pengepala Helmet, CORS dan had kadar.',
-    'Skema Prisma memacu model data kes/semakan/laporan dengan jejak audit khusus.'
-  ]},
-  stats:[{k:'8',v:{en:'Modules',ms:'Modul'}},{k:'PDPA',v:{en:'Consent flow',ms:'Aliran keizinan'}},{k:'Pluggable',v:{en:'Providers',ms:'Pembekal'}}],
-  links:[]
-},
-{
   id:'lensa', name:'Lensa Kenduri', icon:'📸', ac:AC.web, year:'2026', cats:['web','featured'],
   sub:{en:'Disposable Camera for Weddings',ms:'Kamera Pakai Buang untuk Kenduri'},
   role:{en:'Solo Developer',ms:'Pembangun Solo'},
@@ -918,7 +652,7 @@ const PROJECTS = [
     'Dilancarkan di lensa-kenduri.web.app dengan sasaran QR stabil yang tidak berubah antara majlis.'
   ]},
   stats:[{k:'27',v:{en:'Exposures',ms:'Dedahan'}},{k:'3',v:{en:'Card sizes',ms:'Saiz kad'}},{k:'Live',v:{en:'Deployed',ms:'Dilancarkan'}}],
-  links:[{l:'Live site',u:'https://lensa-kenduri.web.app'},{l:'GitHub',u:'https://github.com/zaitulakmal/lensa-kenduri'}]
+  links:[{l:'Live site',u:'https://lensa-kenduri.web.app'}]
 },
 {
   id:'gold', name:'Gold Purity Analyzer', icon:'📊', ac:AC.web, year:'2026', cats:['web'],
@@ -957,62 +691,6 @@ const PROJECTS = [
   ]},
   stats:[{k:'v3',v:{en:'Iteration',ms:'Iterasi'}},{k:'Guide',v:{en:'Handoff doc',ms:'Dokumen serahan'}}],
   links:[{l:'GitHub',u:'https://github.com/zaitulakmal/oralvis-app'}]
-},
-{
-  id:'ilham', name:'Ilham Integrasi', icon:'🏭', ac:AC.web, year:'2026', cats:['web'],
-  sub:{en:'Corporate Website',ms:'Laman Web Korporat'},
-  role:{en:'Developer & Designer',ms:'Pembangun & Pereka'},
-  org:{en:'Ilham Integrasi Sdn Bhd',ms:'Ilham Integrasi Sdn Bhd'},
-  stack:['Vite','JavaScript','Puppeteer'],
-  blurb:{en:'Marketing site for an OEM food manufacturer and central kitchen, built on Vite with an inlining step for single-file delivery.',
-         ms:'Laman pemasaran untuk pengeluar makanan OEM dan dapur pusat, dibina atas Vite dengan langkah inline untuk penghantaran fail tunggal.'},
-  detail:{en:[
-    'Company site for Ilham Integrasi Sdn Bhd — OEM food manufacturer and central kitchen.',
-    'Vite build with a custom inline step that flattens the output for simple hosting.',
-    'Puppeteer used in the toolchain for automated page capture.'
-  ],ms:[
-    'Laman syarikat untuk Ilham Integrasi Sdn Bhd — pengeluar makanan OEM dan dapur pusat.',
-    'Binaan Vite dengan langkah inline tersuai yang meratakan output untuk pengehosan mudah.',
-    'Puppeteer digunakan dalam rantaian alat untuk tangkapan halaman automatik.'
-  ]},
-  stats:[{k:'Vite',v:{en:'Build',ms:'Binaan'}}],
-  links:[]
-},
-{
-  id:'umbook', name:'UM Bookstore Catalogue', icon:'📚', ac:AC.web, year:'2026', cats:['web'],
-  sub:{en:'Kedai Buku UM — Katalog 2026/2027',ms:'Kedai Buku UM — Katalog 2026/2027'},
-  role:{en:'Developer & Designer',ms:'Pembangun & Pereka'},
-  org:{en:'Universiti Malaya',ms:'Universiti Malaya'},
-  stack:['HTML','CSS','JavaScript'],
-  blurb:{en:'General catalogue mockup for the Universiti Malaya bookstore, covering the 2026/2027 academic session.',
-         ms:'Mockup katalog am untuk kedai buku Universiti Malaya, meliputi sesi akademik 2026/2027.'},
-  detail:{en:[
-    'Single-page catalogue built in plain HTML/CSS/JS for the Universiti Malaya bookstore.',
-    'Covers the 2026/2027 academic session listing.'
-  ],ms:[
-    'Katalog satu halaman dibina dengan HTML/CSS/JS biasa untuk kedai buku Universiti Malaya.',
-    'Meliputi senarai sesi akademik 2026/2027.'
-  ]},
-  stats:[{k:'2026/27',v:{en:'Session',ms:'Sesi'}}],
-  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/um-bookstore-mockup'}]
-},
-{
-  id:'invite', name:'Eusoff ♥ Zaitul', icon:'💌', ac:AC.web, year:'2026', cats:['web'],
-  sub:{en:'Digital Wedding Invitation',ms:'Kad Jemputan Kahwin Digital'},
-  role:{en:'Designer & Developer',ms:'Pereka & Pembangun'},
-  org:{en:'Personal',ms:'Peribadi'},
-  stack:['HTML','CSS','Custom fonts','Animation'],
-  blurb:{en:'A hand-built digital invitation with custom typography and scroll animation — designed and coded rather than bought from a template shop.',
-         ms:'Kad jemputan digital dibina sendiri dengan tipografi tersuai dan animasi tatal — direka dan dikod, bukan dibeli dari kedai templat.'},
-  detail:{en:[
-    'Custom-designed invitation page with self-hosted display fonts.',
-    'Built by hand rather than assembled from a template, with its own layout and motion.'
-  ],ms:[
-    'Halaman jemputan direka khas dengan fon paparan dihoskan sendiri.',
-    'Dibina dengan tangan, bukan disusun daripada templat, dengan susun atur dan gerakan tersendiri.'
-  ]},
-  stats:[{k:'Custom',v:{en:'Typography',ms:'Tipografi'}}],
-  links:[]
 },
 {
   id:'dawar', name:'DAWar System', icon:'🗂️', ac:AC.web, year:'2024', cats:['web'],
@@ -1056,6 +734,7 @@ const PROJECTS = [
   stats:[{k:'QR',v:{en:'Scanning',ms:'Imbasan'}},{k:'Firebase',v:{en:'Realtime',ms:'Masa nyata'}}],
   links:[]
 }
+
 ];
 
 const JOBS = [
@@ -1181,7 +860,7 @@ const T = {
   'work.eyebrow':'Selected work','work.title':"Everything I've built.",
   'work.note':'Serious games, production mobile apps, competition platforms, hardware integrations and side-project games. Click any card for the full case study.',
   'exp.eyebrow':"Where I've worked",'exp.title':'Experience',
-  'stack.eyebrow':'Toolbox','stack.title':'Stack & tooling','stack.note':'What I actually reach for. Everything listed here appears in shipped work above.',
+  'stack.eyebrow':'Toolbox','stack.title':'Stack & tooling','stack.note':'What I actually reach for across shipped products, client work and research.',
   'edu.eyebrow':'Education','edu.title':'Studied','cert.eyebrow':'Certifications','cert.title':'Certified',
   'contact.eyebrow':'Contact','contact.title':"Let's build something.",
   'contact.note':'Open to full stack and mobile developer roles, freelance builds, and research collaborations. Based in Sungai Buloh, Selangor — happy to work remote.',
@@ -1189,7 +868,7 @@ const T = {
   'm.role':'Role','m.org':'Context','m.year':'Timeline','m.about':'What it is','m.stack':'Built with','m.prev':'← Previous','m.next':'Next →',
   'ui.showing':'showing','ui.of':'of','ui.projects':'projects','ui.empty':'No projects in this category.',
   'ui.search':'Search projects, tech, companies…',
-  'stat.projects':'Projects shipped','stat.years':'Years building','stat.orgs':'Orgs worked with','stat.platforms':'Platforms targeted',
+  'stat.projects':'Projects shipped','stat.years':'Years building','stat.orgs':'Employers','stat.tech':'Technologies used',
   'toast.arcade':'⚡ ARCADE MODE UNLOCKED','toast.normal':'Normal mode restored'
  },
  ms:{
@@ -1200,7 +879,7 @@ const T = {
   'work.eyebrow':'Kerja terpilih','work.title':'Semua yang saya bina.',
   'work.note':'Serious game, aplikasi mudah alih produksi, platform pertandingan, integrasi perkakasan dan permainan sampingan. Klik mana-mana kad untuk kajian kes penuh.',
   'exp.eyebrow':'Tempat saya bekerja','exp.title':'Pengalaman',
-  'stack.eyebrow':'Kotak alat','stack.title':'Teknologi & alatan','stack.note':'Apa yang saya benar-benar guna. Semua yang disenaraikan di sini muncul dalam kerja yang dihantar di atas.',
+  'stack.eyebrow':'Kotak alat','stack.title':'Teknologi & alatan','stack.note':'Apa yang saya benar-benar guna merentas produk dihantar, kerja klien dan penyelidikan.',
   'edu.eyebrow':'Pendidikan','edu.title':'Pengajian','cert.eyebrow':'Pensijilan','cert.title':'Sijil',
   'contact.eyebrow':'Hubungi','contact.title':'Jom bina sesuatu.',
   'contact.note':'Terbuka untuk peranan pembangun full stack dan mudah alih, kerja bebas, dan kolaborasi penyelidikan. Berpangkalan di Sungai Buloh, Selangor — boleh bekerja jarak jauh.',
@@ -1208,7 +887,7 @@ const T = {
   'm.role':'Peranan','m.org':'Konteks','m.year':'Garis masa','m.about':'Apa itu','m.stack':'Dibina dengan','m.prev':'← Sebelum','m.next':'Seterusnya →',
   'ui.showing':'papar','ui.of':'daripada','ui.projects':'projek','ui.empty':'Tiada projek dalam kategori ini.',
   'ui.search':'Cari projek, teknologi, syarikat…',
-  'stat.projects':'Projek dihantar','stat.years':'Tahun membina','stat.orgs':'Organisasi','stat.platforms':'Platform disasar',
+  'stat.projects':'Projek dihantar','stat.years':'Tahun membina','stat.orgs':'Majikan','stat.tech':'Teknologi digunakan',
   'toast.arcade':'⚡ MOD ARKED DIBUKA','toast.normal':'Mod biasa dipulihkan'
  }
 };
@@ -1402,12 +1081,11 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
    STATS
    --------------------------------------------------------------------------- */
 function renderStats(){
-  const orgs = new Set(['Universiti Malaya','Wariscan Sdn Bhd','K Digital Technology','Operion Ecommerce & Software','RAKYAT Management','MeDREV','IR Academy','Ilham Integrasi']);
   const data = [
-    {n: PROJECTS.length,      k:'stat.projects'},
-    {n: 2026 - 2020,          k:'stat.years'},
-    {n: orgs.size,            k:'stat.orgs'},
-    {n: 6,                    k:'stat.platforms'}
+    {n: PROJECTS.length,                                  k:'stat.projects'},
+    {n: 2026 - 2020,                                      k:'stat.years'},
+    {n: new Set(JOBS.map(j => j.co)).size,                k:'stat.orgs'},
+    {n: new Set(PROJECTS.flatMap(p => p.stack)).size,     k:'stat.tech'}
   ];
   $('#stats').innerHTML = data.map(d =>
     '<div class="stat"><b data-to="' + d.n + '">0</b><i data-i18n="' + d.k + '">' + esc(t(d.k)) + '</i></div>'
