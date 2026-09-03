@@ -5,6 +5,8 @@ Portfolio interaktif satu fail. Tiada build step, tiada `npm install`.
 ```
 portfolio-v2/
 ├── index.html   ← semua di sini (HTML + CSS + JS)
+├── favicon.ico  ← ikon 64px (browser minta /favicon.ico untuk resume.pdf)
+├── app-ads.txt  ← verifikasi AdMob — JANGAN buang
 ├── resume.pdf   ← disalin dari NurZaitulAkmal_Resume.pdf
 └── README.md
 ```
