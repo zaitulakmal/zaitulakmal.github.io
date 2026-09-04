@@ -633,6 +633,33 @@ const PROJECTS = [
   links:[{l:'GitHub',u:'https://github.com/zaitulakmal/EduBuddy'}]
 },
 {
+  id:'tm-morse', name:'TM Morse Code Challenge', icon:'📡', ac:AC.flutter, year:'2026', cats:['flutter','featured','games'],
+  sub:{en:'National STEM Competition Platform',ms:'Platform Pertandingan STEM Kebangsaan'},
+  role:{en:'Developer · Wariscan Sdn Bhd',ms:'Pembangun · Wariscan Sdn Bhd'},
+  org:{en:'TM Muzium Telegraf Taiping',ms:'TM Muzium Telegraf Taiping'},
+  stack:['Flutter','Firebase','flutter_blue_plus','Audio synthesis','Bilingual'],
+  blurb:{en:'One Flutter app serving four audiences — students, practice mode, admin operators and a live hall big-screen — for a 30-team national Morse competition.',
+         ms:'Satu aplikasi Flutter untuk empat khalayak — pelajar, mod latihan, operator admin dan skrin besar dewan — bagi pertandingan Morse kebangsaan 30 pasukan.'},
+  detail:{en:[
+    'Four distinct interfaces in one codebase: Student (30 school teams), Practice, Admin (rounds, scoring, pairings, question bank) and Big Screen (live leaderboard for the hall audience).',
+    'Morse audio is synthesised in-app at 650 Hz with standard dot/dash timing — no audio assets shipped, any phrase can be generated on demand.',
+    'A working Morse key: on-screen tap/hold, or a real Bluetooth EchoDot hardware key over flutter_blue_plus — both feed the same decode path.',
+    'Koch-method practice with 35 levels and unlimited randomly generated drills, matching the difficulty curve used in the live rounds.',
+    'Full competition flow: Round 1 audio decryption (40%) → Round 2 Morse sending (60%) → Top 10 qualification → 4-round Swiss semi-final → Top 5 grand final.',
+    'Fully bilingual Bahasa Malaysia / English, switchable on every screen.'
+  ],ms:[
+    'Empat antara muka berbeza dalam satu codebase: Pelajar (30 pasukan sekolah), Latihan, Admin (pusingan, pemarkahan, pemadanan, bank soalan) dan Skrin Besar (papan pendahulu langsung untuk penonton dewan).',
+    'Audio Morse disintesis dalam aplikasi pada 650 Hz dengan pemasaan titik/sengkang piawai — tiada aset audio dihantar, sebarang frasa boleh dijana atas permintaan.',
+    'Kunci Morse berfungsi: ketuk/tahan pada skrin, atau kunci perkakasan Bluetooth EchoDot melalui flutter_blue_plus — kedua-duanya melalui laluan penyahkod yang sama.',
+    'Latihan kaedah Koch dengan 35 tahap dan latih tubi jana rawak tanpa had, sepadan dengan lengkung kesukaran pusingan sebenar.',
+    'Aliran pertandingan penuh: Pusingan 1 penyahsulitan audio (40%) → Pusingan 2 penghantaran Morse (60%) → Kelayakan 10 teratas → Separuh akhir liga Swiss 4 pusingan → Akhir besar 5 teratas.',
+    'Dwibahasa penuh Bahasa Malaysia / Inggeris, boleh tukar pada setiap skrin.'
+  ]},
+  stats:[{k:'4',v:{en:'Interfaces',ms:'Antara muka'}},{k:'30',v:{en:'School teams',ms:'Pasukan sekolah'}},{k:'35',v:{en:'Koch levels',ms:'Tahap Koch'}},{k:'650Hz',v:{en:'Synth tone',ms:'Nada sintesis'}}],
+  wides:['shots/tmmorse-1.webp','shots/tmmorse-2.webp','shots/tmmorse-3.webp','shots/tmmorse-4.webp'],
+  links:[{l:'Live app',u:'https://tm-morse-challenge.web.app'}]
+},
+{
   id:'ignite', name:'iGnite', icon:'🔥', ac:AC.hw, year:'2026', cats:['flutter','hw'],
   sub:{en:'MeDREV Smart Recovery Platform',ms:'Platform Pemulihan Pintar MeDREV'},
   role:{en:'UI/UX & Frontend',ms:'UI/UX & Frontend'},
@@ -709,7 +736,7 @@ const PROJECTS = [
   stats:[{k:'13',v:{en:'Postcard designs',ms:'Reka bentuk poskad'}},{k:'6',v:{en:'WebSocket channels',ms:'Saluran WebSocket'}},{k:'7',v:{en:'Screens',ms:'Skrin'}},{k:'2',v:{en:'Languages',ms:'Bahasa'}}],
   wides:['shots/echodots-1.webp','shots/echodots-2.webp','shots/echodots-3.webp','shots/echodots-4.webp','shots/echodots-5.webp'],
   links:[]
-},,
+},
 {
   id:'lensa', name:'Lensa Kenduri', icon:'📸', ac:AC.web, year:'2026', cats:['web','featured'],
   sub:{en:'Disposable Camera for Weddings',ms:'Kamera Pakai Buang untuk Kenduri'},
@@ -732,6 +759,7 @@ const PROJECTS = [
     'Dilancarkan di lensa-kenduri.web.app dengan sasaran QR stabil yang tidak berubah antara majlis.'
   ]},
   stats:[{k:'27',v:{en:'Exposures',ms:'Dedahan'}},{k:'3',v:{en:'Card sizes',ms:'Saiz kad'}},{k:'Live',v:{en:'Deployed',ms:'Dilancarkan'}}],
+  shots:['shots/lensa-1.webp','shots/lensa-2.webp','shots/lensa-3.webp'],
   links:[{l:'Live site',u:'https://lensa-kenduri.web.app'}]
 },
 {
@@ -783,25 +811,33 @@ const PROJECTS = [
   stats:[{k:'35',v:{en:'Screens',ms:'Skrin'}},{k:'32',v:{en:'Teeth mapped',ms:'Gigi dipetakan'}},{k:'1',v:{en:'HTML file',ms:'Fail HTML'}},{k:'0',v:{en:'Frameworks',ms:'Rangka kerja'}}],
   shots:['shots/oraviu-1.webp','shots/oraviu-2.webp','shots/oraviu-3.webp','shots/oraviu-4.webp','shots/oraviu-5.webp','shots/oraviu-6.webp','shots/oraviu-7.webp','shots/oraviu-8.webp'],
   links:[{l:'Live prototype',u:'https://zaitulakmal.github.io/oralvis-app/'},{l:'GitHub',u:'https://github.com/zaitulakmal/oralvis-app'}]
-},,
+},
 {
-  id:'dawar', name:'DAWar System', icon:'🗂️', ac:AC.web, year:'2024', cats:['web'],
-  sub:{en:'Web & Database Integration',ms:'Integrasi Web & Pangkalan Data'},
+  id:'dawar', name:'DAWar System', icon:'🗳️', ac:AC.web, year:'2024', cats:['web','featured'],
+  sub:{en:'Election Campaign Dashboard',ms:'Papan Pemuka Kempen Pilihan Raya'},
   role:{en:'Developer & Designer',ms:'Pembangun & Pereka'},
-  org:{en:'University project',ms:'Projek universiti'},
-  stack:['Flutter Web','Figma','Google Sheets API'],
-  blurb:{en:'End-to-end build: UI/UX designed in Figma, frontend in Flutter Web, with Google Sheets wired up as a live backend database.',
-         ms:'Binaan hujung ke hujung: UI/UX direka dalam Figma, frontend dalam Flutter Web, dengan Google Sheets sebagai pangkalan data backend langsung.'},
+  org:{en:'Campaign operations tool',ms:'Alat operasi kempen'},
+  stack:['Figma','Flutter Web','go_router','fl_chart','table_calendar','Provider','Google Sheets API'],
+  blurb:{en:'A campaign operations dashboard for a state election — seats, voter rolls, locality maps, sentiment and daily candidate activity in one view.',
+         ms:'Papan pemuka operasi kempen untuk pilihan raya negeri — kerusi, daftar pengundi, peta lokaliti, sentimen dan aktiviti harian calon dalam satu paparan.'},
   detail:{en:[
-    'Designed the complete UI/UX in Figma before writing any code.',
-    'Built the frontend in Flutter Web and integrated Google Sheets as a live backend for real-time data management.',
-    'Owned the whole pipeline — design, functionality and database integration.'
+    'Designed the full interface in Figma as a clickable prototype, then built the frontend in Flutter Web with go_router for navigation.',
+    'State-level view rolls up seats won, registered voters against the previous general election, turnout channels and a demographic breakdown by age and ethnicity.',
+    'Drills down through DUN and PDM levels to individual localities, each with its own coloured constituency map, voter counts and support figures.',
+    'Candidate activity reporting: programmes run today and to date, assistance disbursed, recipients reached, and a calendar of daily activity charted by type.',
+    'Sentiment analysis and handbill coverage tracked as their own panels, with a countdown to polling day on every screen.',
+    'Charts drawn with fl_chart, schedules with table_calendar, state through Provider, and Google Sheets wired up as the live backing store.'
   ],ms:[
-    'Mereka UI/UX lengkap dalam Figma sebelum menulis sebarang kod.',
-    'Membina frontend dalam Flutter Web dan mengintegrasi Google Sheets sebagai backend langsung untuk pengurusan data masa nyata.',
-    'Memiliki keseluruhan saluran — reka bentuk, fungsi dan integrasi pangkalan data.'
+    'Mereka antara muka penuh dalam Figma sebagai prototaip boleh klik, kemudian membina frontend dalam Flutter Web dengan go_router untuk navigasi.',
+    'Paparan peringkat negeri merangkum kerusi dimenangi, pengundi berdaftar berbanding pilihan raya umum lepas, saluran keluar mengundi dan pecahan demografi mengikut umur dan kaum.',
+    'Menyelam melalui peringkat DUN dan PDM ke lokaliti individu, setiap satu dengan peta kawasan berwarna, kiraan pengundi dan angka sokongan tersendiri.',
+    'Pelaporan aktiviti calon: program dijalankan hari ini dan terkumpul, bantuan disalurkan, bilangan penerima, dan kalendar aktiviti harian dicarta mengikut jenis.',
+    'Analisis sentimen dan liputan handbill dijejak sebagai panel tersendiri, dengan kira detik ke hari mengundi pada setiap skrin.',
+    'Carta dilukis dengan fl_chart, jadual dengan table_calendar, state melalui Provider, dan Google Sheets sebagai stor sokongan langsung.'
   ]},
-  stats:[{k:'Figma',v:{en:'Design',ms:'Reka bentuk'}},{k:'Sheets',v:{en:'Backend',ms:'Backend'}}],
+  stats:[{k:'3',v:{en:'Drill-down levels',ms:'Tahap penyelaman'}},{k:'6',v:{en:'Dashboard views',ms:'Paparan papan pemuka'}},{k:'Figma',v:{en:'Design source',ms:'Sumber reka bentuk'}}],
+  media:{en:'Design screens',ms:'Skrin reka bentuk'},
+  wides:['shots/dawar-1.webp','shots/dawar-2.webp','shots/dawar-3.webp','shots/dawar-4.webp','shots/dawar-5.webp','shots/dawar-6.webp'],
   links:[]
 },
 {
