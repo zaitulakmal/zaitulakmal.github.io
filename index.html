@@ -754,23 +754,34 @@ const PROJECTS = [
   links:[{l:'Live app',u:'https://gold-purity-analyzer.netlify.app/'}]
 },
 {
-  id:'oralvis', name:'ORALVIS', icon:'🦷', ac:AC.web, year:'2026', cats:['web'],
-  sub:{en:'Oral Health App — UI Mockups v3',ms:'Aplikasi Kesihatan Mulut — Mockup UI v3'},
-  role:{en:'UI/UX Designer',ms:'Pereka UI/UX'},
+  id:'oraviu', name:'ORAVIU', icon:'🦷', ac:AC.web, year:'2026', cats:['web','featured'],
+  sub:{en:'AI Oral Scanning App — Interactive Prototype',ms:'Aplikasi Imbasan Mulut AI — Prototaip Interaktif'},
+  role:{en:'UI/UX Designer & Developer',ms:'Pereka & Pembangun UI/UX'},
   org:{en:'Client project',ms:'Projek klien'},
-  stack:['HTML','CSS','Thunkable'],
-  blurb:{en:'Third-iteration interactive UI mockups plus a written Thunkable build guide, so a no-code team can implement the design exactly.',
-         ms:'Mockup UI interaktif iterasi ketiga serta panduan binaan Thunkable bertulis, supaya pasukan no-code boleh melaksanakan reka bentuk dengan tepat.'},
+  stack:['HTML','CSS','JavaScript','Plus Jakarta Sans','Material Icons','Single-file build'],
+  blurb:{en:'A 35-screen clickable prototype for a dental AI scanner — live camera scan, tooth-by-tooth findings, an oral health score, progress streaks and a clinic finder.',
+         ms:'Prototaip boleh klik 35 skrin untuk pengimbas pergigian AI — imbasan kamera langsung, penemuan gigi demi gigi, skor kesihatan mulut, streak kemajuan dan pencari klinik.'},
   detail:{en:[
-    'Clickable HTML mockups covering the full app flow, iterated to a third version off client feedback.',
-    'Paired with a Thunkable build guide documenting how each screen maps to Thunkable components — a handoff artefact, not just a picture.'
+    'Thirty-five screens covering the whole product: onboarding, sign-in and account recovery, profile and medical history, scanner pairing, live capture, AI analysis, reports, learning library, store, dependents and an assistant chat.',
+    'The scanning flow is modelled end to end — pair the handheld scanner (signal strength, battery), frame the mouth on a live camera view, review the photo, then watch the AI pass run before the report appears.',
+    'Findings are mapped onto a 32-tooth arch diagram and graded by severity — calculus, stain, gingivitis, periodontitis, plaque — each linked to the condition library that explains what it is and what to watch for.',
+    'An oral health score with a five-day streak and a scan history turns a one-off check into a habit, backed by progress charts across months.',
+    'Carries its own medical disclaimers as first-class screens: results are explicitly "not a diagnosis" and do not replace examination by a qualified dentist — a deliberate choice for a health product.',
+    'Built for Malaysia: ringgit pricing in the store, Kuala Lumpur profiles and local clinic listings.',
+    'Ships as one self-contained HTML file — roughly 195 KB of inline CSS and JavaScript, no framework and no build step.'
   ],ms:[
-    'Mockup HTML boleh klik meliputi aliran aplikasi penuh, diiterasi hingga versi ketiga berdasarkan maklum balas klien.',
-    'Digandingkan dengan panduan binaan Thunkable yang mendokumen bagaimana setiap skrin dipetakan ke komponen Thunkable — artifak serahan, bukan sekadar gambar.'
+    'Tiga puluh lima skrin meliputi keseluruhan produk: onboarding, log masuk dan pemulihan akaun, profil dan sejarah perubatan, pemasangan pengimbas, tangkapan langsung, analisis AI, laporan, pustaka pembelajaran, kedai, tanggungan dan sembang pembantu.',
+    'Aliran imbasan dimodelkan hujung ke hujung — pasangkan pengimbas pegang tangan (kekuatan isyarat, bateri), bingkaikan mulut pada paparan kamera langsung, semak gambar, kemudian tonton pas AI berjalan sebelum laporan muncul.',
+    'Penemuan dipetakan pada rajah lengkung 32 gigi dan digredkan mengikut keterukan — kalkulus, kesan noda, gingivitis, periodontitis, plak — setiap satu berpaut ke pustaka keadaan yang menerangkan maksudnya.',
+    'Skor kesihatan mulut dengan streak lima hari dan sejarah imbasan menjadikan pemeriksaan sekali sekala satu tabiat, disokong carta kemajuan merentas bulan.',
+    'Membawa penafian perubatannya sendiri sebagai skrin utama: keputusan secara jelas "bukan diagnosis" dan tidak menggantikan pemeriksaan doktor gigi bertauliah — pilihan yang disengajakan untuk produk kesihatan.',
+    'Dibina untuk Malaysia: harga ringgit dalam kedai, profil Kuala Lumpur dan senarai klinik tempatan.',
+    'Dihantar sebagai satu fail HTML kendiri — lebih kurang 195 KB CSS dan JavaScript inline, tanpa rangka kerja dan tanpa langkah binaan.'
   ]},
-  stats:[{k:'v3',v:{en:'Iteration',ms:'Iterasi'}},{k:'Guide',v:{en:'Handoff doc',ms:'Dokumen serahan'}}],
-  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/oralvis-app'}]
-},
+  stats:[{k:'35',v:{en:'Screens',ms:'Skrin'}},{k:'32',v:{en:'Teeth mapped',ms:'Gigi dipetakan'}},{k:'1',v:{en:'HTML file',ms:'Fail HTML'}},{k:'0',v:{en:'Frameworks',ms:'Rangka kerja'}}],
+  shots:['shots/oraviu-1.webp','shots/oraviu-2.webp','shots/oraviu-3.webp','shots/oraviu-4.webp','shots/oraviu-5.webp','shots/oraviu-6.webp','shots/oraviu-7.webp','shots/oraviu-8.webp'],
+  links:[{l:'Live prototype',u:'https://zaitulakmal.github.io/oralvis-app/'},{l:'GitHub',u:'https://github.com/zaitulakmal/oralvis-app'}]
+},,
 {
   id:'dawar', name:'DAWar System', icon:'🗂️', ac:AC.web, year:'2024', cats:['web'],
   sub:{en:'Web & Database Integration',ms:'Integrasi Web & Pangkalan Data'},
