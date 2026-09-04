@@ -100,20 +100,39 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 
 ## Screenshot app
 
-`shots/` ada 14 screenshot sebenar, bukan mockup:
+`shots/` ada screenshot sebenar, bukan mockup. Dua orientasi:
+
+**Potret (bingkai telefon)** — medan `shots:[...]`
 
 | App | Sumber | Bilangan |
 |---|---|---|
-| Slimora | Simulator iPhone 17 Pro (`~/Desktop/slimora`) | 6 |
-| EduBuddy | Simulator iPhone 17 Pro (`~/Desktop/edubddy`) | 6 |
-| iGnite | Tangkapan dari binaan Flutter web (`ignite_mockup/docs`) | 2 |
+| Slimora | Simulator iPhone 17 Pro | 6 |
+| EduBuddy | Simulator iPhone 17 Pro | 6 |
+| iGnite | Binaan Flutter web | 2 |
 
-Diubah saiz kepada 860px tinggi dan ditukar ke WebP q76 — 184 KB untuk semua 14.
+**Landskap (bingkai browser)** — medan `wides:[...]`
+
+| Projek | Sumber | Bilangan |
+|---|---|---|
+| Gold Purity Analyzer | gold-purity-analyzer.netlify.app @1280x800 | 6 |
+| BioWare | virtourism.com.my/um/BioWare (Unity WebGL) | 2 |
+
+BioWare hanya 2 skrin (menu utama + panel Setting). Unity WebGL tidak menerima
+input papan kekunci sintetik dan klik pada butang START tidak mendaftar, jadi
+gameplay tidak dapat ditangkap secara automatik. Tiga percubaan dibuat (setiap
+satu memuat turun data 250 MB). Screenshot gameplay perlu diambil manual.
+Pautan "Play in browser" membolehkan sesiapa main sendiri.
+
+Gold Purity Analyzer ditangkap pada **1280x800, bukan lebar telefon** — footernya
+tertulis "Mini-PC Professional Edition" dan susun atur bertindih teruk di bawah
+500px. Ia app desktop.
+
+Semua imej diubah saiz (860px potret / 900px landskap) dan ditukar ke WebP q76-78.
 Banner iklan "Test mode" AdMob dipotong dari screenshot fasting Slimora.
 
-Nak tambah screenshot: letak fail dalam `shots/`, kemudian tambah ke array
-`shots:[...]` projek berkenaan. Kad ambil 3 yang pertama untuk bingkai telefon;
-modal papar semua dalam galeri.
+Nak tambah: letak fail dalam `shots/`, kemudian tambah ke `shots:[...]` (potret)
+atau `wides:[...]` (landskap). Kad potret ambil 3 yang pertama untuk telefon
+bertindih; kad landskap ambil yang pertama untuk tingkap browser; modal papar semua.
 
 ## Pautan luar
 
