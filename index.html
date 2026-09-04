@@ -775,7 +775,6 @@ const PROJECTS = [
   ]},
   stats:[{k:'27',v:{en:'Exposures',ms:'Dedahan'}},{k:'3',v:{en:'Card sizes',ms:'Saiz kad'}},{k:'Live',v:{en:'Deployed',ms:'Dilancarkan'}}],
   shots:['shots/lensa-4.webp','shots/lensa-1.webp','shots/lensa-2.webp','shots/lensa-3.webp','shots/lensa-5.webp','shots/lensa-6.webp'],
-  hero:1,
   links:[{l:'Live site',u:'https://lensa-kenduri.web.app'}]
 },
 {
@@ -827,7 +826,6 @@ const PROJECTS = [
   ]},
   stats:[{k:'35',v:{en:'Screens',ms:'Skrin'}},{k:'32',v:{en:'Teeth mapped',ms:'Gigi dipetakan'}},{k:'1',v:{en:'HTML file',ms:'Fail HTML'}},{k:'0',v:{en:'Frameworks',ms:'Rangka kerja'}}],
   shots:['shots/oraviu-7.webp','shots/oraviu-1.webp','shots/oraviu-2.webp','shots/oraviu-3.webp','shots/oraviu-4.webp','shots/oraviu-5.webp','shots/oraviu-6.webp','shots/oraviu-8.webp'],
-  hero:1,
   links:[{l:'Live prototype',u:'https://zaitulakmal.github.io/oralvis-app/'},{l:'GitHub',u:'https://github.com/zaitulakmal/oralvis-app'}]
 },
 {
@@ -1287,9 +1285,9 @@ function renderGrid(){
       '</span>' : '') +
     (p.shots ? '<span class="c-shots">' +
         '<span class="shot-badge">' + p.shots.length + ' ' + mediaNoun(p, p.shots.length) + '</span>' +
-        '<span class="ph l"><img src="' + p.shots[(heroIdx(p)+1) % p.shots.length] + '" alt="" loading="lazy"></span>' +
+        '<span class="ph l"><img src="' + p.shots[heroIdx(p)] + '" alt="" loading="lazy"></span>' +
         '<span class="ph r"><img src="' + p.shots[(heroIdx(p)+2) % p.shots.length] + '" alt="" loading="lazy"></span>' +
-        '<span class="ph c"><img src="' + p.shots[heroIdx(p)] + '" alt="" loading="lazy"></span>' +
+        '<span class="ph c"><img src="' + p.shots[(heroIdx(p)+1) % p.shots.length] + '" alt="" loading="lazy"></span>' +
       '</span>' : '') +
     '<span class="c-top">' +
         '<span class="c-ico">' + p.icon + '</span>' +

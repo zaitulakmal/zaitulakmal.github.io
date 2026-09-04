@@ -132,6 +132,10 @@ iGnite ditangkap dengan deep-link ke laluan dalam `lib/demo_routes.dart`
 Flutter CanvasKit dalam browser tanpa kepala, tetapi hash route berfungsi —
 itu cara paling boleh dipercayai untuk menangkap setiap skrin.
 
+Tiga telefon pada kad potret juga terbaca **kiri ke kanan** mengikut turutan
+galeri — `hero: n` menandakan di mana rentetan tiga itu bermula, jadi skrin
+terkuat mendarat di tengah (kedudukan paling menonjol).
+
 Galeri setiap projek disusun mengikut **aliran skrin sebenar** — halaman pertama
 dahulu, kemudian seterusnya. Kad pula boleh mula dengan skrin lain melalui medan
 `hero: n` (indeks ke dalam galeri), supaya turutan galeri kekal betul tanpa kad
