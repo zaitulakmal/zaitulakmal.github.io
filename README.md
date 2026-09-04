@@ -90,8 +90,8 @@ command palette semuanya terbit sendiri daripada data itu.
 
 Laman ini memaparkan **11 projek** pilihan:
 
-BioWare · SlimFit · EduBuddy · iGnite · EchoLens · EchoDots · Lensa Kenduri ·
-Gold Purity Analyzer · ORALVIS · DAWar System · Zakat Distribution App
+BioWare · Slimora · EduBuddy · iGnite · EchoLens · EchoDots · Lensa Kenduri ·
+Gold Purity Analyzer · ORAVIU · DAWar System · Zakat Distribution App
 
 EchoDots = repo `telegram_ucapan`. README repo itu masih templat Flutter kosong,
 jadi butiran kajian kes diambil terus dari kod: 13 aset poskad, 6 saluran
@@ -119,6 +119,7 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 | Slimora | Simulator iPhone 17 Pro | 6 |
 | EduBuddy | Simulator iPhone 17 Pro | 6 |
 | iGnite | zaitulakmal.github.io/Ignite via laluan bernama | 8 |
+| ORAVIU | zaitulakmal.github.io/oralvis-app — element screenshot setiap .phone | 8 |
 
 **Landskap (bingkai browser)** — medan `wides:[...]`
 
