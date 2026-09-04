@@ -136,15 +136,21 @@ guna kedua-duanya supaya lencananya berbunyi "1 photo", bukan "1 screens".
 | Projek | Sumber | Bilangan |
 |---|---|---|
 | Gold Purity Analyzer | gold-purity-analyzer.netlify.app @1280x800 | 6 |
-| BioWare | virtourism.com.my/um/BioWare (Unity WebGL) | 2 |
+| BioWare | virtourism.com.my/um/BioWare (Unity WebGL) | 5 |
 | EchoDots | Screenshot kiosk Telegram Ucapan (chrome browser dipotong) | 5 |
 | EchoLens | Foto pemasangan sebenar di Muzium Telegraf Taiping | 1 |
 
-BioWare hanya 2 skrin (menu utama + panel Setting). Unity WebGL tidak menerima
-input papan kekunci sintetik dan klik pada butang START tidak mendaftar, jadi
-gameplay tidak dapat ditangkap secara automatik. Tiga percubaan dibuat (setiap
-satu memuat turun data 250 MB). Screenshot gameplay perlu diambil manual.
-Pautan "Play in browser" membolehkan sesiapa main sendiri.
+BioWare: 5 skrin — pilih watak, latihan menembak (kuiz), taklimat Captain Matt,
+menu utama, panel Setting.
+
+Kunci untuk masuk gameplay: butang START menu ada pada canvas-relative
+**y 0.577**, dan butang START dalam taklimat pada **(0.402, 0.869)** — tetapi
+hanya selepas teks taip Captain Matt habis, iaitu **~50 saat** selepas watak
+dipilih. Klik lebih awal tiada kesan kerana butang belum wujud.
+
+Skrin kuiz adalah statik dan klik pada sasaran jawapan tidak mendaftar, jadi
+soalan kedua dan skrin skor tidak dapat ditangkap secara automatik. Setiap
+larian memuat turun 250 MB data Unity.
 
 Gold Purity Analyzer ditangkap pada **1280x800, bukan lebar telefon** — footernya
 tertulis "Mini-PC Professional Edition" dan susun atur bertindih teruk di bawah
