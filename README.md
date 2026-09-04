@@ -88,10 +88,11 @@ command palette semuanya terbit sendiri daripada data itu.
 
 ## Skop projek
 
-Laman ini memaparkan **11 projek** pilihan:
+Laman ini memaparkan **12 projek** pilihan:
 
-BioWare · Slimora · EduBuddy · iGnite · EchoLens · EchoDots · Lensa Kenduri ·
-Gold Purity Analyzer · ORAVIU · DAWar System · Zakat Distribution App
+BioWare · Slimora · EduBuddy · TM Morse Code Challenge · iGnite · EchoLens ·
+EchoDots · Lensa Kenduri · Gold Purity Analyzer · ORAVIU · DAWar System ·
+Zakat Distribution App
 
 EchoDots = repo `telegram_ucapan`. README repo itu masih templat Flutter kosong,
 jadi butiran kajian kes diambil terus dari kod: 13 aset poskad, 6 saluran
@@ -120,6 +121,9 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 | EduBuddy | Simulator iPhone 17 Pro | 6 |
 | iGnite | zaitulakmal.github.io/Ignite via laluan bernama | 8 |
 | ORAVIU | zaitulakmal.github.io/oralvis-app — element screenshot setiap .phone | 8 |
+| Lensa Kenduri | lensa-kenduri.web.app | 3 |
+| TM Morse | tm-morse-challenge.web.app | 4 |
+| DAWar | Prototaip Figma (chrome browser dipotong) | 6 |
 
 **Landskap (bingkai browser)** — medan `wides:[...]`
 
@@ -162,6 +166,17 @@ Banner iklan "Test mode" AdMob dipotong dari screenshot fasting Slimora.
 Nak tambah: letak fail dalam `shots/`, kemudian tambah ke `shots:[...]` (potret)
 atau `wides:[...]` (landskap). Kad potret ambil 3 yang pertama untuk telefon
 bertindih; kad landskap ambil yang pertama untuk tingkap browser; modal papar semua.
+
+## Nota privasi
+
+Dua sumber sengaja tidak digunakan:
+
+- **Album Lensa Kenduri** — halaman `/album` memaparkan gambar tetamu sebenar
+  dengan wajah yang boleh dikenali. Hanya welcome, host dan kad QR digunakan.
+- **DAWar shot 4** — memaparkan foto calon sebenar.
+
+Screenshot DAWar juga dipotong untuk membuang chrome browser, kerana bar tab
+mendedahkan tab lain yang terbuka.
 
 ## Pautan luar
 
