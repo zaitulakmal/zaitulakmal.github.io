@@ -121,7 +121,7 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 | EduBuddy | Simulator iPhone 17 Pro | 6 |
 | iGnite | zaitulakmal.github.io/Ignite via laluan bernama | 8 |
 | ORAVIU | zaitulakmal.github.io/oralvis-app — element screenshot setiap .phone | 8 |
-| Lensa Kenduri | lensa-kenduri.web.app | 3 |
+| Lensa Kenduri | lensa-kenduri.web.app + 3 screenshot telefon sebenar | 6 |
 
 
 **Landskap (bingkai browser)** — medan `wides:[...]`
@@ -178,7 +178,11 @@ bertindih; kad landskap ambil yang pertama untuk tingkap browser; modal papar se
 Dua sumber sengaja tidak digunakan:
 
 - **Album Lensa Kenduri** — halaman `/album` memaparkan gambar tetamu sebenar
-  dengan wajah yang boleh dikenali. Hanya welcome, host dan kad QR digunakan.
+  dengan wajah yang boleh dikenali. Ia tidak digunakan; enam skrin lain
+  (kamera, pratonton, terima kasih, welcome, host, kad QR) digunakan.
+
+  Skrin kamera perlu tangkapan telefon sebenar — Chrome tanpa kamera render
+  corak ujian hijau yang nampak seperti pepijat.
 - **DAWar shot 4** — memaparkan foto calon sebenar.
 
 Screenshot DAWar juga dipotong untuk membuang chrome browser, kerana bar tab
