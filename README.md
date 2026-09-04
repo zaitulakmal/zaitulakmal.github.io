@@ -93,6 +93,16 @@ Laman ini memaparkan **11 projek** pilihan:
 BioWare · SlimFit · EduBuddy · iGnite · EchoLens · EchoDots · Lensa Kenduri ·
 Gold Purity Analyzer · ORALVIS · DAWar System · Zakat Distribution App
 
+EchoDots = repo `telegram_ucapan`. README repo itu masih templat Flutter kosong,
+jadi butiran kajian kes diambil terus dari kod: 13 aset poskad, 6 saluran
+WebSocket dalam `message_page.dart`, gateway Node-RED (`nodeRedIp/Port/Path`
+dalam `settings_page.dart`), auto-reconnect 5 saat dalam `websocket_service.dart`,
+dan `language_provider.dart` untuk ms-MY / en-US.
+
+Nota: `lib/main.dart` tidak set `debugShowCheckedModeBanner: false`, jadi reben
+DEBUG merah muncul dalam screenshot. Satu baris dalam `MaterialApp` akan
+menghilangkannya untuk kiosk.
+
 Projek lain yang ada dalam mesin tetapi tidak dipaparkan (Slimora, TM Morse
 Challenge, IR Academy, DGAS, CutePet, Hot Wheels Racer, Cute Obby, Cat Cafe,
 Background Check System, Ilham Integrasi, UM Bookstore, kad jemputan) masih
@@ -116,6 +126,7 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 |---|---|---|
 | Gold Purity Analyzer | gold-purity-analyzer.netlify.app @1280x800 | 6 |
 | BioWare | virtourism.com.my/um/BioWare (Unity WebGL) | 2 |
+| EchoDots | Screenshot kiosk Telegram Ucapan (chrome browser dipotong) | 5 |
 
 BioWare hanya 2 skrin (menu utama + panel Setting). Unity WebGL tidak menerima
 input papan kekunci sintetik dan klik pada butang START tidak mendaftar, jadi
