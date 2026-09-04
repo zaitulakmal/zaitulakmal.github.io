@@ -669,27 +669,34 @@ const PROJECTS = [
   links:[]
 },
 {
-  id:'echodots', name:'EchoDots', icon:'🔵', ac:AC.flutter, year:'2025', cats:['flutter','hw'],
-  sub:{en:'Interactive IoT Museum Interface',ms:'Antara Muka Muzium IoT Interaktif'},
+  id:'echodots', name:'EchoDots', icon:'📮', ac:AC.hw, year:'2025', cats:['flutter','hw','featured'],
+  sub:{en:'Morse Code Postcard Installation',ms:'Pemasangan Poskad Kod Morse'},
   role:{en:'Frontend Developer · Wariscan Sdn Bhd',ms:'Pembangun Frontend · Wariscan Sdn Bhd'},
   org:{en:'Muzium Telegraf Taiping',ms:'Muzium Telegraf Taiping'},
-  stack:['Flutter','REST APIs','IoT'],
-  blurb:{en:'Responsive touch interface for an IoT museum exhibit, wired to the backend team’s APIs for live data on screen.',
-         ms:'Antara muka sentuh responsif untuk pameran muzium IoT, disambung ke API pasukan backend untuk data langsung di skrin.'},
+  stack:['Flutter','WebSocket','Node-RED','Provider','shared_preferences','Kiosk UI'],
+  blurb:{en:'Museum visitors tap a real Morse key; the kiosk decodes the dots and dashes into a digital postcard and emails it to someone they love.',
+         ms:'Pengunjung muzium mengetuk kunci Morse sebenar; kiosk menyahkod titik dan sengkang menjadi poskad digital dan menghantarnya melalui emel.'},
   detail:{en:[
-    'Built the interactive frontend for an IoT-based exhibit at Muzium Telegraf Taiping.',
-    'Responsive UI/UX designed for public touchscreen use — large targets, clear states, accessible contrast.',
-    'Collaborated with the backend team on API integration for seamless real-time data display.',
-    'The EchoDot hardware later doubled as the Bluetooth Morse key in the TM Morse Code Challenge platform.'
+    'Kiosk installation at Muzium Telegraf Taiping: the visitor picks one of thirteen postcard designs, fills in sender and recipient details, then taps their message on a physical Morse key.',
+    'The key is wired to a Node-RED gateway and the Flutter kiosk subscribes over WebSocket, so hardware taps arrive as live events instead of keyboard input.',
+    'Six independent WebSocket channels carry the interaction — letter, key, finish trigger, reset, delete and the selected design index — so each hardware signal stays separate.',
+    'Auto-reconnect on a five-second timer, so the exhibit recovers by itself if the gateway restarts mid-visit rather than needing staff to intervene.',
+    'On-site settings screen changes the Node-RED IP, port and path without a rebuild, persisted with shared_preferences.',
+    'Custom on-screen keyboard with .com, @gmail.com and .com.my shortcuts, because the kiosk has no physical keyboard.',
+    'Fully bilingual Bahasa Malaysia / English, switchable from the home screen.'
   ],ms:[
-    'Membina frontend interaktif untuk pameran berasaskan IoT di Muzium Telegraf Taiping.',
-    'UI/UX responsif direka untuk kegunaan skrin sentuh awam — sasaran besar, keadaan jelas, kontras mudah akses.',
-    'Bekerjasama dengan pasukan backend dalam integrasi API untuk paparan data masa nyata yang lancar.',
-    'Perkakasan EchoDot kemudiannya turut menjadi kunci Morse Bluetooth dalam platform TM Morse Code Challenge.'
+    'Pemasangan kiosk di Muzium Telegraf Taiping: pengunjung pilih satu daripada tiga belas reka bentuk poskad, isi butiran pengirim dan penerima, kemudian ketuk mesej pada kunci Morse fizikal.',
+    'Kunci itu disambung ke gateway Node-RED dan kiosk Flutter melanggan melalui WebSocket, jadi ketukan perkakasan tiba sebagai peristiwa langsung, bukan input papan kekunci.',
+    'Enam saluran WebSocket berasingan membawa interaksi — huruf, kunci, pencetus tamat, set semula, padam dan indeks reka bentuk pilihan — supaya setiap isyarat perkakasan kekal berasingan.',
+    'Auto-sambung semula pada pemasa lima saat, jadi pameran pulih sendiri kalau gateway dimulakan semula di tengah lawatan tanpa perlu kakitangan campur tangan.',
+    'Skrin tetapan di lokasi boleh tukar IP, port dan path Node-RED tanpa bina semula, disimpan dengan shared_preferences.',
+    'Papan kekunci atas skrin tersuai dengan pintasan .com, @gmail.com dan .com.my, kerana kiosk tiada papan kekunci fizikal.',
+    'Dwibahasa penuh Bahasa Malaysia / Inggeris, boleh ditukar dari skrin utama.'
   ]},
-  stats:[{k:'IoT',v:{en:'Exhibit',ms:'Pameran'}},{k:'REST',v:{en:'Integration',ms:'Integrasi'}}],
+  stats:[{k:'13',v:{en:'Postcard designs',ms:'Reka bentuk poskad'}},{k:'6',v:{en:'WebSocket channels',ms:'Saluran WebSocket'}},{k:'7',v:{en:'Screens',ms:'Skrin'}},{k:'2',v:{en:'Languages',ms:'Bahasa'}}],
+  wides:['shots/echodots-1.webp','shots/echodots-2.webp','shots/echodots-3.webp','shots/echodots-4.webp','shots/echodots-5.webp'],
   links:[]
-},
+},,
 {
   id:'lensa', name:'Lensa Kenduri', icon:'📸', ac:AC.web, year:'2026', cats:['web','featured'],
   sub:{en:'Disposable Camera for Weddings',ms:'Kamera Pakai Buang untuk Kenduri'},
