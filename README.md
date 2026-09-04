@@ -122,11 +122,16 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 
 **Landskap (bingkai browser)** — medan `wides:[...]`
 
+Projek boleh set `frame:'photo'` untuk guna rangka foto penuh (tanpa chrome
+browser) dan `media:{en,ms}` untuk menamakan jenis media pada lencana — EchoLens
+guna kedua-duanya supaya lencananya berbunyi "1 photo", bukan "1 screens".
+
 | Projek | Sumber | Bilangan |
 |---|---|---|
 | Gold Purity Analyzer | gold-purity-analyzer.netlify.app @1280x800 | 6 |
 | BioWare | virtourism.com.my/um/BioWare (Unity WebGL) | 2 |
 | EchoDots | Screenshot kiosk Telegram Ucapan (chrome browser dipotong) | 5 |
+| EchoLens | Foto pemasangan sebenar di Muzium Telegraf Taiping | 1 |
 
 BioWare hanya 2 skrin (menu utama + panel Setting). Unity WebGL tidak menerima
 input papan kekunci sintetik dan klik pada butang START tidak mendaftar, jadi
