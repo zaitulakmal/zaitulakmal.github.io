@@ -132,6 +132,13 @@ iGnite ditangkap dengan deep-link ke laluan dalam `lib/demo_routes.dart`
 Flutter CanvasKit dalam browser tanpa kepala, tetapi hash route berfungsi —
 itu cara paling boleh dipercayai untuk menangkap setiap skrin.
 
+Kad dan jubin galeri guna bingkai bernisbah tetap (`aspect-ratio` +
+`object-fit:cover`) — 9:19.5 untuk potret, 16:10 untuk landskap. Ini perlu
+kerana sumber datang dari pelbagai tempat dan tingginya tidak sama: screenshot
+telefon Lensa keluar 472 dan 449 piksel lebar sedangkan tangkapan headless
+keluar 395, jadi tanpa bingkai tetap telefon pada kad jadi tidak sekata.
+TM Morse (511/563) dan DAWar (610–675) ada masalah sama pada jubin galeri.
+
 Tiga telefon pada kad potret juga terbaca **kiri ke kanan** mengikut turutan
 galeri — `hero: n` menandakan di mana rentetan tiga itu bermula, jadi skrin
 terkuat mendarat di tengah (kedudukan paling menonjol).
