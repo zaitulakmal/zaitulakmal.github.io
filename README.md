@@ -132,6 +132,12 @@ iGnite ditangkap dengan deep-link ke laluan dalam `lib/demo_routes.dart`
 Flutter CanvasKit dalam browser tanpa kepala, tetapi hash route berfungsi —
 itu cara paling boleh dipercayai untuk menangkap setiap skrin.
 
+Galeri setiap projek disusun mengikut **aliran skrin sebenar** — halaman pertama
+dahulu, kemudian seterusnya. Kad pula boleh mula dengan skrin lain melalui medan
+`hero: n` (indeks ke dalam galeri), supaya turutan galeri kekal betul tanpa kad
+terpaksa memaparkan skrin log masuk. Contoh: galeri Gold Purity bermula pada
+log masuk, tetapi `hero:4` menjadikan kad memaparkan keputusan "999 PURE".
+
 Projek boleh set `frame:'photo'` untuk guna rangka foto penuh (tanpa chrome
 browser) dan `media:{en,ms}` untuk menamakan jenis media pada lencana — EchoLens
 guna kedua-duanya supaya lencananya berbunyi "1 photo", bukan "1 screens".
