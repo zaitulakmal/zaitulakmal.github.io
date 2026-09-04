@@ -122,8 +122,7 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 | iGnite | zaitulakmal.github.io/Ignite via laluan bernama | 8 |
 | ORAVIU | zaitulakmal.github.io/oralvis-app — element screenshot setiap .phone | 8 |
 | Lensa Kenduri | lensa-kenduri.web.app | 3 |
-| TM Morse | tm-morse-challenge.web.app | 4 |
-| DAWar | Prototaip Figma (chrome browser dipotong) | 6 |
+
 
 **Landskap (bingkai browser)** — medan `wides:[...]`
 
@@ -143,6 +142,8 @@ guna kedua-duanya supaya lencananya berbunyi "1 photo", bukan "1 screens".
 | BioWare | virtourism.com.my/um/BioWare (Unity WebGL) | 5 |
 | EchoDots | Screenshot kiosk Telegram Ucapan (chrome browser dipotong) | 5 |
 | EchoLens | Foto pemasangan sebenar di Muzium Telegraf Taiping | 1 |
+| TM Morse | tm-morse-challenge.web.app + 3 skrin log masuk sebenar | 7 |
+| DAWar | Prototaip Figma (chrome browser dipotong) | 6 |
 
 BioWare: 5 skrin — pilih watak, latihan menembak (kuiz), taklimat Captain Matt,
 menu utama, panel Setting.
@@ -155,6 +156,11 @@ dipilih. Klik lebih awal tiada kesan kerana butang belum wujud.
 Skrin kuiz adalah statik dan klik pada sasaran jawapan tidak mendaftar, jadi
 soalan kedua dan skrin skor tidak dapat ditangkap secara automatik. Setiap
 larian memuat turun 250 MB data Unity.
+
+TM Morse: 4 skrin ditangkap sendiri (pilih peranan, kod pasukan, passcode admin,
+papan besar Swiss League) — Student dan Admin berpagar kelayakan sebenar, jadi
+3 skrin dalaman (Admin Main Control, Round 1 Audio Decryption, Awards) datang
+daripada screenshot log masuk yang dihantar pengguna, dipotong bebas chrome.
 
 Gold Purity Analyzer ditangkap pada **1280x800, bukan lebar telefon** — footernya
 tertulis "Mini-PC Professional Edition" dan susun atur bertindih teruk di bawah
