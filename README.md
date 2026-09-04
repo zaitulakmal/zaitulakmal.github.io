@@ -118,9 +118,15 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 |---|---|---|
 | Slimora | Simulator iPhone 17 Pro | 6 |
 | EduBuddy | Simulator iPhone 17 Pro | 6 |
-| iGnite | Binaan Flutter web | 2 |
+| iGnite | zaitulakmal.github.io/Ignite via laluan bernama | 8 |
 
 **Landskap (bingkai browser)** — medan `wides:[...]`
+
+iGnite ditangkap dengan deep-link ke laluan dalam `lib/demo_routes.dart`
+(`#/home`, `#/device-connected`, `#/treatment`, `#/setup`, `#/session`,
+`#/complete`, `#/history`, `#/profile`). Klik dan taip tidak berfungsi pada
+Flutter CanvasKit dalam browser tanpa kepala, tetapi hash route berfungsi —
+itu cara paling boleh dipercayai untuk menangkap setiap skrin.
 
 Projek boleh set `frame:'photo'` untuk guna rangka foto penuh (tanpa chrome
 browser) dan `media:{en,ms}` untuk menamakan jenis media pada lencana — EchoLens
