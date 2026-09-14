@@ -45,24 +45,30 @@ jawab "No" untuk single-page app rewrite.
 
 ## Reka bentuk
 
-Gaya editorial: nama besar merentas skrin dengan foto potret (latar dibuang)
-di tengah, latar kelabu neutral, satu keluarga font (Archivo, paksi lebar untuk
-tajuk). Aksen tunggal ialah biru `--blue` yang diambil dari latar gambar passport.
+Diadaptasi daripada shot Dribbble "Personal Portfolio Website — Animations"
+(Dymas Alfin, Mikan Team) dengan kandungan sendiri. Font Manrope.
 
-Sengaja tiada: emoji, font mono, label huruf besar berjarak, efek taip,
-partikel, cursor khas, animasi setiap seksyen. Satu animasi sahaja — nama dan
-foto masuk semasa muat — dan ia dimatikan kalau OS minta reduced motion.
-
-| Ciri | Nota |
+| Bahagian | Tingkah laku |
 |---|---|
-| Nama muat lebar | `fitName()` kira saiz font supaya "ZAITUL AKMAL" penuh satu baris (>1100px) |
-| Penapis | 5 kumpulan: Semua, Mudah alih, Web, Permainan & penyelidikan, Perkakasan |
-| Kajian kes | `<dialog>` asli: fakta, galeri, bullet, pautan; butang projek sebelum/seterusnya |
-| Lightbox | Klik gambar galeri; `←` `→` `Esc` |
-| Dwibahasa | Togol EN / BM, disimpan dalam `localStorage` |
+| Hero | Nama "ZAITUL" bergaris luar + "AKMAL" tebal, dimuat lebar oleh JS. Huruf turun satu per satu, foto naik |
+| Muka | Hover (atau ketik di telefon) pada muka → `shots/portrait-color.webp` pudar masuk atas `portrait-bw.webp` |
+| /Selected Work | Perkataan hantu "PORTFOLIO", tab, 4 kad + "View All Work" |
+| /Service | Hover baris → panel gelap, penerangan, gambar condong |
+| /Experience | Seksyen gelap; hover baris → gambar ikut cursor; klik → bullet penuh |
+| Halaman projek | `#project/<id>`, butang Back, Live Preview / View Code, galeri + lightbox |
 
-`shots/portrait.webp` dijana dari foto asal dengan Vision
-(`VNGenerateForegroundInstanceMaskRequest`) untuk buang latar biru.
+Garis luar nama guna `paint-order: stroke fill` supaya kontur bertindih dalam
+font variable (huruf A) tidak kelihatan.
+
+### Foto
+
+`portrait-bw.webp` ialah foto hitam-putih yang diberi. `portrait-color.webp`
+dijana daripada foto passport asal: latar dibuang dengan Vision
+(`VNGenerateForegroundInstanceMaskRequest`), kemudian diskala/diputar supaya
+anak mata (`VNDetectFaceLandmarksRequest`) jatuh tepat pada kedudukan anak mata
+foto hitam-putih. Kedua-dua fail berkanvas sama (1400×911). Bahu foto
+hitam-putih sedikit lebih lebar, jadi lapisan warna disembunyikan dengan
+`mask-image` di bahagian bahu.
 
 ## Menyunting kandungan
 
