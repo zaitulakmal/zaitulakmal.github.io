@@ -1101,7 +1101,7 @@ document.addEventListener('keydown', e => {
     const fs = parseFloat(name.style.fontSize);
     const headTop = nb.bottom - hero.top - fs * .1;
     const h = Math.min(1000, (hero.height - headTop) / (1 - .124));
-    const lift = fs * .42;
+    const lift = -fs * .16;
     $('#portrait').style.height = h + 'px';
     $('#portrait').style.bottom = lift + 'px';
   }
