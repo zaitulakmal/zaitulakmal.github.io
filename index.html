@@ -61,12 +61,12 @@ img{max-width:100%;display:block}
 .name{position:absolute;left:var(--pad);right:var(--pad);top:clamp(88px,13vh,130px);margin:0;display:flex;justify-content:center;gap:.28em;font-weight:800;line-height:.9;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;font-size:9vw;z-index:1}
 .name .outline{color:#FEFEFE;-webkit-text-stroke:4px var(--ink);paint-order:stroke fill}
 .name .ch{display:inline-block}
-.portrait{position:absolute;left:50%;bottom:0;height:min(80%,760px);aspect-ratio:896/1200;transform:translateX(-50%);z-index:2}
+.portrait{position:absolute;left:50%;bottom:0;height:min(80%,760px);aspect-ratio:1356/1200;transform:translateX(-50%);z-index:2}
 .portrait img{position:absolute;inset:0;width:100%;height:100%;user-select:none;-webkit-user-drag:none}
-.portrait{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(to bottom,#000 86%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(to bottom,#000 86%,transparent 100%);mask-composite:intersect}
+.portrait{-webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)}
 .portrait .color{opacity:0;transition:opacity .55s var(--ease)}
 .portrait.on .color{opacity:1}
-.face{position:absolute;left:26%;top:7%;width:48%;height:58%;border-radius:45% 45% 40% 40%;cursor:pointer;z-index:3}
+.face{position:absolute;left:34%;top:7%;width:32%;height:58%;border-radius:45% 45% 40% 40%;cursor:pointer;z-index:3}
 .hero-left{position:absolute;left:var(--pad);bottom:clamp(80px,18vh,190px);z-index:4;max-width:290px}
 .hero-left h2{margin:0 0 8px;font-size:1.65rem;font-weight:600;letter-spacing:-.01em;line-height:1.2}
 .hero-left p{margin:0 0 18px;color:var(--ink-2);font-size:.9rem;line-height:1.5}
@@ -87,7 +87,7 @@ img{max-width:100%;display:block}
   .hero .wrap{height:auto;display:flex;flex-direction:column}
   .name{position:relative;left:0;right:0;top:0;font-size:12.4vw;gap:.22em}
   .name .outline{-webkit-text-stroke:2.4px var(--ink);color:var(--bg)}
-  .portrait{position:relative;left:50%;height:auto;width:min(86vw,440px);margin-top:-4vw;order:2}
+  .portrait{position:relative;left:50%;height:auto;width:min(112vw,620px);margin-top:-4vw;order:2}
   .hero-left{position:relative;left:0;bottom:0;max-width:none;order:3;margin-top:20px}
   .socials{position:relative;right:0;bottom:0;flex-direction:row;flex-wrap:wrap;align-items:center;order:4;margin:22px 0 40px}
   .hero-fade{display:none}
@@ -208,7 +208,7 @@ section{position:relative}
 .contact p{margin:0 auto 26px;max-width:46ch;color:var(--ink-2);font-size:.95rem}
 .foot{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:clamp(70px,10vw,120px)}
 .foot .me{background:var(--ink);color:#fff;border-color:var(--ink);padding-left:4px}
-.foot .me img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:50% 30%;background:#ddd}
+.foot .me img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:50% 30%;background:#ddd;transform:scale(1.5)}
 .foot svg{width:13px;height:13px}
 .contact p.copy{margin:26px auto 0;color:var(--ink-3);font-size:.78rem}
 
@@ -290,8 +290,8 @@ section{position:relative}
       <h1 class="name" aria-label="Zaitul Akmal"><span class="outline" aria-hidden="true">Zaitul</span><span aria-hidden="true">Akmal</span></h1>
       <div class="portrait-clip">
         <div class="portrait" id="portrait">
-          <img src="shots/portrait-bw.webp" alt="Portrait of Nur Zaitul Akmal" width="896" height="1200" fetchpriority="high">
-          <img class="color" src="shots/portrait-color.webp" alt="" width="896" height="1200">
+          <img src="shots/portrait-bw.webp" alt="Portrait of Nur Zaitul Akmal" width="1356" height="1200" fetchpriority="high">
+          <img class="color" src="shots/portrait-color.webp" alt="" width="1356" height="1200">
           <span class="face" id="face" role="img" aria-label="Hover or tap to see the photo in colour"></span>
         </div>
       </div>
