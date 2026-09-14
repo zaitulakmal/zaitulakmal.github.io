@@ -62,13 +62,12 @@ font variable (huruf A) tidak kelihatan.
 
 ### Foto
 
-`portrait-bw.webp` ialah foto hitam-putih yang diberi. `portrait-color.webp`
-dijana daripada foto passport asal: latar dibuang dengan Vision
-(`VNGenerateForegroundInstanceMaskRequest`), kemudian diskala/diputar supaya
-anak mata (`VNDetectFaceLandmarksRequest`) jatuh tepat pada kedudukan anak mata
-foto hitam-putih. Kedua-dua fail berkanvas sama (1400×911). Bahu foto
-hitam-putih sedikit lebih lebar, jadi lapisan warna disembunyikan dengan
-`mask-image` di bahagian bahu.
+`portrait-bw.webp` = foto tanpa spek, `portrait-color.webp` = foto berspek
+(kedua-duanya dari fail `IMG_8921.JPG.jpeg_2026091411*.jpeg`, bingkai sama
+896×1200). Latar dibuang dengan Vision (`VNGenerateForegroundInstanceMaskRequest`);
+versi tanpa spek ditukar ke hitam-putih dengan ffmpeg. Tiada transformasi —
+bingkai asal sudah sejajar. Hover muka → foto warna berspek pudar masuk,
+macam dalam shot asal.
 
 ## Menyunting kandungan
 
