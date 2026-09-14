@@ -43,24 +43,26 @@ Laman terbit di `https://zaitulakmal.github.io`. (Kalau nama repo lain, ia jadi
 **Firebase Hosting** — `firebase init hosting`, set public directory kepada `.`,
 jawab "No" untuk single-page app rewrite.
 
-## Apa yang interaktif
+## Reka bentuk
+
+Gaya editorial: nama besar merentas skrin dengan foto potret (latar dibuang)
+di tengah, latar kelabu neutral, satu keluarga font (Archivo, paksi lebar untuk
+tajuk). Aksen tunggal ialah biru `--blue` yang diambil dari latar gambar passport.
+
+Sengaja tiada: emoji, font mono, label huruf besar berjarak, efek taip,
+partikel, cursor khas, animasi setiap seksyen. Satu animasi sahaja — nama dan
+foto masuk semasa muat — dan ia dimatikan kalau OS minta reduced motion.
 
 | Ciri | Nota |
 |---|---|
-| Medan partikel | Canvas, titik berpaut, menolak jauh dari cursor, jeda bila tab tersembunyi |
-| Cursor tersuai | Titik + cincin yang mengekori dengan lerp, membesar atas elemen boleh klik |
-| Nama hero | Scramble karakter semasa muat; hover untuk ulang |
-| Taip berputar | Senarai peranan menaip sendiri, ikut bahasa aktif |
-| Kad projek | Tilt 3D + spotlight ikut posisi cursor |
-| Penapis | 9 kategori, kiraan langsung, kad masuk berperingkat |
-| Modal kajian kes | Bullet penuh, statistik, pautan; navigasi `←` `→`, tutup `Esc` |
-| Command palette | `⌘K` / `Ctrl+K` — cari ikut nama, teknologi, kategori atau organisasi |
-| Dwibahasa | Togol EN / MY, disimpan dalam `localStorage` |
-| Garis masa | Garis mengisi mengikut scroll, titik menyala bila masuk viewport |
-| Kiraan statistik | Nombor naik bila seksyen masuk viewport |
-| Butang magnetik | CTA tertarik sedikit ke arah cursor |
-| Mod arked | Konami code (`↑↑↓↓←→←→BA`) menukar keseluruhan palet ke cyan |
-| Reduced motion | Semua animasi dimatikan kalau OS minta |
+| Nama muat lebar | `fitName()` kira saiz font supaya "ZAITUL AKMAL" penuh satu baris (>1100px) |
+| Penapis | 5 kumpulan: Semua, Mudah alih, Web, Permainan & penyelidikan, Perkakasan |
+| Kajian kes | `<dialog>` asli: fakta, galeri, bullet, pautan; butang projek sebelum/seterusnya |
+| Lightbox | Klik gambar galeri; `←` `→` `Esc` |
+| Dwibahasa | Togol EN / BM, disimpan dalam `localStorage` |
+
+`shots/portrait.webp` dijana dari foto asal dengan Vision
+(`VNGenerateForegroundInstanceMaskRequest`) untuk buang latar biru.
 
 ## Menyunting kandungan
 
@@ -69,7 +71,8 @@ Semua data ada dalam satu blok `<script>` di bahagian bawah `index.html`:
 - `PROJECTS` — senarai projek. Setiap entri ada `blurb`, `detail`, `stats`, `links`,
   dan medan dwibahasa dalam bentuk `{en: "...", ms: "..."}`.
 - `JOBS` — pengalaman kerja.
-- `SKILLS`, `CERTS`, `FILTERS` — kotak alat, sijil, kategori penapis.
+- `SKILLS`, `CERTS`, `FILTERS` — kotak alat, sijil, kumpulan penapis.
+- `ORDER` — turutan projek dalam grid.
 - `T` — semua teks UI untuk kedua-dua bahasa.
 
 Tambah projek = tambah satu objek dalam `PROJECTS`. Penapis, kiraan statistik dan
