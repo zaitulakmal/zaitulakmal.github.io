@@ -1092,7 +1092,7 @@ document.addEventListener('keydown', e => {
     word.innerHTML = [...word.textContent].map(ch => '<span class="ch" style="transition-delay:' + (n++ * 45) + 'ms">' + esc(ch) + '</span>').join('');
   });
   function fit(){
-    if (innerWidth <= 820){ name.style.fontSize = ''; $('#portrait').style.height = ''; return; }
+    if (innerWidth <= 820){ name.style.fontSize = ''; $('#portrait').style.height = ''; $('#portrait').style.bottom = ''; return; }
     name.style.fontSize = '100px';
     const words = name.children, gap = parseFloat(getComputedStyle(name).columnGap) || 0;
     const w = words[0].getBoundingClientRect().width + words[1].getBoundingClientRect().width + gap;
@@ -1101,7 +1101,9 @@ document.addEventListener('keydown', e => {
     const fs = parseFloat(name.style.fontSize);
     const headTop = nb.bottom - hero.top - fs * .1;
     const h = Math.min(1000, (hero.height - headTop) / (1 - .124));
+    const lift = fs * .42;
     $('#portrait').style.height = h + 'px';
+    $('#portrait').style.bottom = lift + 'px';
   }
   addEventListener('resize', fit, {passive:true});
   if (document.fonts) document.fonts.ready.then(fit);
