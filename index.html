@@ -66,6 +66,7 @@ img{max-width:100%;display:block}
 .portrait{-webkit-mask-image:linear-gradient(to bottom,#000 74%,transparent 90%);mask-image:linear-gradient(to bottom,#000 74%,transparent 90%)}
 .portrait .color{opacity:0;transition:opacity .55s var(--ease)}
 .portrait.on .color{opacity:1}
+@media(hover:none){.portrait{cursor:pointer;-webkit-tap-highlight-color:transparent}.face{pointer-events:none}}
 .face{position:absolute;left:30%;top:12%;width:40%;height:50%;border-radius:45% 45% 40% 40%;cursor:pointer;z-index:3}
 .hero-left{position:absolute;left:var(--pad);bottom:clamp(80px,18vh,190px);z-index:4;max-width:290px}
 .hero-left h2{margin:0 0 8px;font-size:1.65rem;font-weight:600;letter-spacing:-.01em;line-height:1.2}
@@ -95,7 +96,8 @@ img{max-width:100%;display:block}
 }
 
 /* section headings with ghost word */
-section{position:relative}
+section{position:relative;overflow-x:clip}
+html{overflow-x:clip}
 .sec{padding-block:clamp(72px,11vw,130px)}
 .head{position:relative;margin-bottom:clamp(28px,4vw,44px)}
 .ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-58%);margin:0;font-weight:800;text-transform:uppercase;font-size:clamp(4rem,13vw,10.5rem);letter-spacing:.04em;line-height:1;color:rgba(0,0,0,.045);white-space:nowrap;pointer-events:none;user-select:none}
@@ -103,6 +105,7 @@ section{position:relative}
 .head.center{text-align:center}
 .head.left .ghost{left:0;transform:translate(-2%,-58%)}
 .head .aside{position:absolute;right:0;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:.85rem}
+@media(max-width:600px){.head .aside{display:none}}
 @media(prefers-reduced-motion:no-preference){
   .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
   .rv.in{opacity:1;transform:none}
@@ -1110,9 +1113,10 @@ document.addEventListener('keydown', e => {
   fit();
 
   const portrait = $('#portrait'), face = $('#face');
-  face.addEventListener('mouseenter', () => portrait.classList.add('on'));
-  face.addEventListener('mouseleave', () => portrait.classList.remove('on'));
-  face.addEventListener('click', () => { if (matchMedia('(hover:none)').matches) portrait.classList.toggle('on'); });
+  face.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') portrait.classList.add('on'); });
+  face.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') portrait.classList.remove('on'); });
+  // touch / pen: tap the photo to switch, tap again to switch back
+  portrait.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') portrait.classList.toggle('on'); });
 
   const colour = portrait.querySelector('.color');
   const go = () => requestAnimationFrame(() => document.body.classList.add('loaded'));
