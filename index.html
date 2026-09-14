@@ -233,6 +233,11 @@ html{overflow-x:clip}
 .p-meta dt{font-size:.75rem;color:var(--ink-3)}
 .p-meta dd{margin:2px 0 0;font-weight:600;font-size:.95rem}
 .p-gallery{display:grid;gap:16px;margin-bottom:48px}
+.p-video{margin:0 0 40px}
+.p-video-frame{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#111}
+.p-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.p-video figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px;color:var(--ink-2);font-size:.9rem}
+.p-video figcaption .tag{background:var(--white)}
 .p-gallery.wide{grid-template-columns:1fr}
 .p-gallery.phones{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
 .p-gallery button{border-radius:14px;overflow:hidden;background:var(--white);padding:0;border:1px solid var(--line)}
@@ -555,7 +560,8 @@ const PROJECTS = [
   stats:[{k:'4',v:{en:'Interfaces',ms:'Antara muka'}},{k:'30',v:{en:'School teams',ms:'Pasukan sekolah'}},{k:'11',v:{en:'Match rounds',ms:'Pusingan perlawanan'}},{k:'650Hz',v:{en:'Synth tone',ms:'Nada sintesis'}}],
   wides:['shots/tmmorse-5.webp','shots/tmmorse-6.webp','shots/tmmorse-2.webp','shots/tmmorse-7.webp','shots/tmmorse-1.webp','shots/tmmorse-3.webp','shots/tmmorse-4.webp'],
   hero:4,
-  links:[{l:'Live app',u:'https://tm-morse-challenge.web.app'}]
+  video:{id:'qEoZbesajcE', title:'KEMAHIRAN TELEKOMUNIKASI | 30 Sekolah Sertai Cabaran Kod Morse Perak', source:'Buletin TV3'},
+  links:[{l:'Live app',u:'https://tm-morse-challenge.web.app'},{l:'Watch on Buletin TV3',u:'https://www.youtube.com/watch?v=qEoZbesajcE'}]
 },
 {
   id:'ignite', name:'iGnite', icon:'🔥', ac:AC.hw, year:'2026', cats:['flutter','hw'],
@@ -1030,6 +1036,8 @@ function openPage(i, fromHash){
         '<div><dt>Tools</dt><dd>' + p.stack.map(esc).join(', ') + '</dd></div>' +
       '</dl>' +
     '</div>' +
+    (p.video ? '<figure class="p-video"><div class="p-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/' + p.video.id + '?rel=0" title="' + esc(p.video.title) + '" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>' +
+      '<figcaption><span class="tag">In the news</span> Featured on ' + esc(p.video.source) + ': ' + esc(p.video.title) + '</figcaption></figure>' : '') +
     (g.length ? '<div class="p-gallery ' + (wide ? 'wide' : 'phones') + '">' + g.map((src,k) =>
       '<button type="button" data-shot="' + k + '" aria-label="Open screenshot ' + (k+1) + '"><img src="' + src + '" alt="' + esc(p.name) + ' screenshot ' + (k+1) + '" loading="lazy"></button>').join('') + '</div>' : '') +
     '<div class="p-body"><h2>About the project</h2><div>' +
