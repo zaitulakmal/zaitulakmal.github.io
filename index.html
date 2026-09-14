@@ -139,6 +139,8 @@ section{position:relative}
 .thumb .phones img{width:26%;aspect-ratio:9/19.5;object-fit:cover;object-position:top;border-radius:14px;border:4px solid #fff;box-shadow:0 18px 36px -10px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.05)}
 .thumb .phones img:nth-child(2){margin-top:-4%}
 .thumb .word{position:absolute;inset:auto 22px 20px;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1;letter-spacing:-.02em;color:color-mix(in srgb,var(--ac,#999) 45%,#fff);text-transform:uppercase}
+.thumb .logo{position:absolute;inset:0;margin:auto;width:56%;height:auto;transition:transform .8s var(--ease)}
+.card:hover .logo{transform:scale(1.04)}
 .card:hover .cover{transform:scale(1.04)}
 .card:hover .phones{transform:translateY(-6px)}
 .card-title{margin:14px 8px 10px;font-size:.98rem;font-weight:600;line-height:1.35}
@@ -486,6 +488,34 @@ const PROJECTS = [
   stats:[{k:'21',v:{en:'Screens',ms:'Skrin'}},{k:'14',v:{en:'SQLite tables',ms:'Jadual SQLite'}},{k:'3',v:{en:'Mini-games',ms:'Permainan mini'}},{k:'1.0.4',v:{en:'Play Store version',ms:'Versi Play Store'}}],
   shots:['shots/edubuddy-1.webp','shots/edubuddy-3.webp','shots/edubuddy-4.webp','shots/edubuddy-5.webp','shots/edubuddy-6.webp','shots/edubuddy-2.webp'],
   links:[{l:'GitHub',u:'https://github.com/zaitulakmal/EduBuddy'}]
+},
+{
+  id:'ir-academy', name:'IR Academy', icon:'', ac:'#EA580C', logo:'shots/ir-academy-logo.webp', year:'2026', cats:['flutter','web'],
+  sub:{en:'Homeschool Learning Portal',ms:'Portal Pembelajaran Homeschool'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'IR Academy Homeschool',ms:'IR Academy Homeschool'},
+  stack:['Flutter','Flutter Web','Cloud Firestore','Firebase Cloud Messaging','Supabase Storage'],
+  blurb:{en:'A portal for a homeschool: teachers post homework, grade submissions and keep learner records, while students follow class updates, a shared calendar and group chat.',
+         ms:'Portal untuk sebuah homeschool: guru memberi kerja rumah, menilai hantaran dan menyimpan rekod pelajar, manakala pelajar mengikuti kemas kini kelas, kalendar bersama dan sembang kumpulan.'},
+  detail:{en:[
+    'One Flutter codebase with two sides chosen at log in: a teacher portal of fifteen screens and a student portal of nine.',
+    'Full homework and APR flow: teachers set work, students submit with attachments, and teachers grade each submission.',
+    'Learners record with student profiles, report cards, school announcements and class updates posted as stories.',
+    'Group class chat and a calendar that teachers can edit, shared with their students.',
+    'A gamification layer with badges, streaks and a celebration dialog when a badge is earned.',
+    'Data lives in Cloud Firestore, uploaded files in Supabase Storage, with push and in-app notifications through Firebase Cloud Messaging.',
+    'Hardened for mobile browsers: fixed start-up crashes on iOS Safari by guarding the notification permission request and Firebase initialisation, and cleared stale service-worker caches.'
+  ],ms:[
+    'Satu codebase Flutter dengan dua bahagian yang dipilih semasa log masuk: portal guru dengan lima belas skrin dan portal pelajar dengan sembilan.',
+    'Aliran kerja rumah dan APR penuh: guru memberi tugasan, pelajar menghantar dengan lampiran, dan guru menilai setiap hantaran.',
+    'Rekod pelajar dengan profil, kad laporan, pengumuman sekolah dan kemas kini kelas dalam bentuk story.',
+    'Sembang kumpulan kelas dan kalendar yang boleh disunting guru, dikongsi dengan pelajar.',
+    'Lapisan gamifikasi dengan lencana, streak dan dialog sambutan apabila lencana diperoleh.',
+    'Data disimpan dalam Cloud Firestore, fail dalam Supabase Storage, dengan notifikasi push dan dalam aplikasi melalui Firebase Cloud Messaging.',
+    'Diperkukuh untuk pelayar mudah alih: membaiki ranap semasa mula di iOS Safari dengan melindungi permintaan kebenaran notifikasi dan inisialisasi Firebase, serta mengosongkan cache service worker yang lapuk.'
+  ]},
+  stats:[{k:'24',v:{en:'Screens',ms:'Skrin'}},{k:'2',v:{en:'User roles',ms:'Peranan pengguna'}},{k:'79',v:{en:'Dart files',ms:'Fail Dart'}}],
+  links:[{l:'GitHub',u:'https://github.com/zaitulakmal/ir_academy_app'}]
 },
 {
   id:'tm-morse', name:'TM Morse Code Challenge', icon:'📡', ac:AC.flutter, year:'2026', cats:['flutter','featured','games'],
@@ -859,7 +889,7 @@ const CERTS = [
 
 
 
-const ORDER = ['slimora','edubuddy','bioware','tm-morse','echodots','echolens','lensa','oraviu','ignite','gold','dawar','zakat'];
+const ORDER = ['slimora','edubuddy','ir-academy','bioware','tm-morse','echodots','echolens','lensa','oraviu','ignite','gold','dawar','zakat'];
 PROJECTS.sort((a,b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));
 
 const L = o => (o && typeof o === 'object' && !Array.isArray(o)) ? o.en : o;
@@ -893,6 +923,7 @@ function thumb(p){
     return badge + '<div class="phones">' + [0,1,2].map(i => '<img src="' + p.shots[(h+i) % n] + '" alt="" loading="lazy">').join('') + '</div>';
   }
   if (p.wides) return badge + '<div class="win"><i><b></b><b></b><b></b></i><img src="' + (CARD_IMG[p.id] || p.wides[heroIdx(p)]) + '" alt="" loading="lazy"></div>';
+  if (p.logo) return badge + '<img class="logo" src="' + p.logo + '" alt="' + esc(p.name) + ' logo" loading="lazy">';
   return badge + '<span class="word">' + esc(p.name) + '</span>';
 }
 function card(p){
