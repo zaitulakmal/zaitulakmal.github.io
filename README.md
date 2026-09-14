@@ -52,9 +52,9 @@ Diadaptasi daripada shot Dribbble "Personal Portfolio Website — Animations"
 |---|---|
 | Hero | Nama "ZAITUL" bergaris luar + "AKMAL" tebal, dimuat lebar oleh JS. Huruf turun satu per satu, foto naik |
 | Muka | Hover (atau ketik di telefon) pada muka → `shots/portrait-color.webp` pudar masuk atas `portrait-bw.webp` |
-| /Selected Work | Perkataan hantu "PORTFOLIO", tab, 4 kad + "View All Work" |
+| /Selected Work | Perkataan hantu "PORTFOLIO", tab, 4 kad + "View All Work". Screenshot web dalam bingkai browser, telefon dalam bingkai telefon, atas latar tona warna projek. Gambar kad boleh ditukar dalam `CARD_IMG` |
 | /Service | Hover baris → panel gelap, penerangan, gambar condong |
-| /Experience | Seksyen gelap; hover baris → gambar ikut cursor; klik → bullet penuh |
+| /Experience | Seksyen gelap; klik baris → bullet penuh |
 | Halaman projek | `#project/<id>`, butang Back, Live Preview / View Code, galeri + lightbox |
 
 Garis luar nama guna `paint-order: stroke fill` supaya kontur bertindih dalam

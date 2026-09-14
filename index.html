@@ -125,13 +125,19 @@ section{position:relative}
 .card{display:block;width:100%;text-align:left;background:var(--white);border-radius:14px;padding:8px 8px 16px;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
 .card[hidden]{display:none}
 .card:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(0,0,0,.25)}
-.thumb{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:#EDEDED}
+.thumb{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden;background:color-mix(in srgb,var(--ac,#999) 13%,#F2F2F2)}
+.thumb .win{position:absolute;left:8%;right:8%;top:13%;bottom:-2%;border-radius:9px 9px 0 0;overflow:hidden;background:#fff;box-shadow:0 18px 40px -12px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.06);transition:transform .8s var(--ease)}
+.thumb .win i{display:flex;gap:5px;align-items:center;height:22px;padding:0 10px;background:#F7F7F7;border-bottom:1px solid #EBEBEB}
+.thumb .win i b{width:7px;height:7px;border-radius:50%;background:#DADADA}
+.thumb .win img{width:100%;height:calc(100% - 22px);object-fit:cover;object-position:top}
+.card:hover .win{transform:translateY(-8px)}
 .thumb .badge{position:absolute;top:10px;left:10px;z-index:2;height:24px;padding:0 10px;display:inline-flex;align-items:center;border-radius:999px;background:rgba(255,255,255,.92);font-size:.66rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .thumb .cover{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .8s var(--ease)}
 .thumb .phones{position:absolute;inset:10% 6% 0;display:flex;justify-content:center;gap:5%;transition:transform .8s var(--ease)}
-.thumb .phones img{width:27%;aspect-ratio:9/19.5;object-fit:cover;object-position:top;border-radius:12px;border:3px solid #fff;box-shadow:0 10px 24px rgba(0,0,0,.14)}
+.thumb .phones{inset:12% 6% 0}
+.thumb .phones img{width:26%;aspect-ratio:9/19.5;object-fit:cover;object-position:top;border-radius:14px;border:4px solid #fff;box-shadow:0 18px 36px -10px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.05)}
 .thumb .phones img:nth-child(2){margin-top:-4%}
-.thumb .word{position:absolute;inset:auto 18px 16px;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1;letter-spacing:-.02em;color:#C9C9C9;text-transform:uppercase}
+.thumb .word{position:absolute;inset:auto 22px 20px;font-weight:800;font-size:clamp(1.6rem,3.6vw,2.6rem);line-height:1;letter-spacing:-.02em;color:color-mix(in srgb,var(--ac,#999) 45%,#fff);text-transform:uppercase}
 .card:hover .cover{transform:scale(1.04)}
 .card:hover .phones{transform:translateY(-6px)}
 .card-title{margin:14px 8px 10px;font-size:.98rem;font-weight:600;line-height:1.35}
@@ -182,10 +188,6 @@ section{position:relative}
 .job-detail ul{margin:0;padding:0 0 22px 1.1em;max-width:70ch;color:#BDBDBD;font-size:.9rem}
 .job-detail li{margin-bottom:6px}
 .job.open .job-detail{grid-template-rows:1fr}
-.float{position:fixed;left:0;top:0;width:230px;z-index:40;pointer-events:none;opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(.8);transition:opacity .35s var(--ease),transform .45s var(--ease);border-radius:10px;overflow:hidden;border:5px solid #D9D9D9;box-shadow:0 24px 50px rgba(0,0,0,.45)}
-.float.on{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}
-.float img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:top}
-@media(hover:none){.float{display:none}}
 
 /* education */
 .edu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
@@ -338,7 +340,6 @@ section{position:relative}
       </div>
       <div class="jobs" id="jobs"></div>
     </div>
-    <div class="float" id="float" aria-hidden="true"><img src="" alt=""></div>
   </section>
 
   <section class="sec" id="education">
@@ -882,6 +883,7 @@ let tab = 'all', showAll = false;
 const LIMIT = 4;
 
 /* ---------- work ---------- */
+const CARD_IMG = {'tm-morse':'shots/tmmorse-3.webp', 'echodots':'shots/echodots-5.webp', 'dawar':'shots/dawar-2.webp'};
 function thumb(p){
   const badge = '<span class="badge">' + esc(kind(p)) + '</span>';
   if (p.frame === 'photo') return badge + '<img class="cover" src="' + p.wides[heroIdx(p)] + '" alt="" loading="lazy">';
@@ -889,12 +891,12 @@ function thumb(p){
     const h = heroIdx(p), n = p.shots.length;
     return badge + '<div class="phones">' + [0,1,2].map(i => '<img src="' + p.shots[(h+i) % n] + '" alt="" loading="lazy">').join('') + '</div>';
   }
-  if (p.wides) return badge + '<img class="cover" src="' + p.wides[heroIdx(p)] + '" alt="" loading="lazy">';
+  if (p.wides) return badge + '<div class="win"><i><b></b><b></b><b></b></i><img src="' + (CARD_IMG[p.id] || p.wides[heroIdx(p)]) + '" alt="" loading="lazy"></div>';
   return badge + '<span class="word">' + esc(p.name) + '</span>';
 }
 function card(p){
   const i = PROJECTS.indexOf(p);
-  return '<button type="button" class="card rv" data-i="' + i + '">' +
+  return '<button type="button" class="card rv" data-i="' + i + '" style="--ac:' + p.ac + '">' +
     '<div class="thumb">' + thumb(p) + '</div>' +
     '<p class="card-title">' + esc(p.name) + ' - ' + esc(L(p.sub)) + '</p>' +
     '<div class="tags">' + p.stack.slice(0,2).map(s => '<span class="tag">' + esc(s) + '</span>').join('') +
@@ -948,36 +950,20 @@ document.querySelectorAll('.svc').forEach(el => {
 });
 
 /* ---------- experience ---------- */
-const JOB_IMG = {'Universiti Malaya':'shots/bioware-1.webp'};
 $('#jobs').innerHTML = JOBS.map((j,i) => {
-  const img = JOB_IMG[j.co] || (j.co === 'Wariscan Sdn Bhd' && /Present/.test(j.when) ? 'shots/echodots-2.webp' : '');
-  return '<div class="job" data-img="' + img + '">' +
+  return '<div class="job">' +
     '<button type="button" class="job-row" aria-expanded="false" aria-controls="job' + i + '"><span><b>' + esc(j.co) + '</b><span class="role">' + esc(L(j.role)) + '</span></span>' +
     '<span class="when">' + esc(j.when.replace(' — ',' – ')) + '</span></button>' +
     '<div class="job-detail" id="job' + i + '"><div><ul>' + L(j.pts).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></div>' +
   '</div>';
 }).join('');
-const float = $('#float'), floatImg = float.querySelector('img');
-let fx = 0, fy = 0, tx = 0, ty = 0, floating = false;
 document.querySelectorAll('.job').forEach(el => {
   el.querySelector('.job-row').addEventListener('click', () => {
     const open = !el.classList.contains('open');
     el.classList.toggle('open', open);
     el.querySelector('.job-row').setAttribute('aria-expanded', open);
   });
-  el.addEventListener('mouseenter', e => {
-    if (!el.dataset.img) return;
-    floatImg.src = el.dataset.img; tx = fx = e.clientX; ty = fy = e.clientY;
-    float.classList.add('on'); if (!floating){ floating = true; follow(); }
-  });
-  el.addEventListener('mouseleave', () => float.classList.remove('on'));
 });
-addEventListener('mousemove', e => { tx = e.clientX + 110; ty = e.clientY - 20; }, {passive:true});
-function follow(){
-  fx += (tx - fx) * .14; fy += (ty - fy) * .14;
-  float.style.left = fx + 'px'; float.style.top = fy + 'px';
-  if (float.classList.contains('on') || Math.abs(tx-fx) > .5) requestAnimationFrame(follow); else floating = false;
-}
 
 /* ---------- education ---------- */
 $('#certs').innerHTML = CERTS.map(c => '<li><span><b>' + esc(c[0]) + '</b></span><span>' + esc(c[1]) + '</span></li>').join('');
