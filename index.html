@@ -1018,7 +1018,6 @@ let lastFocus = null;
 function openPage(i, fromHash){
   const p = PROJECTS[i], g = gallery(p), wide = !p.shots;
   const live = p.links.find(l => !/github/i.test(l.u));
-  const code = p.links.find(l => /github/i.test(l.u));
   const more = [PROJECTS[(i+1) % PROJECTS.length], PROJECTS[(i+2) % PROJECTS.length]];
   $('#pageIn').innerHTML =
     '<div class="p-head">' +
@@ -1028,7 +1027,6 @@ function openPage(i, fromHash){
         '<p>' + esc(L(p.blurb)) + '</p>' +
         '<div class="p-actions">' +
           (live ? '<a class="btn" href="' + esc(live.u) + '" target="_blank" rel="noopener">Live Preview ' + ARROW + '</a>' : '') +
-          (code ? '<a class="btn light" href="' + esc(code.u) + '" target="_blank" rel="noopener">View Code ' + ARROW + '</a>' : '') +
           '<a class="btn light" href="mailto:zaitulakmal02@gmail.com">Contact Me</a>' +
         '</div>' +
       '</div>' +
