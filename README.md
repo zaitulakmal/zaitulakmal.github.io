@@ -96,11 +96,14 @@ command palette semuanya terbit sendiri daripada data itu.
 
 ## Skop projek
 
-Laman ini memaparkan **12 projek** pilihan:
+Laman ini memaparkan **14 projek** pilihan:
 
-BioWare · Slimora · EduBuddy · TM Morse Code Challenge · iGnite · EchoLens ·
-EchoDots · Lensa Kenduri · Gold Purity Analyzer · ORAVIU · DAWar System ·
-Zakat Distribution App
+BioWare · Slimora · EduBuddy · IR Academy · TM Morse Code Challenge ·
+Up Up Didi! · iGnite · EchoLens · EchoDots · Lensa Kenduri ·
+Gold Purity Analyzer · ORAVIU · DAWar System · Zakat Distribution App
+
+Up Up Didi! dipaparkan sebagai **PWA** (upupdidi.vercel.app), bukan binaan
+Android/Play. Repo `zaitulakmal/upupdidi` private, jadi hanya pautan PWA dipasang.
 
 EchoDots = repo `telegram_ucapan`. README repo itu masih templat Flutter kosong,
 jadi butiran kajian kes diambil terus dari kod: 13 aset poskad, 6 saluran
@@ -130,6 +133,7 @@ boleh ditambah semula — salin semula objeknya ke dalam `PROJECTS`.
 | iGnite | zaitulakmal.github.io/Ignite via laluan bernama | 8 |
 | ORAVIU | zaitulakmal.github.io/oralvis-app — element screenshot setiap .phone | 8 |
 | Lensa Kenduri | lensa-kenduri.web.app + 3 screenshot telefon sebenar | 6 |
+| Up Up Didi! | PWA live upupdidi.vercel.app @393x852 — butang Install dikekalkan (screenshot Play dalam repo menyoroknya) | 7 |
 
 
 **Landskap (bingkai browser)** — medan `wides:[...]`

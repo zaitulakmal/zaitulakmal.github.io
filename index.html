@@ -566,6 +566,38 @@ const PROJECTS = [
   links:[{l:'Live app',u:'https://tm-morse-challenge.web.app'},{l:'Watch on Buletin TV3',u:'https://www.youtube.com/watch?v=qEoZbesajcE'}]
 },
 {
+  id:'upupdidi', name:'Up Up Didi!', icon:'🎵', ac:AC.games, year:'2026', cats:['web','games'],
+  sub:{en:'Music Platformer PWA for Kids',ms:'Permainan Platform Muzik PWA untuk Kanak-kanak'},
+  role:{en:'Solo Developer',ms:'Pembangun Solo'},
+  org:{en:'Personal product, installable PWA',ms:'Produk peribadi, PWA boleh dipasang'},
+  stack:['PWA','HTML5 Canvas','JavaScript','Service Worker','Web Audio API','IndexedDB'],
+  blurb:{en:'A vertical music platformer that installs straight from the browser and plays offline: 60 levels across four worlds, every sprite drawn in code and every sound synthesised.',
+         ms:'Permainan platform muzik menegak yang dipasang terus dari pelayar dan boleh dimain offline: 60 tahap merentas empat dunia, setiap sprite dilukis dengan kod dan setiap bunyi disintesis.'},
+  detail:{en:[
+    'Installable Progressive Web App: a web app manifest (fullscreen, portrait), an Install button that appears when the browser offers it, and a service worker so the whole game runs offline after the first visit.',
+    'Service worker with a versioned cache: cache-first for the app shell, network-first for pages with the cached shell as the offline fallback, and stale-while-revalidate for fonts. Version-stamped CSS and JS stop old cached files mixing with new HTML after an update.',
+    'Four worlds of fifteen levels each — Sunny Meadow, Candy Town, Moonlit Sea and Starry Sky — built from a seeded random generator, so every level is identical on every device. New worlds unlock with stars (18, 46 and 78).',
+    'Three gold stars to find per level, and hazards to dodge on the way up: a rising flood, fixed and swinging spike balls, crushers, wind gusts, speaker cannons, falling bells, ice and crumbling platforms, and Grumble enemies, some of which give chase.',
+    'No image or audio files: every character, platform and backdrop is drawn on HTML5 Canvas, and the music and sound effects are synthesised live with the Web Audio API.',
+    'Collected music notes are spent in an in-game shop on nine outfits for Didi.',
+    'Progress is saved to localStorage, mirrored to IndexedDB and protected with a persistent-storage request, so clearing one store does not wipe a child’s game.',
+    'Phone-first: on-screen touch controls, safe-area insets for the notch and home indicator, and keyboard controls on desktop.'
+  ],ms:[
+    'Progressive Web App boleh dipasang: web app manifest (skrin penuh, potret), butang Install yang muncul apabila pelayar menawarkannya, dan service worker supaya seluruh permainan berjalan offline selepas lawatan pertama.',
+    'Service worker dengan cache berversi: cache-first untuk app shell, network-first untuk halaman dengan shell dalam cache sebagai sandaran offline, dan stale-while-revalidate untuk fon. CSS dan JS bercop versi menghalang fail cache lama bercampur dengan HTML baru selepas kemas kini.',
+    'Empat dunia dengan lima belas tahap setiap satu — Sunny Meadow, Candy Town, Moonlit Sea dan Starry Sky — dibina daripada penjana rawak berbenih, jadi setiap tahap sama pada setiap peranti. Dunia baru dibuka dengan bintang (18, 46 dan 78).',
+    'Tiga bintang emas untuk dicari setiap tahap, dan halangan untuk dielak sepanjang mendaki: banjir naik, bola duri tetap dan berayun, penghempap, tiupan angin, speaker meriam, loceng jatuh, platform ais dan runtuh, serta musuh Grumble, sebahagiannya mengejar.',
+    'Tiada fail imej atau audio: setiap watak, platform dan latar dilukis atas HTML5 Canvas, dan muzik serta kesan bunyi disintesis secara langsung dengan Web Audio API.',
+    'Not muzik yang dikumpul dibelanjakan di kedai dalam permainan untuk sembilan outfit Didi.',
+    'Progress disimpan dalam localStorage, dicerminkan ke IndexedDB dan dilindungi dengan permintaan persistent storage, jadi membersihkan satu storan tidak memadam permainan kanak-kanak.',
+    'Utamakan telefon: kawalan sentuh atas skrin, safe-area inset untuk notch dan home indicator, dan kawalan papan kekunci di desktop.'
+  ]},
+  stats:[{k:'60',v:{en:'Levels',ms:'Tahap'}},{k:'4',v:{en:'Worlds',ms:'Dunia'}},{k:'9',v:{en:'Outfits',ms:'Outfit'}},{k:'0',v:{en:'Image or audio files',ms:'Fail imej atau audio'}}],
+  shots:['shots/didi-1.webp','shots/didi-2.webp','shots/didi-3.webp','shots/didi-4.webp','shots/didi-5.webp','shots/didi-6.webp','shots/didi-7.webp'],
+  hero:2,
+  links:[{l:'Play in browser',u:'https://upupdidi.vercel.app'}]
+},
+{
   id:'ignite', name:'iGnite', icon:'🔥', ac:AC.hw, year:'2026', cats:['flutter','hw'],
   sub:{en:'MeDREV Smart Recovery Platform',ms:'Platform Pemulihan Pintar MeDREV'},
   role:{en:'UI/UX & Frontend',ms:'UI/UX & Frontend'},
@@ -901,7 +933,7 @@ const CERTS = [
 
 
 
-const ORDER = ['slimora','edubuddy','ir-academy','bioware','tm-morse','echodots','echolens','lensa','oraviu','ignite','gold','dawar','zakat'];
+const ORDER = ['slimora','edubuddy','ir-academy','bioware','tm-morse','upupdidi','echodots','echolens','lensa','oraviu','ignite','gold','dawar','zakat'];
 PROJECTS.sort((a,b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));
 
 const L = o => (o && typeof o === 'object' && !Array.isArray(o)) ? o.en : o;
